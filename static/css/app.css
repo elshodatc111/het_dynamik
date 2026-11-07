@@ -129,7 +129,7 @@ table.data td.sep, table.data th.sep { border-right: 1px solid var(--border); }
 table.data th.first, table.data td.first { position: sticky; left: 0; z-index: 3; text-align: left; background: var(--surface); font-weight: 600; min-width: 150px; border-right: 1px solid var(--border); }
 table.data thead th.first { background: var(--surface-2); z-index: 4; }
 table.data tbody tr:hover td.first { background: var(--primary-soft); }
-table.data tr.total td { background: var(--surface-2); font-weight: 700; } table.data tr.total td.first { background: var(--surface-2); }
+table.data tr.total td { background: var(--primary-soft); font-weight: 700; } table.data tr.total td.first { background: var(--primary-soft); }
 table.data td.diff { color: var(--muted); font-weight: 600; } table.data td.diff.zero { color: var(--faint); font-weight: 400; }
 .simple { width: 100%; border-collapse: collapse; } .simple th { text-align: left; font-size: 12px; font-weight: 650; color: var(--muted); padding: 10px 16px; border-bottom: 1px solid var(--border);
   background: var(--surface-2); } .simple td { padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: middle; }

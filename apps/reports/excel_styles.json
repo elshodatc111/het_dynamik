@@ -1,0 +1,6524 @@
+{
+ "konsentratorlar": {
+  "ncols": 18,
+  "col_w": [
+   20.61,
+   9.61,
+   9.6,
+   9.6,
+   7.23,
+   7.23,
+   7.21,
+   9.63,
+   7.48,
+   9.63,
+   7.47,
+   9.63,
+   7.47,
+   9.63,
+   7.47,
+   9.63,
+   7.48,
+   9.61
+  ],
+  "header_h": [
+   29.1,
+   13.6,
+   30.6,
+   19.4
+  ],
+  "jami_h": 24.3,
+  "row_h": 17.6,
+  "header": [
+   {
+    "r0": 0,
+    "c0": 0,
+    "r1": 3,
+    "c1": 0,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Hudud nomi",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 14.5
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 0,
+    "c0": 1,
+    "r1": 3,
+    "c1": 1,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Dasturda mavjud transformatorlar soni",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": true
+   },
+   {
+    "r0": 1,
+    "c0": 2,
+    "r1": 3,
+    "c1": 2,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "CAS ga yuklangan",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": true
+   },
+   {
+    "r0": 0,
+    "c0": 2,
+    "r1": 0,
+    "c1": 6,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Konsentratorlar",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 12.6
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 3,
+    "r1": 3,
+    "c1": 3,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Online",
+      "color": "00B050",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 1,
+    "c0": 3,
+    "r1": 1,
+    "c1": 6,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "shundan",
+      "color": "000000",
+      "b": true,
+      "i": true,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 4,
+    "r1": 3,
+    "c1": 4,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Offline (jami)",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 5,
+    "r1": 3,
+    "c1": 5,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "shundan 3 kundan ortiq",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": true
+   },
+   {
+    "r0": 2,
+    "c0": 6,
+    "r1": 3,
+    "c1": 6,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 7,
+    "r1": 3,
+    "c1": 7,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 7,
+    "r1": 2,
+    "c1": 8,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "0%",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 0,
+    "c0": 7,
+    "r1": 1,
+    "c1": 16,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Konsentratorlarning ",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     },
+     {
+      "t": "obxod olish darajasi bo‘yicha ",
+      "color": "4472C4",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     },
+     {
+      "t": "soni",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 8,
+    "r1": 3,
+    "c1": 8,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 9,
+    "r1": 3,
+    "c1": 9,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 9,
+    "r1": 2,
+    "c1": 10,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "1-30%",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 10,
+    "r1": 3,
+    "c1": 10,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 11,
+    "r1": 3,
+    "c1": 11,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 11,
+    "r1": 2,
+    "c1": 12,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "30-50%",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 12,
+    "r1": 3,
+    "c1": 12,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 13,
+    "r1": 3,
+    "c1": 13,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 13,
+    "r1": 2,
+    "c1": 14,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "50-80%",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 14,
+    "r1": 3,
+    "c1": 14,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 15,
+    "r1": 3,
+    "c1": 15,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 15,
+    "r1": 2,
+    "c1": 16,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "80-100%",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 16,
+    "r1": 3,
+    "c1": 16,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "00B050",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 0,
+    "c0": 17,
+    "r1": 3,
+    "c1": 17,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Iste’molchi biriktirilmagan konsentratorlar soni ",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": true
+   }
+  ],
+  "cols": [
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": false,
+     "sz": 10.0,
+     "align": "left",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": false,
+     "sz": 10.0,
+     "align": "center",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "00B050",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "00B050",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "C00000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": false,
+     "sz": 10.0,
+     "align": "center",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "C00000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": true,
+     "sz": 8.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "0000FF",
+     "b": true,
+     "sz": 9.9,
+     "align": "center",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   },
+   {
+    "body": {
+     "fill": "FFFDEF",
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "C00000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": true,
+     "sz": 8.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": false,
+     "sz": 10.0,
+     "align": "center",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   },
+   {
+    "body": {
+     "fill": "FFFDEF",
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "C00000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": true,
+     "sz": 8.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "0000FF",
+     "b": true,
+     "sz": 9.9,
+     "align": "center",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   },
+   {
+    "body": {
+     "fill": "FFFDEF",
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "C00000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": true,
+     "sz": 8.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": false,
+     "sz": 10.0,
+     "align": "center",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   },
+   {
+    "body": {
+     "fill": "FFFDEF",
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "C00000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "FF0000",
+     "b": true,
+     "sz": 8.2,
+     "align": "right",
+     "up": "0000FF",
+     "dn": "FF0000"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "0000FF",
+     "b": true,
+     "sz": 9.9,
+     "align": "center",
+     "up": "0000FF",
+     "dn": "FF0000"
+    }
+   },
+   {
+    "body": {
+     "fill": "FFFDEF",
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "C00000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "FF0000",
+     "b": true,
+     "sz": 8.2,
+     "align": "right",
+     "up": "00FF00",
+     "dn": "FF0000"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "FF0000",
+     "b": true,
+     "sz": 9.9,
+     "align": "center",
+     "up": "00FF00",
+     "dn": "FF0000"
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "C00000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   }
+  ],
+  "title": [
+   {
+    "top": 109.79000000000002,
+    "items": [
+     {
+      "x0": 166.94,
+      "x1": 625.1622799999999,
+      "runs": [
+       {
+        "t": "Qashqadaryo HETK hududida CAS dasturida mavjud konsentratorlar holati bo‘yicha",
+        "color": "000000",
+        "b": true,
+        "i": false,
+        "sz": 16.3
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "top": 133.19,
+    "items": [
+     {
+      "x0": 354.05,
+      "x1": 438.25867999999997,
+      "runs": [
+       {
+        "t": "D I N A M I K A",
+        "color": "FF0000",
+        "b": true,
+        "i": false,
+        "sz": 16.3
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "top": 148.82,
+    "items": [
+     {
+      "x0": 48.12,
+      "x1": 99.4896,
+      "runs": [
+       {
+        "t": "Hudud nomi:",
+        "color": "000000",
+        "b": false,
+        "i": false,
+        "sz": 12.6
+       }
+      ]
+     },
+     {
+      "x0": 125.66,
+      "x1": 201.9032,
+      "runs": [
+       {
+        "t": "Qashqadaryo HETK",
+        "color": "0066FF",
+        "b": true,
+        "i": false,
+        "sz": 12.6
+       }
+      ]
+     },
+     {
+      "x0": 606.7,
+      "x1": 751.0552,
+      "runs": [
+       {
+        "t": "Dinamika: 01.11.2026 - 06.11.2026",
+        "color": "0000FF",
+        "b": true,
+        "i": false,
+        "sz": 12.6
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "table_x0": 38.796,
+  "table_x1": 753.324,
+  "k": 1.3157894736842106
+ },
+ "aloqasiz": {
+  "ncols": 17,
+  "col_w": [
+   18.09,
+   9.6,
+   9.62,
+   5.53,
+   9.04,
+   9.18,
+   8.07,
+   8.34,
+   7.23,
+   9.6,
+   6.52,
+   8.66,
+   8.31,
+   8.67,
+   7.62,
+   9.63,
+   6.8
+  ],
+  "header_h": [
+   29.1,
+   13.6,
+   30.6,
+   19.4
+  ],
+  "jami_h": 24.3,
+  "row_h": 17.6,
+  "header": [
+   {
+    "r0": 0,
+    "c0": 0,
+    "r1": 3,
+    "c1": 0,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Hudud nomi",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 14.5
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 0,
+    "c0": 1,
+    "r1": 3,
+    "c1": 1,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Aloqaga chiqqan ",
+      "color": "00B050",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     },
+     {
+      "t": "hisoblagichlar ",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 6.3
+     },
+     {
+      "t": "soni",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 2,
+    "r1": 3,
+    "c1": 2,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 1,
+    "c0": 2,
+    "r1": 2,
+    "c1": 4,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Jami",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 12.6
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 0,
+    "c0": 2,
+    "r1": 0,
+    "c1": 16,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Aloqadan chiqib ketgan hisoblagichlar soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 3,
+    "r1": 3,
+    "c1": 3,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "%",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 4,
+    "r1": 3,
+    "c1": 4,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 5,
+    "r1": 3,
+    "c1": 5,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 5,
+    "r1": 2,
+    "c1": 6,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Aholi",
+      "color": "548235",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 1,
+    "c0": 5,
+    "r1": 1,
+    "c1": 10,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "iste’molchi turi kesimida",
+      "color": "000000",
+      "b": true,
+      "i": true,
+      "sz": 12.6
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 6,
+    "r1": 3,
+    "c1": 6,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 7,
+    "r1": 3,
+    "c1": 7,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 7,
+    "r1": 2,
+    "c1": 8,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Ulgurji",
+      "color": "305496",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 8,
+    "r1": 3,
+    "c1": 8,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 9,
+    "r1": 3,
+    "c1": 9,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 9,
+    "r1": 2,
+    "c1": 10,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Balans",
+      "color": "C65911",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 10,
+    "r1": 3,
+    "c1": 10,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 11,
+    "r1": 3,
+    "c1": 11,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 11,
+    "r1": 2,
+    "c1": 12,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "7-30 kun",
+      "color": "44546A",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 1,
+    "c0": 11,
+    "r1": 1,
+    "c1": 16,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "vaqtlar kesimida",
+      "color": "000000",
+      "b": true,
+      "i": true,
+      "sz": 12.6
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 12,
+    "r1": 3,
+    "c1": 12,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 13,
+    "r1": 3,
+    "c1": 13,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 13,
+    "r1": 2,
+    "c1": 14,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "1-3 oy",
+      "color": "44546A",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 14,
+    "r1": 3,
+    "c1": 14,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 15,
+    "r1": 3,
+    "c1": 15,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 15,
+    "r1": 2,
+    "c1": 16,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "3 oydan ortiq",
+      "color": "44546A",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 16,
+    "r1": 3,
+    "c1": 16,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   }
+  ],
+  "cols": [
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": false,
+     "sz": 10.0,
+     "align": "left",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": false,
+     "sz": 10.0,
+     "align": "center",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "00B050",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "00B050",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": "FFFDEF",
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "C00000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": true,
+     "sz": 9.2,
+     "align": "center",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "C00000",
+     "b": true,
+     "sz": 9.9,
+     "align": "center",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": true,
+     "sz": 8.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "0000FF",
+     "b": true,
+     "sz": 9.9,
+     "align": "center",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": true,
+     "sz": 8.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "0000FF",
+     "b": true,
+     "sz": 9.2,
+     "align": "center",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": true,
+     "sz": 8.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "0000FF",
+     "b": true,
+     "sz": 8.2,
+     "align": "center",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "C65911",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": true,
+     "sz": 8.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "0000FF",
+     "b": true,
+     "sz": 9.9,
+     "align": "center",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   },
+   {
+    "body": {
+     "fill": "FFFDEF",
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": true,
+     "sz": 8.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "FF0000",
+     "b": true,
+     "sz": 9.9,
+     "align": "center",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   },
+   {
+    "body": {
+     "fill": "FFFDEF",
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "C00000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": true,
+     "sz": 8.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "0000FF",
+     "b": true,
+     "sz": 9.9,
+     "align": "center",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   },
+   {
+    "body": {
+     "fill": "FFFDEF",
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "C00000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": true,
+     "sz": 8.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "0000FF",
+     "b": true,
+     "sz": 8.2,
+     "align": "center",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   }
+  ],
+  "title": [
+   {
+    "top": 109.79000000000002,
+    "items": [
+     {
+      "x0": 187.82,
+      "x1": 604.2407599999999,
+      "runs": [
+       {
+        "t": "Qashqadaryo HETKda CAS dasturida aloqaga chiqmagan hisoblagichlar bo‘yicha",
+        "color": "000000",
+        "b": true,
+        "i": false,
+        "sz": 16.3
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "top": 132.59000000000003,
+    "items": [
+     {
+      "x0": 354.05,
+      "x1": 438.25867999999997,
+      "runs": [
+       {
+        "t": "D I N A M I K A",
+        "color": "FF0000",
+        "b": true,
+        "i": false,
+        "sz": 16.3
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "top": 149.33000000000004,
+    "items": [
+     {
+      "x0": 80.664,
+      "x1": 224.5832,
+      "runs": [
+       {
+        "t": "Hudud nomi: ",
+        "color": "000000",
+        "b": false,
+        "i": false,
+        "sz": 10.9
+       },
+       {
+        "t": "Qashqadaryo HETK",
+        "color": "0066FF",
+        "b": true,
+        "i": false,
+        "sz": 12.6
+       }
+      ]
+     },
+     {
+      "x0": 573.91,
+      "x1": 718.2651999999999,
+      "runs": [
+       {
+        "t": "Dinamika: 01.11.2026 - 06.11.2026",
+        "color": "0000FF",
+        "b": true,
+        "i": false,
+        "sz": 12.6
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "table_x0": 71.54571428571428,
+  "table_x1": 720.5514285714286,
+  "k": 1.3157894736842106
+ },
+ "uzilgan": {
+  "ncols": 13,
+  "col_w": [
+   18.66,
+   13.36,
+   11.29,
+   10.82,
+   10.83,
+   11.28,
+   9.58,
+   11.28,
+   9.58,
+   11.28,
+   9.6,
+   11.26,
+   10.84
+  ],
+  "header_h": [
+   29.1,
+   13.6,
+   30.6,
+   19.4
+  ],
+  "jami_h": 24.3,
+  "row_h": 17.6,
+  "header": [
+   {
+    "r0": 0,
+    "c0": 0,
+    "r1": 3,
+    "c1": 0,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Hudud nomi",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 14.5
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 0,
+    "c0": 1,
+    "r1": 3,
+    "c1": 1,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Aloqaga chiqqan ",
+      "color": "00B050",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     },
+     {
+      "t": "hisoblagichlar ",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "soni",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 2,
+    "r1": 3,
+    "c1": 2,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 1,
+    "c0": 2,
+    "r1": 2,
+    "c1": 4,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Jami",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 12.6
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 0,
+    "c0": 2,
+    "r1": 0,
+    "c1": 10,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Tarmoqdan uzilgan ",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 12.6
+     },
+     {
+      "t": "hisoblagichlar",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 12.6
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 3,
+    "r1": 3,
+    "c1": 3,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "%",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 4,
+    "r1": 3,
+    "c1": 4,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 5,
+    "r1": 3,
+    "c1": 5,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 5,
+    "r1": 2,
+    "c1": 6,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "4-7 kun",
+      "color": "44546A",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 1,
+    "c0": 5,
+    "r1": 1,
+    "c1": 10,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "shundan",
+      "color": "000000",
+      "b": true,
+      "i": true,
+      "sz": 12.6
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 6,
+    "r1": 3,
+    "c1": 6,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 7,
+    "r1": 3,
+    "c1": 7,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 7,
+    "r1": 2,
+    "c1": 8,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "7-30 kun",
+      "color": "44546A",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 8,
+    "r1": 3,
+    "c1": 8,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 9,
+    "r1": 3,
+    "c1": 9,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 9,
+    "r1": 2,
+    "c1": 10,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "30 kundan ortiq",
+      "color": "44546A",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 10,
+    "r1": 3,
+    "c1": 10,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 11,
+    "r1": 3,
+    "c1": 11,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 0,
+    "c0": 11,
+    "r1": 2,
+    "c1": 12,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "To‘g‘ridan to‘g‘ri ulanishlar soni ",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 10.0
+     },
+     {
+      "t": "(peremichka)",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 12,
+    "r1": 3,
+    "c1": 12,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   }
+  ],
+  "cols": [
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": false,
+     "sz": 10.0,
+     "align": "left",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": false,
+     "sz": 10.0,
+     "align": "center",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "00B050",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "00B050",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": "FFFDEF",
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "C00000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": true,
+     "sz": 9.2,
+     "align": "center",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "C00000",
+     "b": true,
+     "sz": 10.9,
+     "align": "center",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": true,
+     "sz": 8.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "0000FF",
+     "b": true,
+     "sz": 8.2,
+     "align": "center",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   },
+   {
+    "body": {
+     "fill": "FFFDEF",
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": true,
+     "sz": 8.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "0000FF",
+     "b": true,
+     "sz": 8.2,
+     "align": "center",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   },
+   {
+    "body": {
+     "fill": "FFFDEF",
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "FF0000",
+     "b": true,
+     "sz": 8.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "FF0000",
+     "b": true,
+     "sz": 8.2,
+     "align": "center",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   },
+   {
+    "body": {
+     "fill": "FFFDEF",
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": true,
+     "sz": 8.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "0000FF",
+     "b": true,
+     "sz": 8.2,
+     "align": "center",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "C00000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "C00000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "FF0000",
+     "b": true,
+     "sz": 8.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "FF0000",
+     "b": true,
+     "sz": 8.2,
+     "align": "center",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   }
+  ],
+  "title": [
+   {
+    "top": 109.79000000000002,
+    "items": [
+     {
+      "x0": 184.22,
+      "x1": 607.8466399999999,
+      "runs": [
+       {
+        "t": "Qashqadaryo HETKda CAS dasturida tarmoqdan uzilgan hisoblagichlar bo‘yicha",
+        "color": "000000",
+        "b": true,
+        "i": false,
+        "sz": 16.3
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "top": 132.59000000000003,
+    "items": [
+     {
+      "x0": 354.05,
+      "x1": 438.25867999999997,
+      "runs": [
+       {
+        "t": "D I N A M I K A",
+        "color": "FF0000",
+        "b": true,
+        "i": false,
+        "sz": 16.3
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "top": 149.33000000000004,
+    "items": [
+     {
+      "x0": 88.104,
+      "x1": 132.402,
+      "runs": [
+       {
+        "t": "Hudud nomi:",
+        "color": "000000",
+        "b": false,
+        "i": false,
+        "sz": 10.9
+       }
+      ]
+     },
+     {
+      "x0": 158.06,
+      "x1": 234.30320000000003,
+      "runs": [
+       {
+        "t": "Qashqadaryo HETK",
+        "color": "0066FF",
+        "b": true,
+        "i": false,
+        "sz": 12.6
+       }
+      ]
+     },
+     {
+      "x0": 566.47,
+      "x1": 710.8252,
+      "runs": [
+       {
+        "t": "Dinamika: 01.11.2026 - 06.11.2026",
+        "color": "0000FF",
+        "b": true,
+        "i": false,
+        "sz": 12.6
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "table_x0": 79.00649999999999,
+  "table_x1": 713.1152500000001,
+  "k": 1.3157894736842106
+ },
+ "balans_yuklama": {
+  "ncols": 15,
+  "col_w": [
+   21.16,
+   10.99,
+   10.98,
+   11.0,
+   10.98,
+   10.98,
+   9.86,
+   9.48,
+   9.44,
+   10.71,
+   10.71,
+   10.72,
+   10.71,
+   10.71,
+   10.73
+  ],
+  "header_h": [
+   29.1,
+   13.6,
+   30.6,
+   19.4
+  ],
+  "jami_h": 24.3,
+  "row_h": 17.6,
+  "header": [
+   {
+    "r0": 0,
+    "c0": 0,
+    "r1": 3,
+    "c1": 0,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Hudud nomi",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 14.5
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 1,
+    "c0": 1,
+    "r1": 3,
+    "c1": 1,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Loyiha doirasida",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 0,
+    "c0": 1,
+    "r1": 0,
+    "c1": 6,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Balans hisoblagichlar",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 12.6
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 1,
+    "c0": 2,
+    "r1": 3,
+    "c1": 2,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "CAS ga ",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 12.6
+     },
+     {
+      "t": "yuklangan",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 10.0
+     }
+    ],
+    "rot": true
+   },
+   {
+    "r0": 2,
+    "c0": 3,
+    "r1": 3,
+    "c1": 3,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Bir marta ",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 10.0
+     },
+     {
+      "t": "obxod olgan",
+      "color": "00B050",
+      "b": true,
+      "i": false,
+      "sz": 10.0
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 1,
+    "c0": 3,
+    "r1": 1,
+    "c1": 6,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Obxod olish ko‘rsatkichi",
+      "color": "000000",
+      "b": false,
+      "i": true,
+      "sz": 10.0
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 4,
+    "r1": 3,
+    "c1": 4,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Umuman obxod ",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 10.0
+     },
+     {
+      "t": "olmagan",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 10.0
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 5,
+    "r1": 3,
+    "c1": 5,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 5,
+    "r1": 2,
+    "c1": 6,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "shundan 3 kundan ortiq ",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "OBXOD OLMAGAN",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 6,
+    "r1": 3,
+    "c1": 6,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 7,
+    "r1": 3,
+    "c1": 7,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 0,
+    "c0": 7,
+    "r1": 2,
+    "c1": 8,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "MUAMMOLI ",
+      "color": "C65911",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     },
+     {
+      "t": "TRANSFOR-MATORLAR",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 8,
+    "r1": 3,
+    "c1": 8,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 9,
+    "r1": 3,
+    "c1": 9,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Quvvati ",
+      "color": "808080",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     },
+     {
+      "t": "yuklanmagan",
+      "color": "808080",
+      "b": true,
+      "i": false,
+      "sz": 7.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 0,
+    "c0": 9,
+    "r1": 1,
+    "c1": 14,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "shundan",
+      "color": "000000",
+      "b": true,
+      "i": true,
+      "sz": 12.6
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 10,
+    "r1": 3,
+    "c1": 10,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "TT noto‘g‘ri ulangan yoki nominali xato",
+      "color": "808080",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 11,
+    "r1": 3,
+    "c1": 11,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Sxemasi xato yoki cos=0",
+      "color": "808080",
+      "b": true,
+      "i": false,
+      "sz": 7.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 12,
+    "r1": 3,
+    "c1": 12,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Balans hisoblagich aloqaga chiqmagan",
+      "color": "808080",
+      "b": true,
+      "i": false,
+      "sz": 7.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 13,
+    "r1": 3,
+    "c1": 13,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "TP nagruzkasi 0%",
+      "color": "808080",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 14,
+    "r1": 3,
+    "c1": 14,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "TP nagruzkasi 150%",
+      "color": "808080",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   }
+  ],
+  "cols": [
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": false,
+     "sz": 10.0,
+     "align": "left",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": false,
+     "sz": 10.0,
+     "align": "center",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "00B050",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "00B050",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": false,
+     "sz": 10.0,
+     "align": "center",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "C00000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "C00000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "C00000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": true,
+     "sz": 8.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "0000FF",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   },
+   {
+    "body": {
+     "fill": "FFFDEF",
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "2F75B5",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": true,
+     "sz": 8.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "0000FF",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "C00000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": false,
+     "sz": 10.0,
+     "align": "center",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "C00000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": false,
+     "sz": 10.0,
+     "align": "center",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": false,
+     "sz": 10.0,
+     "align": "center",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "ED7D31",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "4472C4",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   }
+  ],
+  "title": [
+   {
+    "top": 109.79000000000002,
+    "items": [
+     {
+      "x0": 99.744,
+      "x1": 688.3271999999996,
+      "runs": [
+       {
+        "t": "Qashqadaryo HETK hududida CAS dasturidagi balans hisoblagichlar va transformatorlar yuklamasi bo‘yicha",
+        "color": "000000",
+        "b": true,
+        "i": false,
+        "sz": 16.3
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "top": 132.59000000000003,
+    "items": [
+     {
+      "x0": 352.01,
+      "x1": 436.21868,
+      "runs": [
+       {
+        "t": "D I N A M I K A",
+        "color": "FF0000",
+        "b": true,
+        "i": false,
+        "sz": 16.3
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "top": 148.82,
+    "items": [
+     {
+      "x0": 44.52,
+      "x1": 95.8896,
+      "runs": [
+       {
+        "t": "Hudud nomi:",
+        "color": "000000",
+        "b": false,
+        "i": false,
+        "sz": 12.6
+       }
+      ]
+     },
+     {
+      "x0": 124.22,
+      "x1": 200.4632,
+      "runs": [
+       {
+        "t": "Qashqadaryo HETK",
+        "color": "0066FF",
+        "b": true,
+        "i": false,
+        "sz": 12.6
+       }
+      ]
+     },
+     {
+      "x0": 606.34,
+      "x1": 750.6952,
+      "runs": [
+       {
+        "t": "Dinamika: 01.11.2026 - 06.11.2026",
+        "color": "0000FF",
+        "b": true,
+        "i": false,
+        "sz": 12.6
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "table_x0": 35.19,
+  "table_x1": 752.9699999999999,
+  "k": 1.3157894736842106
+ },
+ "obxod48": {
+  "ncols": 17,
+  "col_w": [
+   21.05,
+   12.17,
+   12.13,
+   7.63,
+   11.39,
+   12.3,
+   12.26,
+   7.63,
+   11.38,
+   12.3,
+   12.26,
+   7.63,
+   11.39,
+   9.89,
+   7.43,
+   7.63,
+   8.98
+  ],
+  "header_h": [
+   31.5,
+   14.8,
+   54.3
+  ],
+  "jami_h": 26.3,
+  "row_h": 19.1,
+  "header": [
+   {
+    "r0": 0,
+    "c0": 0,
+    "r1": 2,
+    "c1": 0,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Hudud nomi",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 15.7
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 1,
+    "r1": 2,
+    "c1": 1,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Jami soni",
+      "color": "000000",
+      "b": true,
+      "i": true,
+      "sz": 10.0
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 0,
+    "c0": 1,
+    "r1": 1,
+    "c1": 4,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Jami hisoblagichlar",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 13.7
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 2,
+    "r1": 2,
+    "c1": 2,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Shundan ",
+      "color": "000000",
+      "b": true,
+      "i": true,
+      "sz": 10.0
+     },
+     {
+      "t": "obxod olgan",
+      "color": "00B050",
+      "b": true,
+      "i": true,
+      "sz": 10.0
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 3,
+    "r1": 2,
+    "c1": 3,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "%",
+      "color": "000000",
+      "b": true,
+      "i": true,
+      "sz": 10.0
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 4,
+    "r1": 2,
+    "c1": 4,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "362CF4",
+      "b": true,
+      "i": true,
+      "sz": 10.0
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": true,
+      "sz": 10.0
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 5,
+    "r1": 2,
+    "c1": 5,
+    "fill": "F4FCF2",
+    "runs": [
+     {
+      "t": "Jami soni",
+      "color": "000000",
+      "b": true,
+      "i": true,
+      "sz": 10.0
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 1,
+    "c0": 5,
+    "r1": 1,
+    "c1": 8,
+    "fill": "F4FCF2",
+    "runs": [
+     {
+      "t": "Aholi iste’molchilari",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 0,
+    "c0": 5,
+    "r1": 0,
+    "c1": 16,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "shundan",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 6,
+    "r1": 2,
+    "c1": 6,
+    "fill": "F4FCF2",
+    "runs": [
+     {
+      "t": "shundan ",
+      "color": "000000",
+      "b": true,
+      "i": true,
+      "sz": 10.0
+     },
+     {
+      "t": "obxod olgan",
+      "color": "00B050",
+      "b": true,
+      "i": true,
+      "sz": 10.0
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 7,
+    "r1": 2,
+    "c1": 7,
+    "fill": "F4FCF2",
+    "runs": [
+     {
+      "t": "%",
+      "color": "000000",
+      "b": true,
+      "i": true,
+      "sz": 10.0
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 8,
+    "r1": 2,
+    "c1": 8,
+    "fill": "F4FCF2",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "362CF4",
+      "b": true,
+      "i": true,
+      "sz": 10.0
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": true,
+      "sz": 10.0
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 9,
+    "r1": 2,
+    "c1": 9,
+    "fill": "FEF0D4",
+    "runs": [
+     {
+      "t": "Jami soni",
+      "color": "000000",
+      "b": true,
+      "i": true,
+      "sz": 10.0
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 1,
+    "c0": 9,
+    "r1": 1,
+    "c1": 12,
+    "fill": "FEF0D4",
+    "runs": [
+     {
+      "t": "Ulgurji iste’molchilar",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 10,
+    "r1": 2,
+    "c1": 10,
+    "fill": "FEF0D4",
+    "runs": [
+     {
+      "t": "shundan ",
+      "color": "000000",
+      "b": true,
+      "i": true,
+      "sz": 10.0
+     },
+     {
+      "t": "obxod olgan",
+      "color": "00B050",
+      "b": true,
+      "i": true,
+      "sz": 10.0
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 11,
+    "r1": 2,
+    "c1": 11,
+    "fill": "FEF0D4",
+    "runs": [
+     {
+      "t": "%",
+      "color": "000000",
+      "b": true,
+      "i": true,
+      "sz": 10.0
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 12,
+    "r1": 2,
+    "c1": 12,
+    "fill": "FEF0D4",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "362CF4",
+      "b": true,
+      "i": true,
+      "sz": 10.0
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": true,
+      "sz": 10.0
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 13,
+    "r1": 2,
+    "c1": 13,
+    "fill": "F4E8FE",
+    "runs": [
+     {
+      "t": "Jami soni",
+      "color": "000000",
+      "b": true,
+      "i": true,
+      "sz": 10.0
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 1,
+    "c0": 13,
+    "r1": 1,
+    "c1": 16,
+    "fill": "F4E8FE",
+    "runs": [
+     {
+      "t": "Balans hisoblagichlar",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 14,
+    "r1": 2,
+    "c1": 14,
+    "fill": "F4E8FE",
+    "runs": [
+     {
+      "t": "shundan ",
+      "color": "000000",
+      "b": true,
+      "i": true,
+      "sz": 10.0
+     },
+     {
+      "t": "obxod olgan",
+      "color": "00B050",
+      "b": true,
+      "i": true,
+      "sz": 10.0
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 15,
+    "r1": 2,
+    "c1": 15,
+    "fill": "F4E8FE",
+    "runs": [
+     {
+      "t": "%",
+      "color": "000000",
+      "b": true,
+      "i": true,
+      "sz": 10.0
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 16,
+    "r1": 2,
+    "c1": 16,
+    "fill": "F4E8FE",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "362CF4",
+      "b": true,
+      "i": true,
+      "sz": 10.0
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": true,
+      "sz": 10.0
+     }
+    ],
+    "rot": false
+   }
+  ],
+  "cols": [
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": false,
+     "sz": 10.0,
+     "align": "left",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": false,
+     "sz": 10.0,
+     "align": "center",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": "E8F9FE",
+     "color": "000000",
+     "b": false,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 11.8,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 11.8,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": "FEFDFC",
+     "color": "000000",
+     "b": false,
+     "sz": 8.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 10.8,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": true,
+     "sz": 8.9,
+     "align": "right",
+     "up": "0000FF",
+     "dn": "FF0000"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "0000FF",
+     "b": true,
+     "sz": 10.8,
+     "align": "right",
+     "up": "0000FF",
+     "dn": "FF0000"
+    }
+   },
+   {
+    "body": {
+     "fill": "E8F9FE",
+     "color": "000000",
+     "b": false,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 11.8,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 11.8,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": "FEFDFC",
+     "color": "000000",
+     "b": false,
+     "sz": 8.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 10.8,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": true,
+     "sz": 8.9,
+     "align": "right",
+     "up": "0000FF",
+     "dn": "FF0000"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "0000FF",
+     "b": true,
+     "sz": 10.8,
+     "align": "right",
+     "up": "0000FF",
+     "dn": "FF0000"
+    }
+   },
+   {
+    "body": {
+     "fill": "E8F9FE",
+     "color": "000000",
+     "b": false,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 11.8,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 11.8,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": "FCEDE3",
+     "color": "000000",
+     "b": false,
+     "sz": 8.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 10.8,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": true,
+     "sz": 8.9,
+     "align": "right",
+     "up": "0000FF",
+     "dn": "FF0000"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "0000FF",
+     "b": true,
+     "sz": 10.8,
+     "align": "right",
+     "up": "0000FF",
+     "dn": "FF0000"
+    }
+   },
+   {
+    "body": {
+     "fill": "E8F9FE",
+     "color": "000000",
+     "b": false,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 11.8,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 11.8,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": "FEFCFB",
+     "color": "000000",
+     "b": false,
+     "sz": 8.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 10.8,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": true,
+     "sz": 8.9,
+     "align": "right",
+     "up": "0000FF",
+     "dn": "FF0000"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "0000FF",
+     "b": true,
+     "sz": 10.8,
+     "align": "right",
+     "up": "0000FF",
+     "dn": "FF0000"
+    }
+   }
+  ],
+  "title": [
+   {
+    "top": 109.79000000000002,
+    "items": [
+     {
+      "x0": 184.82,
+      "x1": 607.12412,
+      "runs": [
+       {
+        "t": "Qashqadaryo HETK hududida 48 soat ichida obxod bergan hisoblagichar bo‘yicha",
+        "color": "000000",
+        "b": true,
+        "i": false,
+        "sz": 17.7
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "top": 132.59000000000003,
+    "items": [
+     {
+      "x0": 363.05,
+      "x1": 429.02768000000003,
+      "runs": [
+       {
+        "t": "MA’LUMOT",
+        "color": "FF0000",
+        "b": true,
+        "i": false,
+        "sz": 17.7
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "top": 148.82,
+    "items": [
+     {
+      "x0": 42.24,
+      "x1": 190.9832,
+      "runs": [
+       {
+        "t": "Hudud nomi: ",
+        "color": "000000",
+        "b": false,
+        "i": false,
+        "sz": 13.7
+       },
+       {
+        "t": "Qashqadaryo HETK",
+        "color": "0066FF",
+        "b": true,
+        "i": false,
+        "sz": 13.7
+       }
+      ]
+     },
+     {
+      "x0": 612.58,
+      "x1": 756.9352,
+      "runs": [
+       {
+        "t": "Dinamika: 01.11.2026 - 06.11.2026",
+        "color": "0000FF",
+        "b": true,
+        "i": false,
+        "sz": 13.7
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "table_x0": -686.39,
+  "table_x1": 759.195,
+  "k": 1.4285714285714286
+ },
+ "tafovut_balans": {
+  "ncols": 16,
+  "col_w": [
+   18.93,
+   11.56,
+   11.4,
+   13.22,
+   10.98,
+   7.8,
+   10.98,
+   7.8,
+   10.98,
+   7.8,
+   10.98,
+   7.8,
+   10.99,
+   7.8,
+   10.98,
+   7.81
+  ],
+  "header_h": [
+   42.7,
+   30.6,
+   19.4
+  ],
+  "jami_h": 24.4,
+  "row_h": 17.6,
+  "header": [
+   {
+    "r0": 0,
+    "c0": 0,
+    "r1": 2,
+    "c1": 0,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Hudud nomi",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 14.5
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 1,
+    "c0": 1,
+    "r1": 2,
+    "c1": 1,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Jami soni",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 0,
+    "c0": 1,
+    "r1": 0,
+    "c1": 2,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "CAS dasturidagi transformatorlar",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 1,
+    "c0": 2,
+    "r1": 2,
+    "c1": 2,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "shundan rezervda ",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     },
+     {
+      "t": "(2x sektsionniy)",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 5.5
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 0,
+    "c0": 3,
+    "r1": 2,
+    "c1": 3,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Balans hisoblagich o‘rnatilgan TP lar soni",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 4,
+    "r1": 2,
+    "c1": 4,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 1,
+    "c0": 4,
+    "r1": 1,
+    "c1": 5,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Manfiy",
+      "color": "808080",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 0,
+    "c0": 4,
+    "r1": 0,
+    "c1": 15,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "shundan Balans ",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     },
+     {
+      "t": "hisoblagich va iste’molchilar ",
+      "color": "362CF4",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     },
+     {
+      "t": "hisoblagichlari o‘rtasidagi ",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     },
+     {
+      "t": "tafovut",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 5,
+    "r1": 2,
+    "c1": 5,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 6,
+    "r1": 2,
+    "c1": 6,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 1,
+    "c0": 6,
+    "r1": 1,
+    "c1": 7,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "0%",
+      "color": "808080",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 7,
+    "r1": 2,
+    "c1": 7,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 8,
+    "r1": 2,
+    "c1": 8,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 1,
+    "c0": 8,
+    "r1": 1,
+    "c1": 9,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "1-10%",
+      "color": "808080",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 9,
+    "r1": 2,
+    "c1": 9,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 10,
+    "r1": 2,
+    "c1": 10,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 1,
+    "c0": 10,
+    "r1": 1,
+    "c1": 11,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "10-20%",
+      "color": "808080",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 11,
+    "r1": 2,
+    "c1": 11,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 12,
+    "r1": 2,
+    "c1": 12,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 1,
+    "c0": 12,
+    "r1": 1,
+    "c1": 13,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "20-50%",
+      "color": "808080",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 13,
+    "r1": 2,
+    "c1": 13,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 14,
+    "r1": 2,
+    "c1": 14,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 1,
+    "c0": 14,
+    "r1": 1,
+    "c1": 15,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "50-100%",
+      "color": "808080",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 15,
+    "r1": 2,
+    "c1": 15,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   }
+  ],
+  "cols": [
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": false,
+     "sz": 10.0,
+     "align": "left",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": false,
+     "sz": 10.0,
+     "align": "center",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": false,
+     "sz": 10.0,
+     "align": "center",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "00B050",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "C00000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "C00000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "FF0000",
+     "b": false,
+     "sz": 8.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "FF0000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "C00000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "C00000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": false,
+     "sz": 8.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "0000FF",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "00B050",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "00B050",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "FF0000",
+     "b": false,
+     "sz": 8.2,
+     "align": "right",
+     "up": "0000FF",
+     "dn": "FF0000"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "0000FF",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": "0000FF",
+     "dn": "FF0000"
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0070C0",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "0070C0",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "FF0000",
+     "b": false,
+     "sz": 8.2,
+     "align": "right",
+     "up": "0000FF",
+     "dn": "FF0000"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "0000FF",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": "0000FF",
+     "dn": "FF0000"
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "C65911",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "C65911",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": false,
+     "sz": 8.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "0000FF",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "C00000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "C00000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": false,
+     "sz": 8.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "0000FF",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   }
+  ],
+  "title": [
+   {
+    "top": 109.79000000000002,
+    "items": [
+     {
+      "x0": 120.26,
+      "x1": 673.5183199999999,
+      "runs": [
+       {
+        "t": "Qashqadaryo HETK hududida balans va iste’molchilar hisoblagichlari o‘rtasidagi tafovutlar bo‘yicha",
+        "color": "000000",
+        "b": true,
+        "i": false,
+        "sz": 16.3
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "top": 132.59000000000003,
+    "items": [
+     {
+      "x0": 354.89,
+      "x1": 439.09868,
+      "runs": [
+       {
+        "t": "D I N A M I K A",
+        "color": "FF0000",
+        "b": true,
+        "i": false,
+        "sz": 16.3
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "top": 148.82,
+    "items": [
+     {
+      "x0": 48.6,
+      "x1": 195.66320000000002,
+      "runs": [
+       {
+        "t": "Hudud nomi: ",
+        "color": "000000",
+        "b": false,
+        "i": false,
+        "sz": 12.6
+       },
+       {
+        "t": "Qashqadaryo HETK",
+        "color": "0066FF",
+        "b": true,
+        "i": false,
+        "sz": 12.6
+       }
+      ]
+     },
+     {
+      "x0": 607.9,
+      "x1": 752.2552,
+      "runs": [
+       {
+        "t": "Dinamika: 01.11.2026 - 06.11.2026",
+        "color": "0000FF",
+        "b": true,
+        "i": false,
+        "sz": 12.6
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "table_x0": 39.275999999999996,
+  "table_x1": 754.5155000000001,
+  "k": 1.3157894736842106
+ },
+ "billing_tafovut": {
+  "ncols": 20,
+  "col_w": [
+   22.81,
+   2.5,
+   3.94,
+   7.9,
+   7.79,
+   6.39,
+   8.22,
+   6.95,
+   8.76,
+   6.95,
+   9.19,
+   8.34,
+   7.8,
+   9.6,
+   8.77,
+   6.96,
+   8.07,
+   7.8,
+   8.07,
+   9.31
+  ],
+  "header_h": [
+   29.1,
+   13.6,
+   30.6,
+   19.4
+  ],
+  "jami_h": 24.4,
+  "row_h": 17.6,
+  "header": [
+   {
+    "r0": 0,
+    "c0": 0,
+    "r1": 3,
+    "c1": 0,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Hudud nomi",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 14.5
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 1,
+    "r1": 3,
+    "c1": 2,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 0,
+    "c0": 1,
+    "r1": 2,
+    "c1": 3,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Billing dasturi bilan ma’lumot almashmayotgan hisoblagichlar",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 3,
+    "r1": 3,
+    "c1": 3,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 4,
+    "r1": 3,
+    "c1": 4,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 1,
+    "c0": 4,
+    "r1": 2,
+    "c1": 5,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Iste’molchi hisob raqami mos emas",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 10.0
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 0,
+    "c0": 4,
+    "r1": 0,
+    "c1": 9,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "shundan",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 12.6
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 5,
+    "r1": 3,
+    "c1": 5,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 6,
+    "r1": 3,
+    "c1": 6,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 1,
+    "c0": 6,
+    "r1": 2,
+    "c1": 7,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Iste’molchi turi mos emas",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 10.0
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 7,
+    "r1": 3,
+    "c1": 7,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 8,
+    "r1": 3,
+    "c1": 8,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 1,
+    "c0": 8,
+    "r1": 2,
+    "c1": 9,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "CAS dasturida mavjud bo‘lmagan hisoblagichlar ",
+      "color": "000000",
+      "b": true,
+      "i": false,
+      "sz": 10.0
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 9,
+    "r1": 3,
+    "c1": 9,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 10,
+    "r1": 3,
+    "c1": 10,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 1,
+    "c0": 10,
+    "r1": 2,
+    "c1": 11,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "ASKUE ga mos bo‘lmagan hisoblagichlar",
+      "color": "2F75B5",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 0,
+    "c0": 10,
+    "r1": 0,
+    "c1": 15,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "«Billing» dasturida mavjud ",
+      "color": "833C0C",
+      "b": true,
+      "i": false,
+      "sz": 11.8
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 11,
+    "r1": 3,
+    "c1": 11,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 12,
+    "r1": 2,
+    "c1": 12,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Aholi",
+      "color": "548235",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 12,
+    "r1": 3,
+    "c1": 12,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 1,
+    "c0": 12,
+    "r1": 1,
+    "c1": 13,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "shundan",
+      "color": "2F75B5",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 13,
+    "r1": 2,
+    "c1": 13,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Ulgurji",
+      "color": "C65911",
+      "b": true,
+      "i": false,
+      "sz": 10.9
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 13,
+    "r1": 3,
+    "c1": 13,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 14,
+    "r1": 3,
+    "c1": 14,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 1,
+    "c0": 14,
+    "r1": 2,
+    "c1": 15,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "Dublikat hisoblagichlar",
+      "color": "2F75B5",
+      "b": true,
+      "i": false,
+      "sz": 11.8
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 15,
+    "r1": 3,
+    "c1": 15,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 16,
+    "r1": 3,
+    "c1": 16,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 1,
+    "c0": 16,
+    "r1": 2,
+    "c1": 17,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "hisoblagichlar jami soni",
+      "color": "00B050",
+      "b": true,
+      "i": false,
+      "sz": 10.0
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 0,
+    "c0": 16,
+    "r1": 0,
+    "c1": 19,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "CAS dasturida mavjud, Billing dasturiga kiritilmagan",
+      "color": "00B050",
+      "b": true,
+      "i": false,
+      "sz": 10.0
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 17,
+    "r1": 3,
+    "c1": 17,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "↑ ",
+      "color": "0066FF",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     },
+     {
+      "t": "↓",
+      "color": "FF0000",
+      "b": true,
+      "i": false,
+      "sz": 8.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 18,
+    "r1": 2,
+    "c1": 18,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "3 kun ichida",
+      "color": "00B050",
+      "b": true,
+      "i": false,
+      "sz": 10.0
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 18,
+    "r1": 3,
+    "c1": 18,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 1,
+    "c0": 18,
+    "r1": 1,
+    "c1": 19,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "shundan obxod olgan",
+      "color": "00B050",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 2,
+    "c0": 19,
+    "r1": 2,
+    "c1": 19,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "30 kun ichida",
+      "color": "00B050",
+      "b": true,
+      "i": false,
+      "sz": 10.0
+     }
+    ],
+    "rot": false
+   },
+   {
+    "r0": 3,
+    "c0": 19,
+    "r1": 3,
+    "c1": 19,
+    "fill": "DDEBF7",
+    "runs": [
+     {
+      "t": "soni",
+      "color": "C00000",
+      "b": true,
+      "i": false,
+      "sz": 9.2
+     }
+    ],
+    "rot": false
+   }
+  ],
+  "cols": [
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": false,
+     "sz": 10.0,
+     "align": "left",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": false,
+     "sz": 10.0,
+     "align": "center",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "C00000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "C00000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "C00000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": null,
+     "color": "000000",
+     "b": false,
+     "sz": 10.0,
+     "align": "center",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": false,
+     "sz": 8.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "FF0000",
+     "b": true,
+     "sz": 9.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": false,
+     "sz": 8.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "0000FF",
+     "b": true,
+     "sz": 9.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": false,
+     "sz": 10.0,
+     "align": "center",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": false,
+     "sz": 10.0,
+     "align": "center",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "center",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": false,
+     "sz": 8.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "FF0000",
+     "b": true,
+     "sz": 9.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 9.2,
+     "align": "center",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": false,
+     "sz": 8.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "0000FF",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 9.2,
+     "align": "center",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "000000",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "000000",
+     "b": true,
+     "sz": 10.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "BF8F00",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "BF8F00",
+     "b": true,
+     "sz": 9.2,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": false,
+     "sz": 8.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "0000FF",
+     "b": true,
+     "sz": 9.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "00B050",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "00B050",
+     "b": true,
+     "sz": 9.2,
+     "align": "center",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "0000FF",
+     "b": false,
+     "sz": 8.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "0000FF",
+     "b": true,
+     "sz": 9.2,
+     "align": "right",
+     "up": "FF0000",
+     "dn": "0000FF"
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "00B0F0",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "00B0F0",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   },
+   {
+    "body": {
+     "fill": null,
+     "color": "00B0F0",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    },
+    "jami": {
+     "fill": "FFE699",
+     "color": "00B0F0",
+     "b": true,
+     "sz": 9.9,
+     "align": "right",
+     "up": null,
+     "dn": null
+    }
+   }
+  ],
+  "title": [
+   {
+    "top": 109.79000000000002,
+    "items": [
+     {
+      "x0": 216.74,
+      "x1": 575.76344,
+      "runs": [
+       {
+        "t": "Billing ",
+        "color": "00B0F0",
+        "b": true,
+        "i": false,
+        "sz": 16.3
+       },
+       {
+        "t": "va ",
+        "color": "000000",
+        "b": true,
+        "i": false,
+        "sz": 16.3
+       },
+       {
+        "t": "CAS ",
+        "color": "00B0F0",
+        "b": true,
+        "i": false,
+        "sz": 16.3
+       },
+       {
+        "t": "dasturlarida tafovutga ega hisoblagichlar bo‘yicha",
+        "color": "000000",
+        "b": true,
+        "i": false,
+        "sz": 16.3
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "top": 131.87,
+    "items": [
+     {
+      "x0": 348.41,
+      "x1": 444.11300000000006,
+      "runs": [
+       {
+        "t": "M A ’ L U M O T",
+        "color": "FF0000",
+        "b": true,
+        "i": false,
+        "sz": 18.2
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "top": 148.82,
+    "items": [
+     {
+      "x0": 45.72,
+      "x1": 97.0896,
+      "runs": [
+       {
+        "t": "Hudud nomi:",
+        "color": "000000",
+        "b": false,
+        "i": false,
+        "sz": 12.6
+       }
+      ]
+     },
+     {
+      "x0": 129.38,
+      "x1": 205.62320000000003,
+      "runs": [
+       {
+        "t": "Qashqadaryo HETK",
+        "color": "0066FF",
+        "b": true,
+        "i": false,
+        "sz": 12.6
+       }
+      ]
+     },
+     {
+      "x0": 609.58,
+      "x1": 753.9352,
+      "runs": [
+       {
+        "t": "Dinamika: 01.11.2026 - 06.11.2026",
+        "color": "0000FF",
+        "b": true,
+        "i": false,
+        "sz": 12.6
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "table_x0": 36.405,
+  "table_x1": 756.1955,
+  "k": 1.3157894736842106
+ }
+}

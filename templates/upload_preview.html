@@ -54,7 +54,7 @@
               <td class="small">{% for label, val, kind in s.first %}<span class="nowrap" style="margin-right:14px"><span class="muted">{{ label }}:</span> <b class="num">{{ val|fmt_metric:kind }}</b></span>{% endfor %}</td></tr>
         {% endfor %}</tbody>
       </table>
-      {% if rep.skipped_pages %}<p class="muted small" style="margin:10px 0 0">Jadvalsiz sahifalar o‘tkazib yuborildi: {{ rep.skipped_pages|join:", " }} (diagramma).</p>{% endif %}
+      {% if rep.skipped_pages %}<p class="muted small" style="margin:10px 0 0">O‘tkazib yuborilgan sahifalar (diagramma yoki kerak bo‘lmagan bo‘lim): {{ rep.skipped_pages|join:", " }}.</p>{% endif %}
       {% if c.warnings %}
       <details style="margin-top:12px"><summary>{{ c.warnings|length }} ta ogohlantirish</summary>
         <ul class="issues">{% for w in c.warnings|slice:":40" %}<li>{{ w }}</li>{% endfor %}</ul>

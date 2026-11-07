@@ -75,6 +75,13 @@ BILL_C = [
     "cas_not_billing", D, "cas_nb_3d", "cas_nb_30d",
 ]
 
+# 21 ustunli ko‘rinish (28.10, 03.11, 04.11, 05.11 hisobotlari): birinchi qiymatdan keyin yana bitta bo‘sh ustun.
+BILL_D = [
+    "district", "bill_total", None, None, D, "bill_account", D, "bill_type", D, "bill_not_in_cas", D,
+    "bill_not_askue", D, "bill_not_askue_res", "bill_not_askue_ind", "bill_dup", D,
+    "cas_not_billing", D, "cas_nb_3d", "cas_nb_30d",
+]
+
 # ---------------------------------------------------------------- SmartApp
 SMART = (
     ["district", "no_obxod"]              # 1–7-ustunlar birlashtirilgan katak: qiymat shu oraliqdan yig‘iladi
@@ -87,6 +94,7 @@ SMART = (
 # Shu kalitlarning qiymati ko‘rsatilgan ustunlardagi barcha bo‘sh bo‘lmagan matnlarni birlashtirib olinadi.
 SMART_COALESCE = {"no_obxod": tuple(range(1, 8)), "sa_month": tuple(range(9, 15))}
 BILL_C_COALESCE = {"bill_total": (1, 2)}
+BILL_D_COALESCE = {"bill_total": (1, 2, 3)}
 
 # (bo‘lim, ustunlar soni) -> (variant, shablon, qo‘shimcha parametrlar)
 LAYOUTS = {
@@ -102,7 +110,20 @@ LAYOUTS = {
     ("tafovut_balans", 16): ("C", TAFOVUT, {}),
     ("billing_tafovut", 19): ("A", BILL_A, {}),
     ("billing_tafovut", 20): ("C", BILL_C, {"coalesce": BILL_C_COALESCE}),
+    ("billing_tafovut", 21): ("D", BILL_D, {"coalesce": BILL_D_COALESCE}),
     ("smartapp", 23): ("C", SMART, {"coalesce": SMART_COALESCE}),
+}
+
+
+# Excel hisobotida PDF dagi ko‘rinishni takrorlash uchun: bo‘lim -> HETK ko‘rinishidagi shablon.
+HETK_SPECS = {
+    "konsentratorlar": CONC_C,
+    "aloqasiz": NOME_C,
+    "uzilgan": OFF_C,
+    "balans_yuklama": BALYUK,
+    "obxod48": OB48,
+    "tafovut_balans": TAFOVUT,
+    "billing_tafovut": BILL_C,
 }
 
 

@@ -31,7 +31,7 @@ def P(key, label, group=""):
     return MetricDef(key, label, group, "pct", False)
 
 
-SECTIONS = (
+_ALL_SECTIONS = (
     SectionDef(
         "konsentratorlar",
         "CAS dasturidagi konsentratorlar holati",
@@ -172,5 +172,13 @@ SECTIONS = (
     ),
 )
 
-SECTION_BY_KEY = {s.key: s for s in SECTIONS}
-METRIC_BY_KEY = {(s.key, m.key): m for s in SECTIONS for m in s.metrics}
+# Faqat shu bo‘limlar o‘qiladi va saqlanadi (to‘liq hisobotning 1, 2, 3, 4, 6, 7, 8-betlari).
+# SmartApp (9-bet) kerak emas — o‘tkazib yuboriladi.
+# Qaytarish uchun kalitni shu ro‘yxatga qo‘shing.
+ENABLED_SECTIONS = (
+    "konsentratorlar", "aloqasiz", "uzilgan", "balans_yuklama", "obxod48", "tafovut_balans", "billing_tafovut",
+)
+SECTIONS = tuple(s for s in _ALL_SECTIONS if s.key in ENABLED_SECTIONS)
+
+SECTION_BY_KEY = {s.key: s for s in _ALL_SECTIONS}
+METRIC_BY_KEY = {(s.key, m.key): m for s in _ALL_SECTIONS for m in s.metrics}

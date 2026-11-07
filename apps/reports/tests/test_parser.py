@@ -37,11 +37,26 @@ class ParserTests(SimpleTestCase):
         self.assertEqual(r.report_date.isoformat(), "2026-11-06")
         self.assertEqual(r.errors, [])
         self.assertEqual(r.warnings, [], r.warnings)   # birlashtirilgan kataklar to‘g‘ri yig‘ilishi kerak
-        self.assertEqual(len(r.sections), 8)
-        self.assertEqual(r.skipped_pages, [5])         # diagramma sahifasi
-        # «5 8» + «60» = 5860 kabi bo‘lingan raqamlar
-        self.assertEqual(int(r.sections["smartapp"].cur["qarshi_sh"]["no_obxod"]), 5860)
+        # faqat 1, 2, 3, 4, 6, 7, 8-betlar; 5 (diagramma) va 9 (SmartApp) o‘tkazib yuboriladi
+        self.assertEqual(sorted(r.sections), sorted(
+            ["konsentratorlar", "aloqasiz", "uzilgan", "balans_yuklama", "obxod48", "tafovut_balans", "billing_tafovut"]))
+        self.assertEqual([r.sections[k].page for k in r.sections], [1, 2, 3, 4, 6, 7, 8])
+        self.assertEqual(r.skipped_pages, [5, 9])
         self.assertEqual(int(r.sections["billing_tafovut"].cur["jami"]["bill_total"]), 2984)
+
+    def test_hetk_billing_21_columns(self):
+        """Billing jadvali 21 ustunli ko‘rinishda (jami qiymatdan keyin qo‘shimcha bo‘sh ustun)."""
+        r = self.parse("hisobot_2026-11-04_hetk21.pdf")
+        self.assertEqual(r.report_date.isoformat(), "2026-11-04")
+        self.assertEqual(r.errors, [])
+        self.assertEqual(r.warnings, [])
+        self.assertEqual(len(r.sections), 7)
+        b = r.sections["billing_tafovut"]
+        self.assertEqual(b.page, 8)
+        self.assertEqual(int(b.cur["jami"]["bill_total"]), 2402)
+        self.assertEqual(int(b.cur["jami"]["bill_not_askue"]), 11478)
+        self.assertEqual(int(b.cur["guzor"]["cas_not_billing"]), 21)   # «2 1» -> 21
+        self.assertEqual(int(b.cur["guzor"]["cas_nb_3d"]), 19)         # «1 9» -> 19
 
     def test_farqi_variant(self):
         r = self.parse("hisobot_2026-11-04.pdf")

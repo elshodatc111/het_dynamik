@@ -8,7 +8,7 @@ from decimal import Decimal, InvalidOperation
 
 import pdfplumber
 
-from .catalog import METRIC_BY_KEY, SECTION_BY_KEY
+from .catalog import ENABLED_SECTIONS, METRIC_BY_KEY, SECTION_BY_KEY
 from .districts import DISTRICT_KEYS, TOTAL_KEY, district_key
 from .layouts import find_layout
 
@@ -153,6 +153,9 @@ def parse_pdf(path) -> ParsedReport:
                 ranges.add((m.group(1), m.group(2)))
 
             section = _detect_section(text)
+            if section is not None and section not in ENABLED_SECTIONS:
+                rep.skipped_pages.append(pno)  # kerak emas bo‘lim (billing, SmartApp)
+                continue
             tables = page.extract_tables()
             candidate = None
             for t in tables:

@@ -136,11 +136,12 @@ class AppFlowTests(TestCase):
         self.assertIn("Umumiy", wb.sheetnames)
         self.assertIn("Aloqasiz hisoblagichlar", wb.sheetnames)
         ws = wb["Aloqasiz hisoblagichlar"]
-        self.assertEqual(ws["A7"].value, "Jami")
-        flat = [c.value for row in ws.iter_rows(min_row=7, max_row=7) for c in row]
-        self.assertIn(26627, flat)
+        jami = next(r for r in ws.iter_rows(min_row=1, max_row=15) if r[0].value == "Jami")
+        flat = [c.value for c in jami]
+        # PDF dizayni: B sanadagi qiymat + A->B farqi ko'rsatiladi
         self.assertIn(26201, flat)
         self.assertIn(-426, flat)
+        self.assertTrue(ws.page_setup.orientation == "landscape")
 
     # ------------------------------------------------------------ foydalanuvchilar
     def test_user_management(self):
