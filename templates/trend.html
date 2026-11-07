@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% load static ui %}
+{% block title %}Trend{% endblock %}
+{% block head %}<script defer src="{% static 'vendor/apexcharts.min.js' %}"></script>{% endblock %}
+{% block content %}
+{{ meta_json|json_script:"meta-data" }}
+{{ districts_json|json_script:"districts-data" }}
+<div class="page-head"><div><h1>Trend</h1><p>Tanlangan ko‘rsatkichning kunlar bo‘yicha o‘zgarishi.</p></div></div>
+
+<div x-data="trendPage()" x-init="init()">
+  <div class="card filters">
+    <div class="f" style="min-width:210px"><label class="lbl">Bo‘lim</label>
+      <select x-model="section" @change="onSection()"><template x-for="s in meta" :key="s.key"><option :value="s.key" x-text="s.title"></option></template></select></div>
+    <div class="f" style="min-width:300px;flex:1"><label class="lbl">Ko‘rsatkich</label>
+      <select x-model="metric" @change="load()"><template x-for="m in metrics" :key="m.key"><option :value="m.key" x-text="m.label"></option></template></select></div>
+    <div class="f" style="min-width:150px"><label class="lbl">Dan</label><input type="date" x-model="from" @change="load()" min="{{ date_min }}" max="{{ date_max }}"></div>
+    <div class="f" style="min-width:150px"><label class="lbl">Gacha</label><input type="date" x-model="to" @change="load()" min="{{ date_min }}" max="{{ date_max }}"></div>
+  </div>
+
+  <div class="card card-pad" style="margin-bottom:16px">
+    <div class="lbl">Hududlar <span class="faint">(8 tagacha)</span></div>
+    <div class="quick">
+      <template x-for="d in districts" :key="d.key">
+        <button type="button" class="btn btn-sm" :style="selected.includes(d.key) ? 'background:var(--primary-soft);border-color:var(--primary);color:var(--primary-text)' : ''"
+                @click="toggle(d.key)" x-text="d.name"></button>
+      </template>
+    </div>
+  </div>
+
+  <div class="card card-pad">
+    <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px">
+      <h2 x-text="title"></h2><span class="muted small" x-text="note"></span>
+    </div>
+    <div id="trend-chart" style="min-height:380px"></div>
+    <div x-show="empty" class="empty" x-cloak>{% icon "trend" 36 %}<p>Tanlangan oraliqda ma’lumot yo‘q.</p></div>
+  </div>
+</div>
+
+<script>
+function trendPage() {
+  return {
+    meta: JSON.parse(document.getElementById('meta-data').textContent),
+    districts: JSON.parse(document.getElementById('districts-data').textContent),
+    section: '', metric: '', selected: ['jami'], from: '{{ date_min }}', to: '{{ date_max }}',
+    chart: null, title: '', note: '', empty: false, kind: 'count',
+    get metrics() { var s = this.meta.find(x => x.key === this.section); return s ? s.metrics : []; },
+    init() {
+      var pref = this.meta.find(x => x.key === 'aloqasiz');
+      this.section = (pref || this.meta[0] || {}).key || ''; this.onSection(false);
+      if (pref) this.metric = 'nome_all';
+      document.addEventListener('themechange', () => this.load());
+      this.load();
+    },
+    onSection(reload = true) { this.metric = (this.metrics[0] || {}).key || ''; if (reload) this.load(); },
+    toggle(k) {
+      var i = this.selected.indexOf(k);
+      if (i >= 0) { if (this.selected.length > 1) this.selected.splice(i, 1); }
+      else if (this.selected.length < 8) this.selected.push(k);
+      this.load();
+    },
+    async load() {
+      if (!this.section || !this.metric) return;
+      var q = new URLSearchParams({ section: this.section, metric: this.metric, from: this.from, to: this.to });
+      this.selected.forEach(k => q.append('d', k));
+      var r = await fetch('{% url "trend_data" %}?' + q.toString(), { credentials: 'same-origin' });
+      var d = await r.json();
+      this.title = d.label; this.kind = d.kind;
+      this.note = d.dates.length ? d.dates.length + ' ta sana' : '';
+      this.empty = !d.dates.length;
+      if (this.chart) { this.chart.destroy(); this.chart = null; }
+      if (this.empty) return;
+      var th = chartTheme(), kind = d.kind;
+      var cats = d.dates.map(x => x.slice(8, 10) + '.' + x.slice(5, 7));
+      this.chart = new ApexCharts(document.querySelector('#trend-chart'), {
+        chart: { type: 'line', height: 380, toolbar: { show: true, tools: { download: true, zoom: false, pan: false, reset: false, selection: false, zoomin: false, zoomout: false } },
+                 fontFamily: 'Inter, system-ui, sans-serif', background: 'transparent', animations: { speed: 350 } },
+        theme: { mode: th.mode },
+        series: d.series, xaxis: { categories: cats, labels: { style: { colors: th.fg } }, axisBorder: { show: false } },
+        yaxis: { labels: { formatter: v => fmtNum(v, kind), style: { colors: th.fg } } },
+        stroke: { width: 2.5, curve: 'straight' }, markers: { size: 4, strokeWidth: 0, hover: { size: 6 } },
+        grid: { borderColor: th.grid, strokeDashArray: 3 },
+        legend: { position: 'bottom', labels: { colors: th.fg } },
+        tooltip: { theme: th.mode, y: { formatter: v => fmtNum(v, kind) } },
+        colors: ['#3b5bfd', '#0f9d6b', '#e08a1e', '#a855f7', '#0ea5e9', '#d1384f', '#64748b', '#14b8a6']
+      });
+      this.chart.render();
+    }
+  };
+}
+</script>
+{% endblock %}

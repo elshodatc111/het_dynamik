@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Kirish{% endblock %}
+{% block bare %}
+<div class="login">
+  <section class="login-art">
+    <div class="brand"><div class="brand-mark">D</div><div><b>Dinamika</b><span>Qashqadaryo HETK · CAS</span></div></div>
+    <div>
+      <h2>Kunlik hisobotlar dinamikasi — bir bosishda.</h2>
+      <p>PDF hisobotlarni yuklang, istalgan ikki sanani solishtiring va tayyor Excel faylni oling.</p>
+    </div>
+    <span class="small" style="position:relative;z-index:1;opacity:.6">Faqat vakolatli xodimlar uchun</span>
+  </section>
+  <section class="login-form">
+    <form class="login-box" method="post" novalidate>{% csrf_token %}
+      <h1>Tizimga kirish</h1>
+      <p class="muted" style="margin:0 0 22px">Login va parolingizni kiriting.</p>
+      {% if form.errors %}
+        <div class="alert alert-err">{% icon "alert" 18 %}<div class="body">Login yoki parol noto‘g‘ri, yoki hisobingiz o‘chirilgan.</div></div>
+      {% endif %}
+      <div class="field"><label class="lbl" for="id_username">Login</label>
+        <input type="text" name="username" id="id_username" autofocus autocomplete="username" required value="{{ form.username.value|default:'' }}"></div>
+      <div class="field"><label class="lbl" for="id_password">Parol</label>
+        <input type="password" name="password" id="id_password" autocomplete="current-password" required></div>
+      <input type="hidden" name="next" value="{{ next }}">
+      <button class="btn btn-primary" type="submit">Kirish</button>
+    </form>
+  </section>
+</div>
+{% endblock %}

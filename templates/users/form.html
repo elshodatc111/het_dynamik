@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}{% if obj %}Tahrirlash{% else %}Yangi foydalanuvchi{% endif %}{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>{% if obj %}{{ obj.username }}{% else %}Yangi foydalanuvchi{% endif %}</h1>
+  <p>{% if obj %}Ma’lumotlar, rol va ruxsatlarni o‘zgartiring.{% else %}Login, parol va rolni belgilang.{% endif %}</p></div>
+  <a class="btn" href="{% url 'users' %}">← Orqaga</a></div>
+
+{% if me %}<div class="alert">{% icon "alert" 18 %}<div class="body">O‘zingizning rol va faolligingizni o‘zgartira olmaysiz — bu hisobingizni bloklab qo‘yishning oldini oladi.</div></div>{% endif %}
+
+<form method="post" class="grid g-2" style="align-items:start">{% csrf_token %}
+  {{ form.non_field_errors }}
+  <div class="card card-pad">
+    <h2 style="margin-bottom:14px">Hisob</h2>
+    {% for f in form.visible_fields %}{% if f.name in "username first_name last_name email" %}
+      <div class="field"><label class="lbl" for="{{ f.id_for_label }}">{{ f.label }}</label>{{ f }}{{ f.errors }}</div>
+    {% endif %}{% endfor %}
+    <div class="field"><label class="check">{{ form.is_active }} <span>{{ form.is_active.label }}</span></label></div>
+    <h2 style="margin:22px 0 4px">{% if obj %}Parolni almashtirish{% else %}Parol{% endif %}</h2>
+    {% if obj %}<p class="help" style="margin:0 0 12px">Bo‘sh qoldirsangiz, parol o‘zgarmaydi.</p>{% endif %}
+    <div class="field"><label class="lbl" for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>{{ form.password1 }}{{ form.password1.errors }}</div>
+    <div class="field"><label class="lbl" for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>{{ form.password2 }}{{ form.password2.errors }}</div>
+  </div>
+  <div class="card card-pad">
+    <h2 style="margin-bottom:14px">Rol va ruxsatlar</h2>
+    <div class="field"><label class="lbl" for="{{ form.role.id_for_label }}">{{ form.role.label }}</label>{{ form.role }}{{ form.role.errors }}
+      <div class="help">Rol — tayyor ruxsatlar to‘plami. Kerak bo‘lsa pastdan alohida ruxsat qo‘shing.</div></div>
+    <div class="field"><span class="lbl">{{ form.extra_perms.label }}</span>
+      <div class="checks">{% for c in form.extra_perms %}<label class="check">{{ c.tag }}<span>{{ c.choice_label }}</span></label>{% endfor %}</div></div>
+    <div class="actions" style="margin-top:22px"><button class="btn btn-primary" type="submit">{% icon "check" 16 %} Saqlash</button><a class="btn" href="{% url 'users' %}">Bekor qilish</a></div>
+  </div>
+</form>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Tekshiruv natijasi{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Tekshiruv natijasi</h1><p>Hali hech narsa saqlanmadi. Natijani ko‘rib chiqib, tasdiqlang.</p></div>
+  <a class="btn" href="{% url 'upload' %}">← Boshqa fayl</a></div>
+
+<form method="post" action="{% url 'upload_confirm' %}">{% csrf_token %}
+  {% for c in cards %}
+  {% with rep=c.report %}
+  <div class="card ucard" x-data="{ open: false }">
+    <div class="ucard-top">
+      <div class="ic">{% icon "file" 20 %}</div>
+      <div class="grow">
+        <b>{{ c.name }}</b>
+        {% if rep and rep.ok %}
+          <span class="muted small">Hisobot sanasi <b style="color:var(--text)">{{ rep.report_date|date:"d.m.Y" }}</b> · oldingi: {{ rep.prev_date|date:"d.m.Y" }} · {{ rep.pages }} sahifa · {{ rep.sections|length }} bo‘lim</span>
+        {% else %}<span class="muted small">O‘qib bo‘lmadi</span>{% endif %}
+      </div>
+      {% if c.errors %}<span class="badge badge-err">{% icon "x" 12 %} Xato</span>
+      {% elif c.duplicate %}<span class="badge badge-warn">Bu sana mavjud</span>
+      {% elif c.warnings %}<span class="badge badge-warn">{{ c.warnings|length }} ogohlantirish</span>
+      {% else %}<span class="badge badge-ok">{% icon "check" 12 %} Tayyor</span>{% endif %}
+      {% if rep and rep.ok %}
+        {% if c.duplicate %}
+          {% if can_replace %}<label class="check small"><input type="checkbox" name="replace" value="{{ c.token }}"> Almashtirish</label>
+          {% else %}<span class="muted small">Almashtirish ruxsati yo‘q</span>{% endif %}
+        {% else %}
+          <label class="check"><input type="checkbox" name="token" value="{{ c.token }}" checked> Saqlash</label>
+        {% endif %}
+      {% endif %}
+    </div>
+
+    {% if c.duplicate %}
+    <div class="ucard-body">
+      <div class="alert alert-warn" style="margin:0">{% icon "alert" 18 %}<div class="body">
+        <b>{{ rep.report_date|date:"d.m.Y" }}</b> sanasi uchun hisobot allaqachon yuklangan
+        ({{ c.duplicate.uploaded_at|date:"d.m.Y H:i" }}, {{ c.duplicate.uploaded_by.username|default:"—" }}).
+        {% if can_replace %}Almashtirish uchun «Almashtirish» ni belgilang — eski ma’lumot o‘chadi.{% else %}Almashtirish uchun administrator ruxsati kerak.{% endif %}
+      </div></div>
+    </div>
+    {% endif %}
+
+    {% if c.errors %}
+    <div class="ucard-body"><ul class="issues">{% for e in c.errors %}<li style="color:var(--err)">{{ e }}</li>{% endfor %}</ul></div>
+    {% endif %}
+
+    {% if rep and rep.ok %}
+    <div class="ucard-body">
+      <table class="simple" style="background:var(--surface);border-radius:10px;overflow:hidden">
+        <thead><tr><th>Bo‘lim</th><th>Sahifa</th><th>Hudud</th><th>Jami qatordan namunalar</th></tr></thead>
+        <tbody>{% for s in c.summary %}
+          <tr><td><b>{{ s.title }}</b></td><td>{{ s.page }}</td><td>{{ s.districts }}</td>
+              <td class="small">{% for label, val, kind in s.first %}<span class="nowrap" style="margin-right:14px"><span class="muted">{{ label }}:</span> <b class="num">{{ val|fmt_metric:kind }}</b></span>{% endfor %}</td></tr>
+        {% endfor %}</tbody>
+      </table>
+      {% if rep.skipped_pages %}<p class="muted small" style="margin:10px 0 0">Jadvalsiz sahifalar o‘tkazib yuborildi: {{ rep.skipped_pages|join:", " }} (diagramma).</p>{% endif %}
+      {% if c.warnings %}
+      <details style="margin-top:12px"><summary>{{ c.warnings|length }} ta ogohlantirish</summary>
+        <ul class="issues">{% for w in c.warnings|slice:":40" %}<li>{{ w }}</li>{% endfor %}</ul>
+        {% if c.warnings|length > 40 %}<p class="muted small">…va yana {{ c.warnings|length|add:"-40" }} ta.</p>{% endif %}
+      </details>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+  {% endwith %}
+  {% endfor %}
+
+  <div class="actions" style="margin-top:20px">
+    {% if has_ok %}<button class="btn btn-primary" type="submit">{% icon "check" 16 %} Tanlanganlarni saqlash</button>{% endif %}
+    <a class="btn" href="{% url 'upload' %}">Bekor qilish</a>
+  </div>
+</form>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}PDF yuklash{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>PDF yuklash</h1><p>Kunlik dinamika PDF faylini yuklang. Saqlashdan oldin tizim uni tekshirib, natijani ko‘rsatadi.</p></div></div>
+
+<form method="post" enctype="multipart/form-data" class="card card-pad" x-data="dropzone()" style="max-width:820px">{% csrf_token %}
+  <div class="drop" :class="{ over }" @click="$refs.input.click()"
+       @dragover.prevent="over = true" @dragleave.prevent="over = false" @drop.prevent="over = false; pick($event.dataTransfer.files)">
+    {% icon "upload" 40 %}
+    <b>PDF faylni shu yerga tashlang</b>
+    <span class="muted">yoki bosib tanlang · bir nechta fayl mumkin</span>
+    <input type="file" name="files" accept="application/pdf,.pdf" multiple hidden x-ref="input" @change="pick($event.target.files)">
+  </div>
+  <ul class="files" x-show="files.length" x-cloak>
+    <template x-for="f in files" :key="f.name"><li><span x-text="f.name" style="overflow-wrap:anywhere"></span><span class="muted nowrap" x-text="size(f)"></span></li></template>
+  </ul>
+  <div class="actions" style="margin-top:18px">
+    <button class="btn btn-primary" type="submit" :disabled="!files.length">{% icon "check" 16 %} Tekshirish</button>
+    <span class="muted small">Har bir hisobot sanasi uchun faqat bitta PDF saqlanadi.</span>
+  </div>
+</form>
+{% endblock %}

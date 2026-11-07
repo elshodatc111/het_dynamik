@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Arxiv{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Arxiv</h1><p>Yuklangan kunlik hisobotlar.</p></div>
+  {% if perms.reports.upload_pdf %}<a class="btn btn-primary" href="{% url 'upload' %}">{% icon "upload" 16 %} PDF yuklash</a>{% endif %}</div>
+<div class="card">
+  {% if uploads %}
+  <table class="simple">
+    <thead><tr><th>Hisobot sanasi</th><th>Oldingi sana</th><th>Fayl</th><th>Yuklagan</th><th>Yuklangan vaqti</th><th>Tekshiruv</th><th class="r"></th></tr></thead>
+    <tbody>{% for u in uploads %}
+      <tr>
+        <td><b>{{ u.report_date|date:"d.m.Y" }}</b></td>
+        <td class="muted">{{ u.prev_date|date:"d.m.Y" }}</td>
+        <td style="max-width:280px;overflow-wrap:anywhere">{{ u.original_name }}<div class="muted small">{{ u.pages }} sahifa · ko‘rinish {{ u.variant }}</div></td>
+        <td>{{ u.uploaded_by.get_full_name|default:u.uploaded_by.username|default:"—" }}</td>
+        <td class="muted nowrap">{{ u.uploaded_at|date:"d.m.Y H:i" }}</td>
+        <td>{% if u.warnings %}<span class="badge badge-warn" title="{{ u.warnings|join:' | '|truncatechars:400 }}">{{ u.warnings|length }} ogohlantirish</span>{% else %}<span class="badge badge-ok">xatosiz</span>{% endif %}</td>
+        <td class="r nowrap">
+          <a class="btn btn-sm" href="{% url 'compare' %}?b={{ u.report_date|date:'Y-m-d' }}">{% icon "compare" 14 %}</a>
+          {% if perms.reports.export_excel %}<a class="btn btn-sm" href="{% url 'archive_file' u.pk %}" title="Asl PDF">{% icon "file" 14 %} PDF</a>{% endif %}
+          {% if perms.reports.manage_uploads %}
+          <form method="post" action="{% url 'archive_delete' u.pk %}" style="display:inline" onsubmit="return confirm('{{ u.report_date|date:"d.m.Y" }} hisobotini o‘chirasizmi? Qiymatlari ham o‘chadi.')">{% csrf_token %}
+            <button class="btn btn-sm btn-danger btn-icon" type="submit" title="O‘chirish">{% icon "trash" 14 %}</button></form>
+          {% endif %}
+        </td>
+      </tr>{% endfor %}</tbody>
+  </table>
+  {% else %}<div class="empty">{% icon "archive" 40 %}<p>Hali hisobot yuklanmagan.</p></div>{% endif %}
+</div>
+{% endblock %}

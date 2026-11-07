@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static ui %}
+{% block title %}Bosh sahifa{% endblock %}
+{% block head %}<script defer src="{% static 'vendor/apexcharts.min.js' %}"></script>{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <h1>Bosh sahifa</h1>
+    {% if data %}<p>Oxirgi hisobot: <b>{{ data.latest|date:"d.m.Y" }}</b>{% if data.prev %} · taqqoslash: {{ data.prev|date:"d.m.Y" }} bilan{% endif %}</p>{% endif %}
+  </div>
+  {% if data and data.prev %}
+  <div class="actions">
+    <a class="btn" href="{% url 'compare' %}?a={{ data.prev|date:'Y-m-d' }}&b={{ data.latest|date:'Y-m-d' }}">{% icon "compare" 16 %} Dinamikani ko‘rish</a>
+    {% if perms.reports.export_excel %}
+    <a class="btn btn-primary" href="{% url 'compare_export' %}?a={{ data.prev|date:'Y-m-d' }}&b={{ data.latest|date:'Y-m-d' }}">{% icon "download" 16 %} Excel</a>
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
+
+{% if not data %}
+  <div class="card empty">
+    {% icon "upload" 40 %}
+    <h2 style="color:var(--text);margin-bottom:6px">Hali hisobot yuklanmagan</h2>
+    <p>Birinchi kunlik PDF ni yuklang — dinamika avtomatik hisoblanadi.</p>
+    {% if perms.reports.upload_pdf %}<a class="btn btn-primary" href="{% url 'upload' %}">{% icon "upload" 16 %} PDF yuklash</a>{% endif %}
+  </div>
+{% else %}
+  {% if data.gaps %}
+  <div class="alert alert-warn">{% icon "alert" 18 %}
+    <div class="body"><b>Yuklanmagan kunlar:</b> {% for d in data.gaps %}{{ d|date:"d.m" }}{% if not forloop.last %}, {% endif %}{% endfor %}.
+      Bu kunlar uchun PDF yuklansa, trend va solishtirish to‘liqroq bo‘ladi.</div>
+  </div>
+  {% endif %}
+  {% if not data.prev %}
+  <div class="alert">{% icon "alert" 18 %}<div class="body">Hozircha faqat bitta sana mavjud. Dinamika ko‘rinishi uchun yana bir kunlik hisobot kerak.</div></div>
+  {% endif %}
+
+  <div class="grid g-kpi">
+    {% for c in data.cards %}
+    <div class="card kpi">
+      <div class="lab">{{ c.label }}</div>
+      <div class="val">{{ c.value|fmt_metric:c.kind }}</div>
+      {% if c.diff is not None %}<span class="chip" title="{{ data.prev|date:'d.m.Y' }} ga nisbatan">{{ c.diff|fmt_delta:c.kind }}</span>{% endif %}
+      <div class="spark" data-spark="{{ c.spark }}" data-kind="{{ c.kind }}"></div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="grid g-2" style="margin-top:16px">
+    <div class="card">
+      <div class="card-head"><h2>Aloqaga chiqmaganlar: eng katta o‘zgarishlar</h2><span class="muted small">hududlar bo‘yicha</span></div>
+      {% if data.movers %}
+      <table class="simple">
+        <thead><tr><th>Hudud</th><th class="r">{{ data.prev|date:"d.m" }}</th><th class="r">{{ data.latest|date:"d.m" }}</th><th class="r">Farq</th></tr></thead>
+        <tbody>{% for m in data.movers %}
+          <tr><td><b>{{ m.district }}</b></td><td class="r num">{{ m.a|num }}</td><td class="r num">{{ m.b|num }}</td><td class="r num"><b>{{ m.diff|delta }}</b></td></tr>
+        {% endfor %}</tbody>
+      </table>
+      {% else %}<div class="empty">Taqqoslash uchun ikkinchi sana kerak.</div>{% endif %}
+    </div>
+    <div class="card">
+      <div class="card-head"><h2>Oxirgi yuklash</h2>{% if perms.reports.upload_pdf %}<a class="btn btn-sm" href="{% url 'upload' %}">{% icon "upload" 14 %} Yangi PDF</a>{% endif %}</div>
+      <div class="card-pad">
+        <div style="display:grid;grid-template-columns:auto 1fr;gap:8px 18px">
+          <span class="muted">Sana</span><b>{{ data.last_upload.report_date|date:"d.m.Y" }}</b>
+          <span class="muted">Fayl</span><span style="overflow-wrap:anywhere">{{ data.last_upload.original_name }}</span>
+          <span class="muted">Yuklagan</span><span>{{ data.last_upload.uploaded_by.get_full_name|default:data.last_upload.uploaded_by.username|default:"—" }}</span>
+          <span class="muted">Vaqti</span><span>{{ data.last_upload.uploaded_at|date:"d.m.Y H:i" }}</span>
+          <span class="muted">Sahifalar</span><span>{{ data.last_upload.pages }}</span>
+          <span class="muted">Tekshiruv</span>
+          <span>{% if data.last_upload.warnings %}<span class="badge badge-warn">{{ data.last_upload.warnings|length }} ogohlantirish</span>{% else %}<span class="badge badge-ok">{% icon "check" 12 %} xatosiz</span>{% endif %}</span>
+          <span class="muted">Jami hisobotlar</span><span>{{ data.uploads_count }} ta</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var th = chartTheme();
+      document.querySelectorAll('.spark').forEach(function (el) {
+        var pts = JSON.parse(el.dataset.spark || '[]'); var kind = el.dataset.kind;
+        if (pts.length < 2) { el.innerHTML = '<div class="small faint" style="padding:16px 8px">Trend uchun yetarli ma’lumot yo‘q</div>'; return; }
+        new ApexCharts(el, {
+          chart: { type: 'area', height: 52, sparkline: { enabled: true }, animations: { enabled: false } },
+          series: [{ data: pts }], stroke: { width: 2, curve: 'smooth' }, colors: [getComputedStyle(document.documentElement).getPropertyValue('--primary').trim()],
+          fill: { type: 'gradient', gradient: { opacityFrom: .28, opacityTo: 0 } },
+          tooltip: { theme: th.mode, fixed: { enabled: false }, x: { show: false }, y: { formatter: function (v) { return fmtNum(v, kind); }, title: { formatter: function () { return ''; } } } }
+        }).render();
+      });
+    });
+  </script>
+{% endif %}
+{% endblock %}

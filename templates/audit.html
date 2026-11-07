@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Audit jurnali{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Audit jurnali</h1><p>Tizimdagi muhim amallar: kim, qachon, nima qildi.</p></div></div>
+<form method="get" class="card filters">
+  <div class="f"><label class="lbl">Amal</label><select name="action"><option value="">Hammasi</option>{% for a in actions %}<option value="{{ a }}" {% if a == action %}selected{% endif %}>{{ a }}</option>{% endfor %}</select></div>
+  <div class="f" style="flex:1"><label class="lbl">Qidiruv</label><input type="text" name="q" value="{{ q }}" placeholder="login yoki matn"></div>
+  <button class="btn btn-primary" type="submit">Qidirish</button>
+</form>
+<div class="card">
+  <table class="simple">
+    <thead><tr><th>Vaqt</th><th>Foydalanuvchi</th><th>Amal</th><th>Tafsilot</th></tr></thead>
+    <tbody>{% for r in page %}
+      <tr><td class="muted nowrap">{{ r.created_at|date:"d.m.Y H:i:s" }}</td><td><b>{{ r.username|default:"—" }}</b></td>
+          <td><span class="badge">{{ r.action }}</span></td><td style="overflow-wrap:anywhere">{{ r.detail }}</td></tr>
+    {% empty %}<tr><td colspan="4" class="empty">Yozuv topilmadi.</td></tr>{% endfor %}</tbody>
+  </table>
+  {% if page.paginator.num_pages > 1 %}
+  <div class="pager">
+    {% if page.has_previous %}<a class="btn btn-sm" href="?page={{ page.previous_page_number }}&action={{ action }}&q={{ q }}">←</a>{% endif %}
+    <span class="muted small">{{ page.number }} / {{ page.paginator.num_pages }}</span>
+    {% if page.has_next %}<a class="btn btn-sm" href="?page={{ page.next_page_number }}&action={{ action }}&q={{ q }}">→</a>{% endif %}
+  </div>{% endif %}
+</div>
+{% endblock %}

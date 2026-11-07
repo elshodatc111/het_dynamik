@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Ruxsat yo‘q{% endblock %}
+{% block content %}
+<div class="card empty" style="max-width:560px;margin:60px auto">
+  {% icon "alert" 36 %}
+  <h1 style="color:var(--text)">Ruxsat yo‘q</h1>
+  <p>Bu bo‘limga kirish uchun sizda ruxsat yo‘q. Administratorga murojaat qiling.</p>
+  <a class="btn btn-primary" href="{% url 'dashboard' %}">Bosh sahifaga</a>
+</div>
+{% endblock %}
+{% block bare %}<p style="padding:40px;text-align:center">Ruxsat yo‘q. <a href="{% url 'login' %}">Kirish</a></p>{% endblock %}

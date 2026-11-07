@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Solishtirish{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div>
+    <h1>Solishtirish</h1>
+    <p>Ikki sanani tanlang — dinamika avtomatik hisoblanadi.</p>
+  </div>
+  {% if comp and perms.reports.export_excel %}
+  <div class="actions">
+    <a class="btn btn-primary" href="{% url 'compare_export' %}?a={{ a|date:'Y-m-d' }}&b={{ b|date:'Y-m-d' }}">{% icon "download" 16 %} Excel yuklab olish</a>
+  </div>
+  {% endif %}
+</div>
+
+<form method="get" class="card filters">
+  <div class="f"><label class="lbl" for="a">Oldingi sana (A)</label>
+    <select name="a" id="a">{% for d, own in all_dates %}<option value="{{ d|date:'Y-m-d' }}" {% if d == a %}selected{% endif %}>{{ d|date:"d.m.Y" }}{% if not own %} · oldingi holat{% endif %}</option>{% endfor %}</select></div>
+  <div class="arrow-sep">→</div>
+  <div class="f"><label class="lbl" for="b">Keyingi sana (B)</label>
+    <select name="b" id="b">{% for d, own in all_dates %}<option value="{{ d|date:'Y-m-d' }}" {% if d == b %}selected{% endif %}>{{ d|date:"d.m.Y" }}{% if not own %} · oldingi holat{% endif %}</option>{% endfor %}</select></div>
+  <button class="btn btn-primary" type="submit">Solishtirish</button>
+  {% if quick %}
+  <div class="quick" style="margin-left:auto">
+    {% for q in quick %}<a class="btn btn-sm" href="?a={{ q.a|date:'Y-m-d' }}&b={{ q.b|date:'Y-m-d' }}">{{ q.label }}</a>{% endfor %}
+  </div>
+  {% endif %}
+</form>
+
+{% if not all_dates %}
+  <div class="card empty">{% icon "upload" 40 %}<h2 style="color:var(--text)">Ma’lumot yo‘q</h2><p>Avval kamida bitta PDF yuklang.</p>
+    {% if perms.reports.upload_pdf %}<a class="btn btn-primary" href="{% url 'upload' %}">PDF yuklash</a>{% endif %}</div>
+{% elif comp %}
+  {% if not comp.sections %}
+    <div class="card empty">{% icon "alert" 36 %}<p>Tanlangan sanalar uchun ma’lumot topilmadi.</p></div>
+  {% else %}
+  <div x-data="{ tab: '{{ comp.sections.0.section.key }}', diffOnly: false }">
+    <div style="display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:12px">
+      <div class="tabs" style="margin:0;max-width:100%">
+        {% for s in comp.sections %}<button type="button" class="tab" :class="{ on: tab === '{{ s.section.key }}' }" @click="tab = '{{ s.section.key }}'">{{ s.section.short }}</button>{% endfor %}
+      </div>
+      <label class="check small"><input type="checkbox" x-model="diffOnly"> Faqat farq ustunlari</label>
+    </div>
+
+    {% for s in comp.sections %}
+    <section x-show="tab === '{{ s.section.key }}'" {% if not forloop.first %}x-cloak{% endif %}>
+      <div class="muted small" style="margin:0 2px 8px">{{ s.section.title }}</div>
+      <div class="table-wrap">
+        <table class="data" :class="{ 'diff-only': diffOnly }">
+          <thead>
+            <tr>
+              <th class="first" rowspan="3">Hudud</th>
+              {% for g in s.groups %}<th class="sep" colspan="{% widthratio g.metrics|length 1 3 %}">{{ g.name|default:"—" }}</th>{% endfor %}
+            </tr>
+            <tr>{% for m in s.metrics %}<th class="sep" colspan="3">{{ m.label }}</th>{% endfor %}</tr>
+            <tr>{% for m in s.metrics %}<th class="ab">{{ a|date:"d.m" }}</th><th class="ab">{{ b|date:"d.m" }}</th><th class="sep">Farq</th>{% endfor %}</tr>
+          </thead>
+          <tbody>
+            {% for row in s.rows %}
+            <tr class="{% if row.is_total %}total{% endif %}">
+              <td class="first">{{ row.district.name }}</td>
+              {% for c in row.cells %}
+                <td class="ab">{{ c.a|fmt_metric:c.kind }}</td><td class="ab">{{ c.b|fmt_metric:c.kind }}</td>
+                <td class="diff sep {% if c.diff == 0 or c.diff is None %}zero{% endif %}">{{ c.diff|fmt_delta:c.kind }}</td>
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+    {% endfor %}
+  </div>
+  <style>.diff-only .ab { display: none; }</style>
+  {% endif %}
+{% endif %}
+{% endblock %}
