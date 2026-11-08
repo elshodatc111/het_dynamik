@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Sozlamalar{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Sozlamalar</h1><p>Butun loyiha uchun umumiy sozlamalar. Bo‘limlarga xos sozlamalar (masalan, Monitoring) o‘z menyusida.</p></div></div>
+<form method="post" class="stack" style="max-width:860px">{% csrf_token %}
+  <div class="card card-pad">
+    <h2 style="margin-bottom:4px">Telegram bot</h2>
+    <p class="muted small" style="margin-top:0">Bitta bot butun loyiha uchun ishlatiladi: Offline monitoring hisobotlari va keyingi bo‘limlar shu token orqali yuboradi.
+      Token @BotFather dan olinadi, bazada shifrlangan holda saqlanadi va sahifada qayta ko‘rsatilmaydi. Guruh ID si har bir bo‘limning o‘z sozlamasida (masalan, <a href="{% url 'mon_settings' %}">Monitoring sozlamalari</a>) kiritiladi.</p>
+    <p>Token holati:
+      {% if token_source == "db" %}<span class="badge badge-ok">{% icon "check" 12 %} sozlangan</span> <span class="kw muted">{{ token_mask }}</span>
+      {% elif token_source == "env" %}<span class="badge badge-ok">{% icon "check" 12 %} .env dan</span> <span class="kw muted">{{ token_mask }}</span>
+      {% else %}<span class="badge badge-err">kiritilmagan</span>{% endif %}</p>
+    {% if token_broken %}<div class="alert alert-warn">{% icon "alert" 18 %}<div class="body">Saqlangan tokenni o‘qib bo‘lmadi (server kaliti o‘zgargan bo‘lishi mumkin). Tokenni qaytadan kiriting.</div></div>{% endif %}
+    <div class="field"><label class="lbl" for="telegram_token">Bot tokeni</label>
+      <input type="password" id="telegram_token" name="telegram_token" value="" autocomplete="new-password" spellcheck="false"
+             placeholder="{% if token_source %}o‘zgartirish uchun yangi token kiriting{% else %}123456789:AAH...{% endif %}">
+      <div class="help">Bo‘sh qoldirilsa, hozirgi token o‘zgarmaydi.</div></div>
+    {% if token_source == "db" %}<label class="check" style="margin-bottom:14px"><input type="checkbox" name="clear_token" value="1"><span>Saqlangan tokenni o‘chirish</span></label>{% endif %}
+  </div>
+  <div class="actions"><button class="btn btn-primary" type="submit">{% icon "check" 16 %} Saqlash</button></div>
+</form>
+{% if token_source %}
+<form method="post" action="{% url 'site_telegram_check' %}" style="margin-top:12px">{% csrf_token %}
+  <button class="btn" type="submit">{% icon "send" 16 %} Tokenni tekshirish</button>
+  <span class="muted small">Telegramdan bot nomini so‘raydi.</span>
+</form>
+{% endif %}
+{% endblock %}

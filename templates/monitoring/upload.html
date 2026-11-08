@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Monitoring fayllarini yuklash{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Monitoring fayllarini yuklash</h1>
+  <p>Kunlik ikkita Excel faylni yuklang: «Online Device Monitoring» (konsentratorlar) va «NoMeterData» (aloqasiz hisoblagichlar). Turini tizim o‘zi aniqlaydi.</p></div></div>
+<form method="post" enctype="multipart/form-data" class="card card-pad" x-data="mix(dropzone('xlsx|xlsm'), jobMixin())" @submit.prevent="submit($event)" style="max-width:820px">{% csrf_token %}
+  <div class="drop" :class="{ over }" @click="$refs.input.click()"
+       @dragover.prevent="over = true" @dragleave.prevent="over = false" @drop.prevent="over = false; pick($event.dataTransfer.files)">
+    {% icon "upload" 40 %}
+    <b>Excel fayllarni shu yerga tashlang</b>
+    <span class="muted">yoki bosib tanlang · ikkala fayl birga yoki alohida</span>
+    <input type="file" name="files" accept=".xlsx,.xlsm,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" multiple hidden x-ref="input" @change="pick($event.target.files)">
+  </div>
+  <ul class="files" x-show="files.length" x-cloak>
+    <template x-for="f in files" :key="f.name"><li><span x-text="f.name" style="overflow-wrap:anywhere"></span><span class="muted nowrap" x-text="size(f)"></span></li></template>
+  </ul>
+  <div class="alert alert-warn" x-show="skipped" x-cloak style="margin-top:14px">{% icon "alert" 18 %}<div class="body">Faqat <b>.xlsx</b> fayllar qabul qilinadi — boshqa turdagi fayllar tashlab yuborildi.</div></div>
+  <div class="actions" style="margin-top:18px">
+    <button class="btn btn-primary" type="submit" :disabled="!files.length || phase === 'upload' || phase === 'work'">{% icon "check" 16 %} Tekshirish</button>
+    <span class="muted small">Katta fayl (30–40 ming qator) tekshirilishi bir necha soniya olishi mumkin.</span>
+  </div>
+  {% include '_job.html' %}
+</form>
+{% endblock %}

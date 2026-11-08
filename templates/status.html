@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Tizim holati{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Tizim holati</h1><p>Loyihaning qaysi qismi ishlayotgani va qayerda muammo borligi. Tekshirilgan: {{ res.checked|date:"d.m.Y H:i:s" }}</p></div>
+  <div class="actions"><a class="btn" href="?">Yangilash</a><a class="btn btn-primary" href="?tg=1">{% icon "send" 16 %} Telegramni qayta tekshirish</a></div></div>
+{% if res.overall == "ok" %}<div class="alert alert-ok">{% icon "check" 18 %}<div class="body"><b>Hammasi joyida.</b> Barcha qismlar ishlayapti.</div></div>
+{% else %}<div class="alert {% if res.overall == 'err' %}alert-err{% else %}alert-warn{% endif %}">{% icon "alert" 18 %}<div class="body"><b>{{ res.problems }} ta qismda e’tibor kerak.</b> Pastda qizil va sariq belgilangan qatorlarga qarang.</div></div>{% endif %}
+<div class="card"><table class="simple">
+  <thead><tr><th style="width:240px">Qism</th><th style="width:110px">Holat</th><th>Tafsilot</th></tr></thead>
+  <tbody>{% for i in res.items %}<tr>
+    <td><b>{{ i.title }}</b></td>
+    <td>{% if i.state == "ok" %}<span class="badge badge-ok">{% icon "check" 12 %} ishlayapti</span>{% elif i.state == "warn" %}<span class="badge badge-warn">{% icon "alert" 12 %} e’tibor</span>{% else %}<span class="badge badge-err">{% icon "x" 12 %} ishlamayapti</span>{% endif %}</td>
+    <td>{{ i.detail }}{% if i.hint %}<div class="muted small" style="margin-top:3px">→ {{ i.hint }}</div>{% endif %}</td></tr>{% endfor %}</tbody>
+</table></div>
+{% endblock %}

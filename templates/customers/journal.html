@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Customer · Jurnal{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Customer jurnali</h1><p>Kim, qachon, nechta qator yuborgan va tekshiruv natijasi.</p></div></div>
+<form method="get" class="card filters">
+  {% include "customers/_filters.html" %}
+  <button class="btn btn-primary" type="submit">Ko‘rsatish</button>
+</form>
+<div class="grid g-4" style="margin-bottom:16px">
+  <div class="card card-pad"><div class="muted small">Yuborilgan fayllar</div><div style="font-size:26px;font-weight:700">{{ sent|num }}</div></div>
+  <div class="card card-pad"><div class="muted small">Jami qatorlar</div><div style="font-size:26px;font-weight:700">{{ rows|num }}</div></div>
+  <div class="card card-pad"><div class="muted small">Tekshiruvdan o‘tgan</div><div style="font-size:26px;font-weight:700;color:var(--ok)">{{ ok|num }}</div></div>
+  <div class="card card-pad"><div class="muted small">O‘tmagan</div><div style="font-size:26px;font-weight:700;color:var(--err)">{{ bad|num }}</div></div>
+</div>
+<div class="card"><div class="scroll-x"><table class="simple">
+  <thead><tr><th>Vaqt</th><th>Foydalanuvchi</th><th>Fayl</th><th class="r">Jami qator</th><th class="r">O‘tgan</th><th class="r">O‘tmagan</th><th>Holat</th></tr></thead>
+  <tbody>{% for s in page %}<tr>
+    <td class="muted nowrap">{{ s.created_at|date:"d.m.Y H:i" }}</td>
+    <td><b>{{ s.user.full_name|default:s.user.tg_id }}</b><div class="muted small">{{ s.user.district }}</div></td>
+    <td class="small" style="overflow-wrap:anywhere">{{ s.filename|default:"—" }}</td>
+    <td class="r num">{{ s.total|num }}</td><td class="r num" style="color:var(--ok)"><b>{{ s.ok|num }}</b></td><td class="r num" style="color:var(--err)"><b>{{ s.bad|num }}</b></td>
+    <td>{% if s.rejected %}<span class="badge badge-err">rad etildi</span><div class="muted small">{{ s.rejected }}</div>
+        {% elif s.bad %}<span class="badge badge-warn">xatolar bor</span>{% else %}<span class="badge badge-ok">{% icon "check" 12 %} to‘liq qabul</span>{% endif %}</td></tr>
+  {% empty %}<tr><td colspan="7" class="empty">Yozuv topilmadi.</td></tr>{% endfor %}</tbody>
+</table></div>
+{% if page.paginator.num_pages > 1 %}<div class="pager">
+  {% if page.has_previous %}<a class="btn btn-sm" href="?page={{ page.previous_page_number }}&{{ qs }}">←</a>{% endif %}
+  <span class="muted small">{{ page.number }} / {{ page.paginator.num_pages }}</span>
+  {% if page.has_next %}<a class="btn btn-sm" href="?page={{ page.next_page_number }}&{{ qs }}">→</a>{% endif %}
+</div>{% endif %}</div>
+{% endblock %}

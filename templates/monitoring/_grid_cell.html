@@ -1,0 +1,1 @@
+{% load ui %}<td class="{% if c.sep %}sep{% endif %}">{% if c.url %}<a class="cell-link" href="{{ c.url }}">{{ c.v|num }}</a>{% elif c.v is None %}<span class="z">—</span>{% else %}<span class="{% if not c.v %}z{% endif %}">{{ c.v|num }}</span>{% endif %}</td>

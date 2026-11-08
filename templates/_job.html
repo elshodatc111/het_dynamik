@@ -1,0 +1,21 @@
+{# Jonli progress paneli. jobMixin() x-data ichida ishlatiladi. #}
+<div class="jobbox" x-show="phase !== 'idle'" x-cloak role="status" aria-live="polite">
+  <div class="jobbar-head">
+    <b x-text="phase === 'error' ? 'Xatolik' : (phase === 'upload' ? 'Fayl yuklanmoqda' : (phase === 'done' ? 'Tayyor' : 'Jarayon ketmoqda'))"></b>
+    <span class="muted small nowrap" x-show="phase !== 'error'" x-text="Math.round(barPct) + '%'"></span>
+  </div>
+  <div class="jobbar" x-show="phase !== 'error'"><i :style="'width:' + barPct + '%'" :class="{ full: barPct >= 100 }"></i></div>
+  <div class="muted small" style="margin-top:6px" x-show="phase === 'upload'" x-text="upText"></div>
+  <div class="muted small" style="margin-top:6px" x-show="phase === 'work' && label" x-text="label"></div>
+  <ol class="jobsteps" x-show="phase !== 'error'">
+    <template x-for="(name, i) in shown" :key="i">
+      <li :class="{ done: i < cur || phase === 'done', now: i === cur && phase !== 'done' }">
+        <span class="dot"></span><span x-text="name"></span>
+      </li>
+    </template>
+  </ol>
+  <div class="alert alert-err" x-show="phase === 'error'" style="margin:10px 0 0">
+    <div class="body"><span x-text="error"></span></div>
+  </div>
+  <div class="actions" x-show="phase === 'error'" style="margin-top:12px"><button type="button" class="btn" @click="reset()">Yopish va qayta urinish</button></div>
+</div>

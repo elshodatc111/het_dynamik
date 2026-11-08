@@ -11,4 +11,8 @@ urlpatterns = [
     path("foydalanuvchilar/yangi/", views.user_create, name="users_new"),
     path("foydalanuvchilar/<int:pk>/", views.user_edit, name="users_edit"),
     path("foydalanuvchilar/<int:pk>/holat/", views.user_toggle, name="users_toggle"),
+    path("rollar/", views.roles, name="roles"),
+    path("rollar/yangi/", views.role_edit, name="role_new"),
+    path("rollar/<int:pk>/", views.role_edit, name="role_edit"),
+    path("rollar/<int:pk>/ochirish/", views.role_delete, name="role_delete"),
 ]

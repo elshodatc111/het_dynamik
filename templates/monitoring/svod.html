@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Umumiy svod{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h1>Offline monitoring · Umumiy svod</h1>
+    {% if snap %}<p>{% if is_latest %}Eng oxirgi hisobot{% else %}<span class="badge badge-warn">Arxiv ma’lumoti</span> oldingi yuklangan hisobot{% endif %}
+      · konsentratorlar: {% if snap.has_dcu %}<span class="badge badge-ok">yuklangan</span>{% else %}<span class="badge badge-warn">yo‘q</span>{% endif %}
+      · hisoblagichlar: {% if snap.has_meters %}<span class="badge badge-ok">yuklangan</span>{% else %}<span class="badge badge-warn">yo‘q</span>{% endif %}</p>{% endif %}</div>
+  <div class="actions">
+    {% if perms.reports.upload_monitoring %}<a class="btn" href="{% url 'mon_upload' %}">{% icon "upload" 16 %} Fayl yuklash</a>{% endif %}
+    {% if snap %}<a class="btn" href="{% url 'mon_svod_image' snap.pk %}?dl=1">{% icon "download" 16 %} Rasm</a>{% endif %}
+    {% if snap and perms.reports.export_excel %}<a class="btn" href="{% url 'mon_download' snap.pk 'svod' %}">{% icon "download" 16 %} Excel</a>
+    <a class="btn" href="{% url 'mon_download' snap.pk 'svod' %}?pdf=1">{% icon "download" 16 %} PDF</a>{% endif %}
+    {% if snap and perms.reports.send_monitoring %}<a class="btn btn-primary" href="{% url 'mon_send' snap.pk %}">{% icon "send" 16 %} Telegramga yuborish</a>{% endif %}
+  </div>
+</div>
+
+{% if not snap %}
+<div class="card empty">{% icon "pulse" 40 %}<h2 style="color:var(--text);margin-bottom:6px">Hali ma’lumot yuklanmagan</h2>
+  <p>Kunlik «Online Device Monitoring» va «NoMeterData» Excel fayllarini yuklang.</p>
+  {% if perms.reports.upload_monitoring %}<a class="btn btn-primary" href="{% url 'mon_upload' %}">{% icon "upload" 16 %} Fayl yuklash</a>{% endif %}</div>
+{% else %}
+
+<div class="card datebar">
+  <span class="lbl" style="margin:0">{% icon "cal" 16 %} Sana</span>
+  {% if older %}<a class="btn btn-sm btn-icon" href="{% url 'mon_snapshot' older.pk %}" title="Oldingi: {{ older.report_date|date:'d.m.Y' }}" aria-label="Oldingi sana">‹</a>
+  {% else %}<span class="btn btn-sm btn-icon" style="opacity:.4;pointer-events:none">‹</span>{% endif %}
+  <select onchange="location.href=this.value" aria-label="Hisobot sanasi">
+    {% for s in snaps %}<option value="{% url 'mon_snapshot' s.pk %}" {% if s.pk == snap.pk %}selected{% endif %}>{{ s.report_date|date:"d.m.Y" }}{% if forloop.first %} · eng oxirgi{% endif %}</option>{% endfor %}
+  </select>
+  {% if newer %}<a class="btn btn-sm btn-icon" href="{% url 'mon_snapshot' newer.pk %}" title="Keyingi: {{ newer.report_date|date:'d.m.Y' }}" aria-label="Keyingi sana">›</a>
+  {% else %}<span class="btn btn-sm btn-icon" style="opacity:.4;pointer-events:none">›</span>{% endif %}
+  {% if not is_latest %}<a class="btn btn-sm" href="{% url 'mon_dashboard' %}">Eng oxirgisiga o‘tish</a>{% endif %}
+  <span class="muted small" style="margin-left:auto">{{ snaps|length }} ta hisobot saqlangan · <a href="{% url 'mon_compare' %}?b={{ snap.pk }}">bu sanani solishtirish →</a></span>
+</div>
+
+{% if not snap.has_dcu or not snap.has_meters %}
+<div class="alert alert-warn">{% icon "alert" 18 %}<div class="body">
+  {% if not snap.has_dcu %}<b>Konsentratorlar fayli</b> bu sana uchun yuklanmagan. {% endif %}
+  {% if not snap.has_meters %}<b>Hisoblagichlar fayli</b> bu sana uchun yuklanmagan. {% endif %}
+  {% if perms.reports.upload_monitoring %}<a href="{% url 'mon_upload' %}">Fayl yuklash →</a>{% endif %}</div></div>
+{% endif %}
+{% if snap.has_meters and snap.meter_detail_purged %}
+<div class="alert">{% icon "alert" 18 %}<div class="body">Bu sana uchun hisoblagich nomma-nom ro‘yxati tozalangan (saqlash muddati o‘tgan) — faqat svod sonlari ko‘rinadi.</div></div>
+{% endif %}
+{% if g.gkeys|length > 3 %}
+<div class="alert alert-warn">{% icon "alert" 18 %}<div class="body">Ba’zi hisoblagichlarning iste’molchi turi aniqlanmadi («Boshqa» ustuni).
+  {% if perms.reports.manage_monitoring %}<a href="{% url 'mon_settings' %}">Sozlamalarda kalit so‘z qo‘shing →</a>{% endif %}</div></div>
+{% endif %}
+{% if snap.warnings %}
+<details class="card card-pad" style="margin-bottom:16px"><summary>{{ snap.warnings|length }} ta ogohlantirish</summary>
+  <ul class="issues">{% for w in snap.warnings %}<li>{{ w }}</li>{% endfor %}</ul></details>
+{% endif %}
+
+<div class="card svod-card">
+  <div class="svod-title">Qashqadaryo HETK hududida CAS dasturida offline konsentratorlar va aloqaga chiqmay qolgan hisoblagichlar holati bo‘yicha</div>
+  <div class="svod-sub">MA’LUMOT</div>
+  <div class="svod-meta"><span>Hudud nomi: <b class="region">{{ region }}</b></span><span class="date">Ma’lumot: {{ snap.report_date|date:"d.m.Y" }}</span></div>
+  <div class="table-wrap svod-wrap">
+    <table class="svod">
+      {% include "monitoring/_grid_head.html" %}
+      <tbody>
+        <tr class="total"><th class="first">{{ g.total_c.esp }}</th>{% for c in g.total_c.cells %}{% include "monitoring/_grid_cell.html" %}{% endfor %}</tr>
+        {% for r in g.rows_c %}<tr><th class="first">{{ r.esp }}</th>{% for c in r.cells %}{% include "monitoring/_grid_cell.html" %}{% endfor %}</tr>
+        {% empty %}<tr><td colspan="40" class="empty">Ma’lumot yo‘q.</td></tr>{% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="svod-foot muted small">{% icon "table" 14 %} Raqam ustiga bosing — o‘sha yacheykadagi nomma-nom ro‘yxat ochiladi va Excelga yuklab olinadi.
+    Konsentratorlar: {{ g.d_min }} kundan kam offline, hisoblagichlar: {{ g.m_min }} kundan kam aloqasizlar hisobga olinmagan.</div>
+</div>
+{% endif %}
+{% endblock %}

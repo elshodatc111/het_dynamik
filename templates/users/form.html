@@ -26,7 +26,9 @@
     <div class="field"><label class="lbl" for="{{ form.role.id_for_label }}">{{ form.role.label }}</label>{{ form.role }}{{ form.role.errors }}
       <div class="help">Rol — tayyor ruxsatlar to‘plami. Kerak bo‘lsa pastdan alohida ruxsat qo‘shing.</div></div>
     <div class="field"><span class="lbl">{{ form.extra_perms.label }}</span>
-      <div class="checks">{% for c in form.extra_perms %}<label class="check">{{ c.tag }}<span>{{ c.choice_label }}</span></label>{% endfor %}</div></div>
+      {% if form.extra_perms.field.disabled %}<div class="help">O‘zingizning ruxsatlaringizni o‘zgartira olmaysiz.</div>{% else %}
+      {% include "users/_perm_picker.html" with name="extra_perms" %}{% endif %}</div>
+    {% if effective %}<details class="field"><summary>Hozir amalda bo‘lgan ruxsatlar ({{ effective|length }})</summary><div class="help">{{ effective|join:", " }}</div></details>{% endif %}
     <div class="actions" style="margin-top:22px"><button class="btn btn-primary" type="submit">{% icon "check" 16 %} Saqlash</button><a class="btn" href="{% url 'users' %}">Bekor qilish</a></div>
   </div>
 </form>

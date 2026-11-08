@@ -3,7 +3,7 @@
 {% block title %}Foydalanuvchilar{% endblock %}
 {% block content %}
 <div class="page-head"><div><h1>Foydalanuvchilar</h1><p>Jamoa a’zolariga rol bering yoki kirishni o‘chirib qo‘ying.</p></div>
-  <a class="btn btn-primary" href="{% url 'users_new' %}">{% icon "plus" 16 %} Yangi foydalanuvchi</a></div>
+  <div class="actions">{% if perms.reports.manage_roles %}<a class="btn" href="{% url 'roles' %}">Rollar va ruxsatlar</a>{% endif %}<a class="btn btn-primary" href="{% url 'users_new' %}">{% icon "plus" 16 %} Yangi foydalanuvchi</a></div></div>
 
 <div class="card" style="margin-bottom:16px">
   <table class="simple">
@@ -29,7 +29,7 @@
 
 <div class="card card-pad">
   <h2 style="margin-bottom:10px">Rollar</h2>
-  <div class="grid g-2">{% for name, info in roles.items %}
-    <div><span class="badge badge-primary">{{ name }}</span> <span class="muted small" style="margin-left:6px">{{ info.0 }}</span></div>{% endfor %}</div>
+  <div class="grid g-2">{% for r in roles %}
+    <div><span class="badge badge-primary">{{ r.name }}</span> <span class="muted small" style="margin-left:6px">{{ r.desc }} · {{ r.perms }} ruxsat</span></div>{% endfor %}</div>
 </div>
 {% endblock %}

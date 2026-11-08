@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static ui %}
+{% block title %}Location · {{ p.number }}{% endblock %}
+{% block head %}<link rel="stylesheet" href="{% static 'vendor/leaflet/leaflet.css' %}"><script src="{% static 'vendor/leaflet/leaflet.js' %}"></script>{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>{{ p.number }}</h1><p>{{ p.get_kind_display }} · {{ p.district }}</p></div>
+  <div class="actions"><a class="btn" href="{% url 'location_data' %}">← Ro‘yxat</a>
+  {% if can_manage %}<form method="post" action="{% url 'location_delete' p.pk %}" onsubmit="return confirm('Bu yozuv o‘chirilsinmi?')">{% csrf_token %}<button class="btn btn-danger" type="submit">{% icon "trash" 16 %} O‘chirish</button></form>{% endif %}</div></div>
+<div class="grid g-2" style="align-items:start">
+  <div class="card card-pad">
+    <table class="kv">
+      <tr><th>Turi</th><td>{{ p.get_kind_display }}</td></tr><tr><th>Nomer</th><td class="num">{{ p.number }}</td></tr>
+      {% if p.kind == 'Meter' %}<tr><th>Iste’molchi turi</th><td>{{ p.consumer_type }}</td></tr>{% endif %}
+      <tr><th>Tuman</th><td>{{ p.district }}</td></tr><tr><th>Podstansiya</th><td>{{ p.substation }}</td></tr>
+      <tr><th>Fider</th><td>{{ p.feeder }}</td></tr><tr><th>TP</th><td>{{ p.tp }}</td></tr>
+      {% if p.account %}<tr><th>Hisob raqam</th><td>{{ p.account }}</td></tr>{% endif %}
+      {% if p.fio %}<tr><th>FIO</th><td>{{ p.fio }}</td></tr>{% endif %}
+      {% if p.address %}<tr><th>Manzil</th><td>{{ p.address }}</td></tr>{% endif %}
+      <tr><th>Koordinata</th><td class="num">{{ p.lat }}, {{ p.lon }}</td></tr>
+      <tr><th>Yangilangan</th><td>{{ p.updated_at|date:"d.m.Y H:i" }}</td></tr>
+    </table>
+    <div class="map-btns">{% for row in maps %}{% for b in row %}<a class="btn btn-sm" target="_blank" rel="noopener" href="{{ b.url }}">{{ b.text }}</a>{% endfor %}{% endfor %}</div>
+  </div>
+  <div class="card"><div id="map" class="map-box" style="height:420px"></div></div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var m = L.map('map').setView([{{ p.lat|stringformat:"f" }}, {{ p.lon|stringformat:"f" }}], 16);
+  var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap' }).addTo(m);
+  var sat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19, attribution: 'Esri' });
+  L.control.layers({ 'Xarita': osm, 'Sun’iy yo‘ldosh': sat }).addTo(m);
+  L.marker([{{ p.lat|stringformat:"f" }}, {{ p.lon|stringformat:"f" }}]).addTo(m).bindPopup('{{ p.number|escapejs }}').openPopup();
+});
+</script>
+{% endblock %}

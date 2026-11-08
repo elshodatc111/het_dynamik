@@ -23,20 +23,17 @@ from .parser.extract import ParsedReport, parse_pdf
 from .parser.validate import check_against_db, validate
 
 # ------------------------------------------------------------------ rollar
-PERMS = {
-    "view_dashboard": "Bosh sahifa, solishtirish va trendni ko‘rish",
-    "export_excel": "Excel va asl PDF ni yuklab olish",
-    "upload_pdf": "PDF yuklash",
-    "manage_uploads": "Yuklangan sanani almashtirish yoki o‘chirish",
-    "manage_users": "Foydalanuvchi va rollarni boshqarish",
-    "view_audit": "Audit jurnalini ko‘rish",
-}
+from .perms import PERM_GROUPS, PERMS  # noqa: E402,F401
+
 ROLES = {
     "Admin": ("Barcha imkoniyatlar", list(PERMS)),
-    "Operator": ("PDF yuklaydi, ko‘radi va Excel oladi", ["view_dashboard", "export_excel", "upload_pdf"]),
-    "Tahlilchi": ("Ko‘radi va Excel oladi", ["view_dashboard", "export_excel"]),
-    "Kuzatuvchi": ("Faqat ko‘radi", ["view_dashboard"]),
+    "Operator": ("Fayl yuklaydi, ko‘radi, Excel oladi va Telegramga yuboradi",
+                 ["view_dashboard", "export_excel", "upload_pdf", "view_monitoring", "upload_monitoring", "send_monitoring", "view_location"]),
+    "Tahlilchi": ("Ko‘radi va Excel oladi", ["view_dashboard", "export_excel", "view_monitoring", "view_location"]),
+    "Kuzatuvchi": ("Faqat ko‘radi", ["view_dashboard", "view_monitoring"]),
 }
+# Mavjud rollarga yangilanishda avtomatik qo‘shiladigan ruxsatlar (qolganini administrator o‘zi belgilaydi)
+AUTO_ADD = {"view_location"}
 
 
 def sync_catalog():
@@ -65,6 +62,8 @@ def sync_roles():
         group, created = Group.objects.get_or_create(name=role)
         if created or role == "Admin":
             group.permissions.set([perms[c] for c in codes if c in perms])
+        else:  # yangi bo‘lim ruxsatlari mavjud rollarga ham qo‘shiladi (mavjudlari o‘zgarmaydi)
+            group.permissions.add(*[perms[c] for c in codes if c in perms and (c.endswith("_monitoring") or c in AUTO_ADD)])
 
 
 def audit(user, action: str, detail: str = ""):
@@ -96,7 +95,7 @@ def pending_path(token: str) -> Path | None:
 def stash_upload(uploaded) -> tuple[str, Path]:
     """Yuklangan faylni vaqtincha saqlaydi. Eski (24 soatdan oshgan) fayllarni tozalaydi."""
     now = time.time()
-    for old in pending_dir().glob("*.pdf"):
+    for old in list(pending_dir().glob("*.pdf")) + list(pending_dir().glob("*.pkl")):
         if now - old.stat().st_mtime > 86400:
             old.unlink(missing_ok=True)
     token = uuid.uuid4().hex
@@ -105,6 +104,29 @@ def stash_upload(uploaded) -> tuple[str, Path]:
         for chunk in uploaded.chunks():
             fh.write(chunk)
     return token, path
+
+
+def parsed_path(token: str) -> Path:
+    return pending_dir() / f"{token}.pkl"
+
+
+def save_parsed(token: str, rep) -> None:
+    import pickle
+
+    with open(parsed_path(token), "wb") as fh:
+        pickle.dump(rep, fh, protocol=pickle.HIGHEST_PROTOCOL)
+
+
+def load_parsed(token: str):
+    import pickle
+
+    if not PENDING_TOKEN.match(token or ""):
+        return None
+    try:
+        with open(parsed_path(token), "rb") as fh:
+            return pickle.load(fh)
+    except (OSError, pickle.PickleError, EOFError):
+        return None
 
 
 def file_sha256(path: Path) -> str:
@@ -124,9 +146,14 @@ def db_lookup_factory(prev_date: date):
     return lambda s, d, m, _date: cache.get((s, d, m))
 
 
-def analyse_file(path: Path) -> ParsedReport:
-    """PDF ni o‘qiydi, ichki va bazadagi ma’lumotlar bilan tekshiradi."""
-    rep = validate(parse_pdf(path))
+def analyse_file(path: Path, progress=None) -> ParsedReport:
+    """PDF ni o‘qiydi, ichki va bazadagi ma’lumotlar bilan tekshiradi.
+
+    progress(bosqich, a, b): «read» — a/b sahifa; «check» — tekshiruv boshlandi."""
+    rep = parse_pdf(path, (lambda a, b: progress("read", a, b)) if progress else None)
+    if progress:
+        progress("check", 0, 0)
+    rep = validate(rep)
     if rep.ok and rep.prev_date:
         rep.warnings.extend(check_against_db(rep, db_lookup_factory(rep.prev_date)))
     return rep

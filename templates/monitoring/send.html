@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Telegramga yuborish{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Telegramga yuborish · {{ snap.report_date|date:"d.m.Y" }}</h1>
+  <p>Yuborishdan oldin tarkibni tekshiring. «Yuborish» tugmasi bosilmaguncha hech narsa jo‘natilmaydi.</p></div>
+  <a class="btn" href="{% url 'mon_snapshot' snap.pk %}">← Orqaga</a></div>
+
+{% if not configured %}
+<div class="alert alert-err">{% icon "alert" 18 %}<div class="body"><b>Bot tokeni kiritilmagan.</b> {% if perms.reports.manage_users %}<a href="{% url 'site_settings' %}">Sozlamalarda kiriting →</a>{% else %}Administratorga murojaat qiling.{% endif %}</div></div>
+{% endif %}
+{% if not chat_id %}
+<div class="alert alert-err">{% icon "alert" 18 %}<div class="body"><b>Guruh ID si belgilanmagan.</b>
+  {% if perms.reports.manage_monitoring %}<a href="{% url 'mon_settings' %}">Sozlamalarda belgilang →</a>{% endif %}</div></div>
+{% endif %}
+
+<form method="post" class="grid g-2" style="align-items:start" x-data="jobMixin({ attach: '{{ attach_url }}' })" @submit.prevent="submit($event)">{% csrf_token %}
+  <div class="card card-pad">
+    <h2 style="margin-bottom:12px">Yuboriladigan fayllar</h2>
+    <div class="checklist">
+      {% for f in files %}<label class="check"><input type="checkbox" name="kind" value="{{ f.kind }}" checked><span>{{ f.label }}</span></label>{% empty %}
+      <div class="muted">Yuboriladigan fayl yo‘q.</div>{% endfor %}
+    </div>
+    <p class="muted small" style="margin-top:12px">Guruh: {% if chat_title %}<b>{{ chat_title }}</b> <span class="faint">({{ chat_id }})</span>{% else %}<b>{{ chat_id|default:"—" }}</b>{% endif %}</p>
+    <label class="check" style="margin-top:14px"><input type="checkbox" name="confirm" value="1"><span><b>Ha, shu hisobot guruhga yuborilsin</b></span></label>
+    <div class="actions" style="margin-top:16px">
+      <button class="btn btn-primary" type="submit" :disabled="{% if not configured or not chat_id or running %}true{% else %}false{% endif %} || phase === 'work' || phase === 'upload'">{% icon "send" 16 %} Yuborish</button>
+      <a class="btn" href="{% url 'mon_snapshot' snap.pk %}">Bekor qilish</a>
+    </div>
+    {% include '_job.html' %}
+  </div>
+  <div class="card card-pad">
+    <h2 style="margin-bottom:12px">Guruhga yuboriladigan svod (rasm)</h2>
+    <a href="{% url 'mon_svod_image' snap.pk %}" target="_blank"><img src="{% url 'mon_svod_image' snap.pk %}" alt="Svod" style="width:100%;border:1px solid var(--line,#e2e7ee);border-radius:8px"></a>
+    <p class="muted small" style="margin-top:8px">Avval shu rasm, so‘ng tanlangan Excel fayllar yuboriladi. Svod Excel yuborilmaydi.</p>
+  </div>
+</form>
+
+<div class="card" style="margin-top:16px">
+  <div class="card-head"><h2>Yuborish jurnali</h2>{% if running %}<span class="badge badge-primary">yuborilmoqda…</span>{% endif %}</div>
+  {% if logs %}
+  <table class="simple">
+    <thead><tr><th>Vaqt</th><th>Kim</th><th>Holat</th><th>Tafsilot</th></tr></thead>
+    <tbody>{% for l in logs %}<tr><td class="muted nowrap">{{ l.created_at|date:"d.m.Y H:i" }}</td><td>{{ l.username|default:"—" }}</td>
+      <td>{% if l.status == "ok" %}<span class="badge badge-ok">yuborildi</span>{% elif l.status == "error" %}<span class="badge badge-err">xato</span>{% else %}<span class="badge badge-primary">yuborilmoqda</span>{% endif %}</td>
+      <td style="overflow-wrap:anywhere">{{ l.detail|default:"—" }}</td></tr>{% endfor %}</tbody>
+  </table>
+  {% else %}<div class="empty small">Hali yuborilmagan.</div>{% endif %}
+</div>
+{% endblock %}

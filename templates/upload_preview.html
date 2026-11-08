@@ -5,7 +5,7 @@
 <div class="page-head"><div><h1>Tekshiruv natijasi</h1><p>Hali hech narsa saqlanmadi. Natijani ko‘rib chiqib, tasdiqlang.</p></div>
   <a class="btn" href="{% url 'upload' %}">← Boshqa fayl</a></div>
 
-<form method="post" action="{% url 'upload_confirm' %}">{% csrf_token %}
+<form method="post" action="{% url 'upload_confirm' %}" x-data="jobMixin()" @submit.prevent="submit($event)">{% csrf_token %}
   {% for c in cards %}
   {% with rep=c.report %}
   <div class="card ucard" x-data="{ open: false }">
@@ -68,8 +68,9 @@
   {% endfor %}
 
   <div class="actions" style="margin-top:20px">
-    {% if has_ok %}<button class="btn btn-primary" type="submit">{% icon "check" 16 %} Tanlanganlarni saqlash</button>{% endif %}
+    {% if has_ok %}<button class="btn btn-primary" type="submit" :disabled="phase === 'work' || phase === 'upload'">{% icon "check" 16 %} Tanlanganlarni saqlash</button>{% endif %}
     <a class="btn" href="{% url 'upload' %}">Bekor qilish</a>
   </div>
+  {% include '_job.html' %}
 </form>
 {% endblock %}

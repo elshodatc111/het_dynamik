@@ -10,6 +10,7 @@
   {% if comp and perms.reports.export_excel %}
   <div class="actions">
     <a class="btn btn-primary" href="{% url 'compare_export' %}?a={{ a|date:'Y-m-d' }}&b={{ b|date:'Y-m-d' }}">{% icon "download" 16 %} Excel yuklab olish</a>
+    <a class="btn" href="{% url 'compare_export' %}?a={{ a|date:'Y-m-d' }}&b={{ b|date:'Y-m-d' }}&fmt=pdf">{% icon "download" 16 %} PDF yuklab olish</a>
   </div>
   {% endif %}
 </div>

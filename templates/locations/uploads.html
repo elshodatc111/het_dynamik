@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Location · Yuklash jurnali{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Location yuklash jurnali</h1><p>Kim, qachon, qaysi faylni yuklagani va natija.</p></div>
+  {% if can_upload %}<a class="btn btn-primary" href="{% url 'location_upload' %}">{% icon "upload" 16 %} Fayl yuklash</a>{% endif %}</div>
+<div class="card"><div class="scroll-x"><table class="simple">
+  <thead><tr><th>Vaqt</th><th>Foydalanuvchi</th><th>Fayl</th><th class="r">Jami</th><th class="r">Yangi</th><th class="r">Yangilandi</th><th class="r">O‘zgarmagan</th><th class="r">Xato</th><th></th></tr></thead>
+  <tbody>{% for u in page %}<tr {% if u.pk == new %}style="background:var(--ok-soft)"{% endif %}>
+    <td class="muted nowrap">{{ u.created_at|date:"d.m.Y H:i" }}</td><td>{{ u.username|default:"—" }}</td><td class="small" style="overflow-wrap:anywhere">{{ u.filename }}</td>
+    <td class="r num">{{ u.total|num }}</td><td class="r num" style="color:var(--ok)"><b>{{ u.created|num }}</b></td><td class="r num"><b>{{ u.updated|num }}</b></td>
+    <td class="r num muted">{{ u.unchanged|num }}</td><td class="r num" style="color:var(--err)"><b>{{ u.bad|num }}</b></td>
+    <td class="r">{% if u.error_file %}<a class="btn btn-sm" href="{% url 'location_upload_errors' u.pk %}">{% icon "download" 14 %} Xatolar</a>{% endif %}</td></tr>
+  {% empty %}<tr><td colspan="9" class="empty">Hali fayl yuklanmagan.</td></tr>{% endfor %}</tbody></table></div>
+{% if page.paginator.num_pages > 1 %}<div class="pager">
+  {% if page.has_previous %}<a class="btn btn-sm" href="?page={{ page.previous_page_number }}">←</a>{% endif %}<span class="muted small">{{ page.number }} / {{ page.paginator.num_pages }}</span>
+  {% if page.has_next %}<a class="btn btn-sm" href="?page={{ page.next_page_number }}">→</a>{% endif %}</div>{% endif %}</div>
+{% endblock %}

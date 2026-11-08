@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Rollar{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Rollar va ruxsatlar</h1><p>Har bir rol uchun qaysi bo‘limda nimaga ruxsat berilishini o‘zingiz belgilang.</p></div>
+  <div class="actions"><a class="btn" href="{% url 'users' %}">Foydalanuvchilar</a><a class="btn btn-primary" href="{% url 'role_new' %}">{% icon "plus" 16 %} Yangi rol</a></div></div>
+<div class="grid g-2">{% for r in roles %}
+  <div class="card card-pad">
+    <div style="display:flex;justify-content:space-between;gap:10px;align-items:start">
+      <div><h2>{{ r.name }}</h2><div class="muted small">{{ r.desc }}</div></div>
+      {% if r.builtin %}<span class="badge">tayyor</span>{% else %}<span class="badge badge-primary">maxsus</span>{% endif %}
+    </div>
+    <div class="muted small" style="margin:12px 0">{{ r.perms }} ta ruxsat · {{ r.users }} ta foydalanuvchi{% if r.locked %} · doim barcha ruxsat{% endif %}</div>
+    <div class="actions">
+      {% if not r.locked %}<a class="btn btn-sm" href="{% url 'role_edit' r.pk %}">Ruxsatlarni sozlash</a>{% endif %}
+      {% if not r.builtin %}<form method="post" action="{% url 'role_delete' r.pk %}" onsubmit="return confirm('Rol o‘chirilsinmi?')">{% csrf_token %}<button class="btn btn-sm btn-danger" type="submit">O‘chirish</button></form>{% endif %}
+    </div>
+  </div>{% endfor %}</div>
+{% endblock %}

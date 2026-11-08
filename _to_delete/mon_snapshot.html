@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static ui %}
+{% block title %}Monitoring {{ snap.report_date|date:"d.m.Y" }}{% endblock %}
+{% block head %}<script defer src="{% static 'vendor/apexcharts.min.js' %}"></script>{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h1>Monitoring · {{ snap.report_date|date:"d.m.Y" }}</h1>
+    <p>{% if snap.has_dcu %}Konsentratorlar: {{ snap.dcu_name }}{% endif %}{% if snap.has_dcu and snap.has_meters %} · {% endif %}{% if snap.has_meters %}Hisoblagichlar: {{ snap.meter_name }}{% endif %}</p></div>
+  <div class="actions">
+    <a class="btn" href="{% url 'mon_archive' %}">← Arxiv</a>
+    {% if perms.reports.send_monitoring %}<a class="btn btn-primary" href="{% url 'mon_send' snap.pk %}">{% icon "send" 16 %} Telegramga yuborish</a>{% endif %}
+  </div>
+</div>
+{% include "monitoring/_summary.html" %}
+
+{% if perms.reports.export_excel and files %}
+<div class="card" style="margin-top:16px">
+  <div class="card-head"><h2>Excel fayllar</h2><span class="muted small">yuklab olish</span></div>
+  <table class="simple"><tbody>
+    {% for f in files %}<tr><td>{{ f.label }}</td><td class="r"><a class="btn btn-sm" href="{% url 'mon_download' snap.pk f.kind %}">{% icon "download" 14 %} Yuklab olish</a></td></tr>{% endfor %}
+  </tbody></table>
+</div>
+{% endif %}
+
+<div class="card" style="margin-top:16px">
+  <div class="card-head"><h2>Telegram jurnali</h2>{% if running %}<span class="badge badge-primary">yuborilmoqda…</span>{% endif %}</div>
+  {% if logs %}
+  <table class="simple">
+    <thead><tr><th>Vaqt</th><th>Kim</th><th>Holat</th><th>Tafsilot</th></tr></thead>
+    <tbody>{% for l in logs %}<tr><td class="muted nowrap">{{ l.created_at|date:"d.m.Y H:i" }}</td><td>{{ l.username|default:"—" }}</td>
+      <td>{% if l.status == "ok" %}<span class="badge badge-ok">yuborildi</span>{% elif l.status == "error" %}<span class="badge badge-err">xato</span>{% else %}<span class="badge badge-primary">yuborilmoqda</span>{% endif %}</td>
+      <td style="overflow-wrap:anywhere">{{ l.detail|default:"—" }}</td></tr>{% endfor %}</tbody>
+  </table>
+  {% else %}<div class="empty small">Hali yuborilmagan.</div>{% endif %}
+</div>
+{% if running %}<script>setTimeout(function () { location.reload(); }, 4000);</script>{% endif %}
+{% endblock %}

@@ -28,9 +28,10 @@ class UserForm(forms.ModelForm):
     def __init__(self, *args, editing_self=False, **kwargs):
         super().__init__(*args, **kwargs)
         self.editing_self = editing_self
-        self.fields["role"].choices = [("", "— rolsiz —")] + [(r, f"{r} — {d}") for r, (d, _c) in ROLES.items()]
+        self.fields["role"].choices = [("", "— rolsiz —")] + [
+            (g.name, f"{g.name} — {ROLES[g.name][0]}" if g.name in ROLES else g.name) for g in Group.objects.order_by("name")]
         if self.instance.pk:
-            grp = self.instance.groups.filter(name__in=ROLES).first()
+            grp = self.instance.groups.first()
             self.fields["role"].initial = grp.name if grp else ""
             self.fields["extra_perms"].initial = [
                 p.codename for p in self.instance.user_permissions.filter(content_type__app_label="reports")
@@ -55,3 +56,31 @@ class UserForm(forms.ModelForm):
                 except forms.ValidationError as exc:
                     self.add_error("password1", exc)
         return data
+
+
+class RoleForm(forms.Form):
+    name = forms.CharField(label="Rol nomi", max_length=60)
+    perms = forms.MultipleChoiceField(label="Ruxsatlar", required=False, choices=[(k, v) for k, v in PERMS.items()],
+                                      widget=forms.CheckboxSelectMultiple)
+
+    def __init__(self, *args, group=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.group = group
+        if group is not None:
+            self.fields["name"].initial = group.name
+            self.fields["perms"].initial = list(group.permissions.filter(content_type__app_label="reports").values_list("codename", flat=True))
+            if group.name in ROLES:            # tayyor rol nomi o‘zgarmaydi
+                self.fields["name"].disabled = True
+
+    def clean_name(self):
+        name = (self.cleaned_data.get("name") or "").strip()
+        if self.group is not None and self.group.name in ROLES:
+            return self.group.name
+        if not name:
+            raise forms.ValidationError("Rol nomini yozing.")
+        qs = Group.objects.filter(name__iexact=name)
+        if self.group is not None:
+            qs = qs.exclude(pk=self.group.pk)
+        if qs.exists():
+            raise forms.ValidationError("Bunday nomli rol bor.")
+        return name

@@ -30,6 +30,10 @@ INSTALLED_APPS = [
     "apps.core",
     "apps.accounts",
     "apps.reports",
+    "apps.monitoring",
+    "apps.customers",
+    "apps.locations",
+    "apps.broadcasts",
 ]
 
 MIDDLEWARE = [
@@ -115,6 +119,12 @@ MEDIA_ROOT = Path(os.environ.get("MEDIA_ROOT", BASE_DIR / "media"))
 DATA_UPLOAD_MAX_MEMORY_SIZE = 60 * 1024 * 1024
 FILE_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024
 MAX_PDF_SIZE = 40 * 1024 * 1024
+
+# Offline monitoring: Telegram bot (token faqat .env da saqlanadi)
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "")
+JOBS_SYNC = env_bool("JOBS_SYNC", False)  # testlarda True: fon ishlari shu zahoti bajariladi
+MONITORING_SYNC_SEND = env_bool("MONITORING_SYNC_SEND", False)  # testlarda True: orqa fonsiz yuboradi
 
 SESSION_COOKIE_AGE = 60 * 60 * 12
 SESSION_COOKIE_HTTPONLY = True

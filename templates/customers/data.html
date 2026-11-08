@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Customer · Qabul qilingan ma’lumotlar{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Qabul qilingan ma’lumotlar</h1>
+  <p>Tekshiruvdan o‘tgan iste’molchilar: <b>{{ count|num }}</b> ta. CAS ga yuklash uchun Excelga oling.</p></div>
+  <div class="actions"><a class="btn" href="{% url 'customer_template' %}">{% icon "download" 16 %} Shablon</a></div></div>
+<form method="get" class="card filters">
+  <div class="f"><label class="lbl">ETK kodi</label><select name="etk"><option value="">Hammasi</option>{% for e in etks %}<option value="{{ e }}" {% if f.etk == e %}selected{% endif %}>{{ e }}</option>{% endfor %}</select></div>
+  {% include "customers/_filters.html" %}
+  <div class="f" style="flex:1"><label class="lbl">Qidiruv</label><input type="text" name="q" value="{{ f.q }}" placeholder="hisoblagich raqami, nomi, kodi"></div>
+  <button class="btn btn-primary" type="submit">Qidirish</button>
+</form>
+
+{% if can_manage and count %}
+<div x-data="{ open: false }" style="margin-bottom:14px">
+  <button class="btn btn-primary" type="button" @click="open = true">{% icon "download" 16 %} Excelga yuklab olish ({{ count|num }})</button>
+  <div class="modal-back" x-show="open" x-cloak @keydown.escape.window="open = false" @click.self="open = false">
+    <div class="modal card card-pad">
+      <h2 style="margin-top:0">Yuklab olish jarayonida o‘chirilsinmi?</h2>
+      <p class="muted">Joriy filtrdagi <b>{{ count|num }}</b> ta yozuv Excelga yuklanadi.<br>
+        <b>O‘chirilsin</b> — yuklab olingach, bu yozuvlar bazadan o‘chiriladi (CAS ga yuklab bo‘lgan bo‘lsangiz).<br>
+        <b>O‘chirilmasin</b> — faqat Excelga yuklanadi, baza o‘zgarmaydi.</p>
+      <form method="post" action="{% url 'customer_export' %}" class="actions" style="flex-wrap:wrap">{% csrf_token %}
+        {% for k, v in f.items %}{% if v %}<input type="hidden" name="{{ k }}" value="{{ v }}">{% endif %}{% endfor %}
+        <button class="btn btn-danger" type="submit" name="delete" value="1" @click="setTimeout(() => open = false, 300)">{% icon "trash" 16 %} O‘chirilsin</button>
+        <button class="btn btn-primary" type="submit" name="delete" value="0" @click="setTimeout(() => open = false, 300)">O‘chirilmasin</button>
+        <button class="btn" type="button" @click="open = false">Bekor qilish</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+<div class="card"><div class="scroll-x"><table class="simple">
+  <thead><tr><th>ETK</th><th>Transformator</th><th>Iste’molchi</th><th>Hisoblagich</th><th>Manzil</th><th>Faza</th><th>Tok tr. / Kuchl. tr.</th><th>Tur</th><th>Aloqa</th><th>Yuborgan</th></tr></thead>
+  <tbody>{% for c in page %}<tr>
+    <td class="num"><b>{{ c.etk_code }}</b></td>
+    <td class="num">{{ c.trans_code }}<div class="muted small">{{ c.trans_name }}</div></td>
+    <td>{{ c.consumer_name }}<div class="muted small">{{ c.consumer_code }}</div></td>
+    <td class="num"><b>{{ c.meter_no }}</b><div class="muted small">{{ c.meter_type }}</div></td>
+    <td style="max-width:240px;overflow-wrap:anywhere">{{ c.address }}</td>
+    <td class="num">{{ c.phase }}</td><td class="num nowrap">{{ c.ct_ratio }} · {{ c.vt_ratio }}</td>
+    <td>{% if c.consumer_type == "2" %}ulgurji{% else %}maishiy{% endif %}</td><td>{{ c.comm_type }}</td>
+    <td class="small">{{ c.user.full_name }}<div class="muted">{{ c.created_at|date:"d.m.Y H:i" }}</div></td></tr>
+  {% empty %}<tr><td colspan="10" class="empty">Hozircha ma’lumot yo‘q.</td></tr>{% endfor %}</tbody>
+</table></div>
+{% if page.paginator.num_pages > 1 %}<div class="pager">
+  {% if page.has_previous %}<a class="btn btn-sm" href="?page={{ page.previous_page_number }}&{{ qs }}">←</a>{% endif %}
+  <span class="muted small">{{ page.number }} / {{ page.paginator.num_pages }}</span>
+  {% if page.has_next %}<a class="btn btn-sm" href="?page={{ page.next_page_number }}&{{ qs }}">→</a>{% endif %}
+</div>{% endif %}</div>
+{% endblock %}

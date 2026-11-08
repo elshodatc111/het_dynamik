@@ -2,30 +2,56 @@
 <html lang="uz" data-theme="light">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#3b5bfd">
+  <link rel="manifest" href="{% url 'pwa_manifest' %}">
+  <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.png' %}">
+  <meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Dinamika"><meta name="apple-mobile-web-app-status-bar-style" content="default">
   <title>{% block title %}{{ APP_NAME|default:"Dinamika" }}{% endblock %} · Dinamika</title>
   <link rel="preload" href="{% static 'fonts/inter-latin-wght-normal.woff2' %}" as="font" type="font/woff2" crossorigin>
   <link rel="icon" href="{% static 'img/favicon.svg' %}" type="image/svg+xml">
-  <link rel="stylesheet" href="{% static 'css/app.css' %}">
+  <link rel="stylesheet" href="{% static 'css/app.css' %}?v={{ ASSET_V }}">
   <script>
     try { var t = localStorage.getItem('theme'); if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       document.documentElement.setAttribute('data-theme', t); } catch (e) {}
   </script>
-  <script defer src="{% static 'js/app.js' %}"></script>
+  <script defer src="{% static 'js/app.js' %}?v={{ ASSET_V }}"></script>
   <script defer src="{% static 'vendor/alpine.min.js' %}"></script>
   {% block head %}{% endblock %}
 </head>
 <body>
+<div class="install-bar" x-data="installBar()" x-show="show" x-cloak role="region" aria-label="Ilovani o‘rnatish">
+  {% icon "install" 20 %}
+  <div class="txt"><b>Dinamika ilovasini o‘rnating</b>
+    <span x-show="!ios">Telefon yoki kompyuteringizga o‘rnating — tezroq ochiladi va alohida oynada ishlaydi.</span>
+    <span x-show="ios" x-cloak>Safari: pastdagi <b>Ulashish</b> tugmasi → <b>«Bosh ekranga qo‘shish»</b>.</span></div>
+  <button class="btn btn-sm btn-primary" type="button" x-show="can" x-cloak @click="install()">O‘rnatish</button>
+  <button class="btn btn-sm" type="button" @click="later()">Keyinroq</button>
+</div>
 {% if user.is_authenticated %}
-<div class="app" x-data="{ nav: false }">
-  <aside class="sidebar" :class="{ open: nav }">
+<div class="app" x-data="{ nav: false }" @keydown.escape.window="nav = false">
+  <div class="scrim" x-show="nav" x-cloak @click="nav = false"></div>
+  <aside class="sidebar" :class="{ open: nav }" @click="if ($event.target.closest('a')) nav = false">
     <div class="brand">
       <div class="brand-mark">D</div>
       <div><b>Dinamika</b><span>Qashqadaryo HETK · CAS</span></div>
     </div>
     <nav class="nav">
-      {% for it in nav_items %}
+      {% for it in nav_top %}
         <a href="{% url it.url %}" class="{% if it.active %}active{% endif %}">{% icon it.icon 18 %}<span>{{ it.label }}</span></a>
+      {% endfor %}
+      {% for g in nav_groups %}
+        <div class="nav-group" x-data="navGroup('{{ g.title|escapejs }}', {{ g.has_active|yesno:'true,false' }})">
+          <button type="button" class="nav-toggle {% if g.has_active %}has-active{% endif %}" :class="{ closed: !open }" @click="toggle()" :aria-expanded="open">
+            <span>{{ g.title }}</span>{% icon "chevron" 14 %}
+          </button>
+          <div class="nav-items" x-show="open" x-cloak>
+            {% for it in g.items %}
+              <a href="{% url it.url %}" class="{% if it.active %}active{% endif %}">{% icon it.icon 18 %}<span>{{ it.label }}</span></a>
+            {% endfor %}
+          </div>
+        </div>
       {% endfor %}
     </nav>
     <div class="side-foot">

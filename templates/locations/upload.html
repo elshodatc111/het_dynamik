@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Location · Fayl yuklash{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Location faylini yuklash</h1>
+  <p>Bazada hozir <b>{{ total|num }}</b> ta nuqta bor. Nomer bazada bo‘lsa — yangilanadi, bo‘lmasa — yangi qo‘shiladi. Qator soni cheklanmagan.</p></div>
+  <a class="btn" href="{% url 'location_template' %}">{% icon "download" 16 %} Shablon</a></div>
+<form method="post" enctype="multipart/form-data" class="card card-pad" x-data="mix(dropzone('xlsx'), jobMixin({ attach: '{{ attach }}' }))" @submit.prevent="submit($event)" style="max-width:820px">{% csrf_token %}
+  <div class="drop" :class="{ over }" @click="$refs.input.click()" @dragover.prevent="over = true" @dragleave.prevent="over = false" @drop.prevent="over = false; pick($event.dataTransfer.files)">
+    {% icon "upload" 40 %}<b>Excel faylni shu yerga tashlang</b><span class="muted">yoki bosib tanlang · faqat .xlsx · birinchi varaq o‘qiladi</span>
+    <input type="file" name="file" accept=".xlsx" hidden x-ref="input" @change="pick($event.target.files)">
+  </div>
+  <ul class="files" x-show="files.length" x-cloak><template x-for="f in files" :key="f.name"><li><span x-text="f.name" style="overflow-wrap:anywhere"></span><span class="muted nowrap" x-text="size(f)"></span></li></template></ul>
+  <div class="alert alert-warn" x-show="skipped" x-cloak style="margin-top:14px">{% icon "alert" 18 %}<div class="body">Faqat <b>.xlsx</b> fayllar qabul qilinadi.</div></div>
+  <div class="actions" style="margin-top:18px">
+    <button class="btn btn-primary" type="submit" :disabled="!files.length || phase === 'upload' || phase === 'work'">{% icon "check" 16 %} Tekshirish va yuklash</button>
+    <span class="muted small">Katta fayl fonda bajariladi — sahifani yopmasangiz ham bo‘ladi, jarayon pastda ko‘rinadi.</span>
+  </div>
+  {% include '_job.html' %}
+</form>
+{% if recent %}<div class="card" style="margin-top:18px;max-width:820px"><div class="card-head"><h2>Oxirgi yuklashlar</h2><a href="{% url 'location_uploads' %}">Hammasi →</a></div>
+  <table class="simple"><tbody>{% for u in recent %}<tr><td class="muted nowrap">{{ u.created_at|date:"d.m.Y H:i" }}</td><td>{{ u.filename }}</td>
+    <td class="small">yangi <b>{{ u.created|num }}</b> · yangilandi <b>{{ u.updated|num }}</b> · xato <b>{{ u.bad|num }}</b></td></tr>{% endfor %}</tbody></table></div>{% endif %}
+{% endblock %}

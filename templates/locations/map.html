@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static ui %}
+{% block title %}Location · Xarita{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'vendor/leaflet/leaflet.css' %}">
+<link rel="stylesheet" href="{% static 'vendor/leaflet/MarkerCluster.css' %}">
+<link rel="stylesheet" href="{% static 'vendor/leaflet/MarkerCluster.Default.css' %}">
+<script src="{% static 'vendor/leaflet/leaflet.js' %}"></script>
+<script src="{% static 'vendor/leaflet/leaflet.markercluster.js' %}"></script>
+{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Location xaritasi</h1><p>Konsentrator, balans va hisoblagichlar xaritada. Nuqtani bosing — ma’lumot chiqadi.</p></div>
+  <a class="btn" href="{% url 'location_data' %}">Jadval ko‘rinishi</a></div>
+<div x-data="locMap()">
+  <form class="card filters" @submit.prevent="load()">
+    <div class="f"><label class="lbl">Turi</label><select x-model="kind" @change="load()"><option value="">Hammasi</option>{% for k in kinds %}<option>{{ k }}</option>{% endfor %}</select></div>
+    <div class="f"><label class="lbl">Tuman</label><select x-model="district" @change="load()"><option value="">Hammasi</option>{% for d in districts %}<option>{{ d }}</option>{% endfor %}</select></div>
+    <div class="f" style="flex:1"><label class="lbl">Raqam bo‘yicha topish</label><input type="text" x-model="q" placeholder="12 xonali raqam yoki EX-1234567"></div>
+    <button class="btn btn-primary" type="button" @click="find()">{% icon "pin" 16 %} Topish</button>
+    <span class="muted small" x-text="status"></span>
+  </form>
+  <div class="card"><div id="map" class="map-box" style="height:calc(100vh - 330px);min-height:380px"></div></div>
+  <div class="map-legend"><span><i style="background:#3b5bfd"></i>Hisoblagich</span><span><i style="background:#d1384f"></i>Konsentrator (DCU)</span><span><i style="background:#e5a100"></i>Balans</span></div>
+</div>
+<script>
+window.locMap = function () {
+  var COLORS = ['#3b5bfd', '#d1384f', '#e5a100'];
+  var detailBase = "{% url 'location_data' %}";
+  return {
+    kind: '', district: '', q: '', status: '', map: null, layer: null, byNumber: {},
+    init() {
+      var self = this;
+      this.map = L.map('map', { preferCanvas: true }).setView([38.8, 65.9], 8);
+      var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '© OpenStreetMap' }).addTo(this.map);
+      var sat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19, attribution: 'Esri' });
+      L.control.layers({ 'Xarita': osm, 'Sun’iy yo‘ldosh': sat }).addTo(this.map);
+      this.load();
+    },
+    load() {
+      var self = this, qs = new URLSearchParams({ kind: this.kind, district: this.district });
+      this.status = 'Yuklanmoqda…';
+      fetch("{% url 'location_points' %}?" + qs, { credentials: 'same-origin', cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (d) {
+        if (self.layer) self.map.removeLayer(self.layer);
+        self.layer = L.markerClusterGroup({ chunkedLoading: true, maxClusterRadius: 45 });
+        self.byNumber = {};
+        d.points.forEach(function (p) {
+          var m = L.circleMarker([p[1], p[2]], { radius: 7, color: '#fff', weight: 1.5, fillColor: COLORS[p[3]], fillOpacity: .95 });
+          m.bindPopup('<b>' + p[4] + '</b><br>' + d.kinds[p[3]] + '<br><a href="' + detailBase + p[0] + '/">Batafsil →</a>');
+          self.layer.addLayer(m); self.byNumber[p[4]] = m;
+        });
+        self.map.addLayer(self.layer);
+        if (d.points.length) self.map.fitBounds(L.latLngBounds(d.points.map(function (p) { return [p[1], p[2]]; })).pad(.05));
+        self.status = d.points.length.toLocaleString('en-US').replace(/,/g, ' ') + ' ta nuqta';
+      }).catch(function () { self.status = 'Yuklab bo‘lmadi'; });
+    },
+    find() {
+      var n = (this.q || '').toUpperCase().replace(/\s+/g, '');
+      var m = this.byNumber[n] || this.byNumber['EX-' + n.replace(/^EX-?/, '')];
+      if (!m) { this.status = 'Bu raqam ko‘rsatilgan ro‘yxatda topilmadi'; return; }
+      var self = this;
+      this.layer.zoomToShowLayer(m, function () { self.map.setView(m.getLatLng(), 17); m.openPopup(); });
+    }
+  };
+};
+</script>
+{% endblock %}

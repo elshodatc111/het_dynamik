@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% load static ui %}
-{% block title %}Bosh sahifa{% endblock %}
+{% block title %}Dinamika · Umumiy ko‘rinish{% endblock %}
 {% block head %}<script defer src="{% static 'vendor/apexcharts.min.js' %}"></script>{% endblock %}
 {% block content %}
 <div class="page-head">
   <div>
-    <h1>Bosh sahifa</h1>
+    <h1>Dinamika · Umumiy ko‘rinish</h1>
     {% if data %}<p>Oxirgi hisobot: <b>{{ data.latest|date:"d.m.Y" }}</b>{% if data.prev %} · taqqoslash: {{ data.prev|date:"d.m.Y" }} bilan{% endif %}</p>{% endif %}
   </div>
   {% if data and data.prev %}
@@ -13,6 +13,7 @@
     <a class="btn" href="{% url 'compare' %}?a={{ data.prev|date:'Y-m-d' }}&b={{ data.latest|date:'Y-m-d' }}">{% icon "compare" 16 %} Dinamikani ko‘rish</a>
     {% if perms.reports.export_excel %}
     <a class="btn btn-primary" href="{% url 'compare_export' %}?a={{ data.prev|date:'Y-m-d' }}&b={{ data.latest|date:'Y-m-d' }}">{% icon "download" 16 %} Excel</a>
+    <a class="btn" href="{% url 'compare_export' %}?a={{ data.prev|date:'Y-m-d' }}&b={{ data.latest|date:'Y-m-d' }}&fmt=pdf">{% icon "download" 16 %} PDF</a>
     {% endif %}
   </div>
   {% endif %}

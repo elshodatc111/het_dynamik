@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Offline konsentratorlar{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Offline konsentratorlar · {{ snap.report_date|date:"d.m.Y" }}</h1>
+  <p><span class="badge badge-primary">{{ desc }}</span> · {{ d_min }} kun va undan ko‘p offline: <b>{{ page.paginator.count|num }}</b> ta</p></div>
+  <div class="actions"><a class="btn" href="{% url 'mon_snapshot' snap.pk %}">← Svod</a>
+    {% if perms.reports.export_excel %}<a class="btn btn-primary" href="?{{ request.GET.urlencode }}{% if request.GET %}&{% endif %}xlsx=1">{% icon "download" 16 %} Excelga yuklab olish</a>
+    <a class="btn" href="?{{ request.GET.urlencode }}{% if request.GET %}&{% endif %}pdf=1">{% icon "download" 16 %} PDF</a>{% endif %}</div></div>
+<form method="get" class="card filters">
+  <div class="f"><label class="lbl">ESP</label><select name="esp"><option value="">Hammasi</option>{% for e in esps %}<option value="{{ e }}" {% if esp == e %}selected{% endif %}>{{ e }}</option>{% endfor %}</select></div>
+  <div class="f"><label class="lbl">Davr</label><select name="b"><option value="">Hammasi</option>{% for lb in labels %}<option value="{{ forloop.counter0 }}" {% if b == forloop.counter0|stringformat:"d" %}selected{% endif %}>{{ lb }}</option>{% endfor %}</select></div>
+  <div class="f" style="flex:1"><label class="lbl">Qidiruv</label><input type="text" name="q" value="{{ q }}" placeholder="raqam, ESP, podstansiya, fider, SIM, xodim"></div>
+  <button class="btn btn-primary" type="submit">Qidirish</button>
+</form>
+<div class="card"><div class="scroll-x"><table class="simple">
+  <thead><tr><th>ESP</th><th>Podstansiya / fider</th><th>TP</th><th>Konsentrator</th><th class="r">Kun</th><th>Boshlangan</th><th>Operator / SIM</th><th>Mas’ul xodimlar</th></tr></thead>
+  <tbody>{% for r in page %}<tr><td>{{ r.esp }}</td><td>{{ r.substation }}<div class="muted small">{{ r.feeder }}</div></td><td>{{ r.tp }}</td>
+    <td class="num"><b>{{ r.device_no }}</b></td><td class="r num"><b>{{ r.days }}</b></td><td class="muted nowrap">{{ r.offline_since|date:"d.m.Y" }}</td>
+    <td>{{ r.operator }}<div class="muted small">{{ r.sim|default:"SIM yo‘q" }}</div></td><td style="max-width:260px;overflow-wrap:anywhere">{{ r.manager }}</td></tr>
+  {% empty %}<tr><td colspan="8" class="empty">Hech narsa topilmadi.</td></tr>{% endfor %}</tbody>
+</table></div>
+{% include "monitoring/_pager.html" %}</div>
+{% endblock %}

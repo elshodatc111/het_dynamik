@@ -1,0 +1,2 @@
+{% load ui %}<td class="ab num">{{ c.a|num }}</td><td class="ab num">{{ c.b|num }}</td>
+<td class="diff sep {% if not c.d %}zero{% endif %}">{% if c.d %}<span class="dd {% if c.d > 0 %}up{% else %}down{% endif %}">{{ c.d|darrow }}</span>{% elif c.d is None %}—{% else %}–{% endif %}</td>

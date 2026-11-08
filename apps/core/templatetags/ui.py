@@ -21,6 +21,26 @@ def num(value, decimals=0):
 
 
 @register.filter
+def signed(value):
+    """+12 / −5 / 0 (farq jadvallari uchun)."""
+    if value is None:
+        return "—"
+    v = int(value)
+    if v == 0:
+        return "0"
+    return ("+" if v > 0 else "−") + _fmt(abs(v), 0)
+
+
+@register.filter
+def darrow(value):
+    """Farq: ↑ 12 / ↓ 5 (minus belgisiz)."""
+    if value is None:
+        return "—"
+    v = int(value)
+    return "–" if v == 0 else (f"↑ {_fmt(v, 0)}" if v > 0 else f"↓ {_fmt(-v, 0)}")
+
+
+@register.filter
 def pct(value):
     return "—" if value is None else _fmt(value, 1) + "%"
 
@@ -77,6 +97,18 @@ def icon(name, size=18):
         "trash": '<path d="M4 7h16"/><path d="M9 7V4h6v3"/><path d="M6 7l1 13h10l1-13"/>',
         "plus": '<path d="M12 5v14M5 12h14"/>',
         "key": '<circle cx="8" cy="15" r="4"/><path d="m11 12 8-8"/><path d="m16 7 3 3"/>',
+        "pulse": '<path d="M3 12h4l3-8 4 16 3-8h4"/>',
+        "sliders": '<path d="M4 7h9"/><path d="M17 7h3"/><circle cx="15" cy="7" r="2"/><path d="M4 17h3"/><path d="M11 17h9"/><circle cx="9" cy="17" r="2"/>',
+        "send": '<path d="M21 3 10 14"/><path d="M21 3l-7 18-4-7-7-4z"/>',
+        "table": '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M9 4v16"/>',
+        "chevron": '<path d="m6 9 6 6 6-6"/>',
+        "chart": '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+        "pin": '<path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.800 12 21 12 21z"/><circle cx="12" cy="9.500" r="2.500"/>',
+        "megaphone": '<path d="M3 11v3a1 1 0 0 0 1 1h2l8 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M18 9a4 4 0 0 1 0 6"/>',
+        "bell": '<path d="M6 17V11a6 6 0 0 1 12 0v6l2 2H4z"/><path d="M10 21h4"/>',
+        "install": '<rect x="5" y="2.500" width="14" height="19" rx="3"/><path d="M12 7v7"/><path d="m9 11.500 3 3 3-3"/><path d="M11 18.500h2"/>',
+        "shield": '<path d="M12 3 4.500 6v5.500c0 4.500 3 8 7.500 9.500 4.500-1.500 7.500-5 7.500-9.500V6z"/><path d="m9 12 2 2 4-4"/>',
+        "eye": '<path d="M2 12s3.500-7 10-7 10 7 10 7-3.500 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
         "cal": '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
     }
     body = paths.get(name, "")

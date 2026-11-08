@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static ui %}
+{% block title %}Offline monitoring{% endblock %}
+{% block head %}<script defer src="{% static 'vendor/apexcharts.min.js' %}"></script>{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h1>Offline monitoring · Umumiy svod</h1>
+    {% if snap %}<p>Oxirgi hisobot: <b>{{ snap.report_date|date:"d.m.Y" }}</b> · konsentratorlar: {% if snap.has_dcu %}<span class="badge badge-ok">yuklangan</span>{% else %}<span class="badge badge-warn">yo‘q</span>{% endif %}
+      · hisoblagichlar: {% if snap.has_meters %}<span class="badge badge-ok">yuklangan</span>{% else %}<span class="badge badge-warn">yo‘q</span>{% endif %}</p>{% endif %}</div>
+  <div class="actions">
+    {% if perms.reports.upload_monitoring %}<a class="btn" href="{% url 'mon_upload' %}">{% icon "upload" 16 %} Fayl yuklash</a>{% endif %}
+    {% if snap %}<a class="btn" href="{% url 'mon_svod_image' snap.pk %}?dl=1">{% icon "download" 16 %} Svod rasmi</a>{% endif %}
+    {% if snap and perms.reports.export_excel %}<a class="btn" href="{% url 'mon_download' snap.pk 'svod' %}">{% icon "download" 16 %} Svod Excel</a>
+    <a class="btn" href="{% url 'mon_download' snap.pk 'svod' %}?pdf=1">{% icon "download" 16 %} Svod PDF</a>{% endif %}
+    {% if snap and perms.reports.send_monitoring %}<a class="btn btn-primary" href="{% url 'mon_send' snap.pk %}">{% icon "send" 16 %} Telegramga yuborish</a>{% endif %}
+  </div>
+</div>
+{% if not snap %}
+<div class="card empty">{% icon "pulse" 40 %}<h2 style="color:var(--text);margin-bottom:6px">Hali ma’lumot yuklanmagan</h2>
+  <p>Kunlik «Online Device Monitoring» va «NoMeterData» Excel fayllarini yuklang.</p>
+  {% if perms.reports.upload_monitoring %}<a class="btn btn-primary" href="{% url 'mon_upload' %}">{% icon "upload" 16 %} Fayl yuklash</a>{% endif %}</div>
+{% else %}
+  {% include "monitoring/_summary.html" %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Customer · Bot foydalanuvchilari{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Bot foydalanuvchilari</h1>
+  <p>Telegram bot orqali ro‘yxatdan o‘tgan arizalar. Tasdiqlashdan oldin ma’lumotlarni to‘g‘rilashingiz mumkin.</p></div></div>
+{% if not bot_alive %}<div class="alert alert-warn">{% icon "alert" 18 %}<div class="body"><b>Bot jarayoni ishlamayapti.</b> Yangi arizalar kelmaydi. <a href="{% url 'system_status' %}">Tizim holatini ko‘ring →</a></div></div>{% endif %}
+<div class="tabs">{% for s, t, n in tabs %}<a class="tab {% if s == status %}on{% endif %}" href="?status={{ s }}">{{ t }} <span class="muted">({{ n }})</span></a>{% endfor %}</div>
+
+{% for u in users %}
+<div class="card card-pad" style="margin-bottom:12px" x-data="{ reject: false }">
+  <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px">
+    <div><b>{{ u.full_name|default:"—" }}</b> <span class="badge">{{ u.get_status_display }}</span>
+      <div class="muted small">Telegram: {% if u.tg_username %}@{{ u.tg_username }} · {% endif %}ID {{ u.tg_id }}{% if u.applied_at %} · ariza: {{ u.applied_at|date:"d.m.Y H:i" }}{% endif %}</div></div>
+    {% if status == "approved" or status == "blocked" %}<div class="muted small">Qabul qilingan qatorlar: <b>{{ u.accepted|num }}</b></div>{% endif %}
+  </div>
+  {% if status == "pending" or status == "rejected" %}
+  <form method="post" action="{% url 'customer_app_action' u.pk %}">{% csrf_token %}<input type="hidden" name="tab" value="{{ status }}">
+    <div class="grid g-2">
+      <div class="field"><label class="lbl">FIO</label><input type="text" name="full_name" value="{{ u.full_name }}"></div>
+      <div class="field"><label class="lbl">Tuman / shahar</label><input type="text" name="district" value="{{ u.district }}"></div>
+      <div class="field"><label class="lbl">Telefon</label><input type="text" name="phone" value="{{ u.phone }}"></div>
+      <div class="field"><label class="lbl">Lavozim</label><input type="text" name="position" value="{{ u.position }}"></div>
+    </div>
+    {% if status == "rejected" and u.reject_reason %}<p class="muted small">Oldingi sabab: {{ u.reject_reason }}</p>{% endif %}
+    <div class="field" x-show="reject" x-cloak><label class="lbl">Bekor qilish sababi (foydalanuvchiga yuboriladi)</label>
+      <textarea name="reason" rows="2" placeholder="Masalan: FIO to‘liq emas, qayta ro‘yxatdan o‘ting"></textarea></div>
+    <div class="actions">
+      <button class="btn btn-primary" type="submit" name="action" value="approve">{% icon "check" 16 %} Tasdiqlash</button>
+      <button class="btn" type="button" x-show="!reject" @click="reject = true">Bekor qilish</button>
+      <button class="btn btn-danger" type="submit" name="action" value="reject" x-show="reject" x-cloak>Bekor qilishni tasdiqlash</button>
+      <button class="btn" type="button" x-show="reject" x-cloak @click="reject = false">Ortga</button>
+    </div>
+  </form>
+  {% else %}
+  <div class="grid g-2 small"><div><span class="muted">Tuman/shahar:</span> {{ u.district }}</div><div><span class="muted">Telefon:</span> {{ u.phone }}</div>
+    <div><span class="muted">Lavozim:</span> {{ u.position }}</div></div>
+  <form method="post" action="{% url 'customer_app_action' u.pk %}" class="actions" style="margin-top:10px">{% csrf_token %}<input type="hidden" name="tab" value="{{ status }}">
+    {% if status == "approved" %}<button class="btn" name="action" value="block" type="submit">Bloklash</button>
+    {% elif status == "blocked" %}<button class="btn btn-primary" name="action" value="unblock" type="submit">Blokdan chiqarish</button>{% endif %}
+  </form>
+  {% endif %}
+</div>
+{% empty %}<div class="card card-pad empty">Bu bo‘limda foydalanuvchi yo‘q.</div>{% endfor %}
+{% endblock %}

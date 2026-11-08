@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Tekshiruv natijasi{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Tekshiruv natijasi</h1><p>Sanani tekshiring va saqlashni tasdiqlang. Telegramga yuborish keyingi qadamda, alohida tasdiq bilan.</p></div></div>
+<form method="post" action="{% url 'mon_upload_confirm' %}" x-data="jobMixin()" @submit.prevent="submit($event)">{% csrf_token %}
+  {% for c in cards %}
+  <div class="card ucard">
+    <div class="ucard-top">
+      <div class="ic">{% icon "file" 20 %}</div>
+      <div class="grow"><b>{{ c.name }}</b>
+        <span class="muted small">{% if c.res.ok %}{{ c.title }} · {{ c.rows|num }} ta qator o‘qildi{% else %}o‘qib bo‘lmadi{% endif %}</span></div>
+      {% if c.res.ok %}<span class="badge badge-ok">{% icon "check" 12 %} yaroqli</span>{% else %}<span class="badge badge-err">xato</span>{% endif %}
+    </div>
+    {% if c.res.errors or c.res.warnings or c.preview %}
+    <div class="ucard-body">
+      {% if c.res.errors %}<ul class="issues" style="color:var(--err)">{% for e in c.res.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+      {% if c.res.warnings %}<ul class="issues">{% for w in c.res.warnings %}<li>{{ w }}</li>{% endfor %}</ul>{% endif %}
+      {% if c.preview %}<div class="muted small" style="margin-top:8px">Davrlar bo‘yicha: {% for lb, n in c.preview %}<b>{{ lb }}</b> — {{ n|num }}{% if not forloop.last %} · {% endif %}{% endfor %}</div>{% endif %}
+    </div>
+    {% endif %}
+    {% if c.res.ok %}<input type="hidden" name="token" value="{{ c.token }}">{% endif %}
+  </div>
+  {% endfor %}
+
+  {% if has_ok %}
+  <div class="card card-pad" style="margin-top:16px;max-width:520px">
+    <div class="field"><label class="lbl" for="report_date">Hisobot sanasi</label>
+      <input type="date" id="report_date" name="report_date" value="{{ report_date|date:'Y-m-d' }}" required>
+      <div class="help">Fayl nomidan aniqlandi; kerak bo‘lsa o‘zgartiring. Konsentratorlarning «necha kundan beri offline» hisobi shu sanaga bog‘liq.</div></div>
+    {% if existing %}
+    <div class="alert alert-warn">{% icon "alert" 18 %}<div class="body">{{ existing.report_date|date:"d.m.Y" }} uchun ma’lumot allaqachon bor
+      ({% if existing.has_dcu %}konsentratorlar{% endif %}{% if existing.has_dcu and existing.has_meters %}, {% endif %}{% if existing.has_meters %}hisoblagichlar{% endif %}).</div></div>
+    {% if can_replace %}<label class="check"><input type="checkbox" name="replace" value="1"><span>Mavjud ma’lumotni almashtirish</span></label>{% endif %}
+    {% endif %}
+    <div class="actions" style="margin-top:14px">
+      <button class="btn btn-primary" type="submit" :disabled="phase === 'work' || phase === 'upload'">{% icon "check" 16 %} Saqlash</button>
+      <a class="btn" href="{% url 'mon_upload' %}">Bekor qilish</a>
+    </div>
+  </div>
+  {% else %}
+  <div class="actions" style="margin-top:16px"><a class="btn" href="{% url 'mon_upload' %}">← Qaytadan yuklash</a></div>
+  {% endif %}
+  {% include '_job.html' %}
+</form>
+{% endblock %}

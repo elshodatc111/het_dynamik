@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Customer · Statistika{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Customer statistikasi</h1>
+  <p>ETK kodlari bo‘yicha: nechta qator yuborilgan, shundan nechtasi to‘g‘ri va nechtasi xato. Ma’lumotlar yozuvlar o‘chirilsa ham saqlanadi.</p></div></div>
+
+<div class="tabs"><a class="tab {% if mode == 'day' %}on{% endif %}" href="?mode=day">Kunlik</a><a class="tab {% if mode == 'month' %}on{% endif %}" href="?mode=month">Oylik</a></div>
+
+<form method="get" class="card filters">
+  <input type="hidden" name="mode" value="{{ mode }}">
+  <a class="btn" href="?mode={{ mode }}&{{ param }}={{ prev_val }}">←</a>
+  <div class="f">{% if mode == "day" %}<label class="lbl">Sana</label><input type="date" name="date" value="{{ value }}">
+    {% else %}<label class="lbl">Oy</label><input type="month" name="month" value="{{ value }}">{% endif %}</div>
+  {% if next_val %}<a class="btn" href="?mode={{ mode }}&{{ param }}={{ next_val }}">→</a>{% endif %}
+  <button class="btn btn-primary" type="submit">Ko‘rsatish</button>
+</form>
+
+<div class="grid g-4" style="margin-bottom:16px">
+  <div class="card card-pad"><div class="muted small">Yuborilgan qatorlar</div><div style="font-size:26px;font-weight:700">{{ tot.sent|num }}</div></div>
+  <div class="card card-pad"><div class="muted small">To‘g‘ri</div><div style="font-size:26px;font-weight:700;color:var(--ok)">{{ tot.ok|num }}</div></div>
+  <div class="card card-pad"><div class="muted small">Xato</div><div style="font-size:26px;font-weight:700;color:var(--err)">{{ tot.bad|num }}</div></div>
+  <div class="card card-pad"><div class="muted small">To‘g‘ri ulushi</div><div style="font-size:26px;font-weight:700">{% if tot.pct is None %}—{% else %}{{ tot.pct|floatformat:1 }}%{% endif %}</div></div>
+</div>
+
+<div class="card" style="margin-bottom:16px">
+  <div class="card-pad" style="padding-bottom:10px"><h2 style="margin:0">ETK kodlari bo‘yicha · {{ title }}</h2></div>
+  <div class="scroll-x"><table class="simple">
+    <thead><tr><th>ETK kodi</th><th class="r">Yuborilgan</th><th class="r">To‘g‘ri</th><th class="r">Xato</th><th class="r">To‘g‘ri ulushi</th></tr></thead>
+    <tbody>{% for r in rows %}<tr {% if not r.sent %}style="opacity:.55"{% endif %}>
+      <td class="num"><b>{{ r.etk }}</b>{% if r.unknown %} <span class="muted small">(kod noto‘g‘ri yoki bo‘sh)</span>{% endif %}</td>
+      <td class="r num">{{ r.sent|num }}</td><td class="r num" style="color:var(--ok)"><b>{{ r.ok|num }}</b></td><td class="r num" style="color:var(--err)"><b>{{ r.bad|num }}</b></td>
+      <td class="r num">{% if r.pct is None %}—{% else %}{{ r.pct|floatformat:1 }}%{% endif %}</td></tr>{% endfor %}
+    <tr style="background:var(--surface-2);font-weight:700"><td>Jami</td><td class="r num">{{ tot.sent|num }}</td><td class="r num" style="color:var(--ok)">{{ tot.ok|num }}</td>
+      <td class="r num" style="color:var(--err)">{{ tot.bad|num }}</td><td class="r num">{% if tot.pct is None %}—{% else %}{{ tot.pct|floatformat:1 }}%{% endif %}</td></tr></tbody>
+  </table></div>
+</div>
+
+<div class="grid g-2">
+  <div class="card"><div class="card-pad" style="padding-bottom:10px"><h2 style="margin:0">{{ trend_title }}</h2></div>
+    <div class="scroll-x"><table class="simple"><thead><tr><th>{% if mode == "day" %}Sana{% else %}Oy{% endif %}</th><th class="r">Yuborilgan</th><th class="r">To‘g‘ri</th><th class="r">Xato</th><th class="r">Ulushi</th></tr></thead>
+      <tbody>{% for t in trend %}<tr {% if t.current %}style="background:var(--primary-soft)"{% endif %}><td>{{ t.label }}</td><td class="r num">{{ t.sent|num }}</td>
+        <td class="r num" style="color:var(--ok)">{{ t.ok|num }}</td><td class="r num" style="color:var(--err)">{{ t.bad|num }}</td>
+        <td class="r num">{% if t.pct is None %}—{% else %}{{ t.pct|floatformat:1 }}%{% endif %}</td></tr>{% endfor %}</tbody></table></div></div>
+  {% if mode == "month" %}<div class="card"><div class="card-pad" style="padding-bottom:10px"><h2 style="margin:0">{{ title }} oyining kunlari</h2></div>
+    <div class="scroll-x"><table class="simple"><thead><tr><th>Sana</th><th class="r">Yuborilgan</th><th class="r">To‘g‘ri</th><th class="r">Xato</th><th class="r">Ulushi</th></tr></thead>
+      <tbody>{% for t in days %}<tr><td>{{ t.label }}</td><td class="r num">{{ t.sent|num }}</td><td class="r num" style="color:var(--ok)">{{ t.ok|num }}</td>
+        <td class="r num" style="color:var(--err)">{{ t.bad|num }}</td><td class="r num">{% if t.pct is None %}—{% else %}{{ t.pct|floatformat:1 }}%{% endif %}</td></tr>
+      {% empty %}<tr><td colspan="5" class="empty">Bu oyda yuborilmagan.</td></tr>{% endfor %}</tbody></table></div></div>{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Location · Ma’lumotlar{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Location ma’lumotlari</h1>
+  <p>Konsentrator, balans va hisoblagichlar joylashuvi: jami <b>{{ total|num }}</b> ta.</p></div>
+  <div class="actions">
+    <a class="btn" href="{% url 'location_map' %}">{% icon "pin" 16 %} Xaritada ko‘rish</a>
+    {% if perms.reports.upload_location %}<a class="btn btn-primary" href="{% url 'location_upload' %}">{% icon "upload" 16 %} Fayl yuklash</a>{% endif %}
+  </div></div>
+<div class="stat-grid">
+  <div class="card stat"><div class="lab">Hisoblagichlar</div><div class="val">{{ counts.Meter|default:0|num }}</div></div>
+  <div class="card stat"><div class="lab">Konsentratorlar (DCU)</div><div class="val">{{ counts.DCU|default:0|num }}</div></div>
+  <div class="card stat"><div class="lab">Balans hisoblagichlar</div><div class="val">{{ counts.Balans|default:0|num }}</div></div>
+</div>
+<form method="get" class="card filters">
+  <div class="f"><label class="lbl">Turi</label><select name="kind"><option value="">Hammasi</option>{% for k in kinds %}<option {% if f.kind == k %}selected{% endif %}>{{ k }}</option>{% endfor %}</select></div>
+  <div class="f"><label class="lbl">Tuman</label><select name="district"><option value="">Hammasi</option>{% for d in districts %}<option {% if f.district == d %}selected{% endif %}>{{ d }}</option>{% endfor %}</select></div>
+  <div class="f" style="flex:1"><label class="lbl">Qidiruv</label><input type="text" name="q" value="{{ f.q }}" placeholder="raqam, hisob raqam, FIO, manzil, TP, fider"></div>
+  <button class="btn btn-primary" type="submit">Qidirish</button>
+  {% if can_export and count %}<a class="btn" href="{% url 'location_export' %}?{{ qs }}">{% icon "download" 16 %} Excel ({{ count|num }})</a>{% endif %}
+</form>
+<div class="card"><div class="scroll-x"><table class="simple">
+  <thead><tr><th>Turi</th><th>Nomer</th><th>Tuman</th><th>Podstansiya / Fider / TP</th><th>Hisob raqam · FIO</th><th>Manzil</th><th>Xarita</th></tr></thead>
+  <tbody>{% for p in page %}<tr>
+    <td><span class="badge {% if p.kind == 'DCU' %}badge-primary{% elif p.kind == 'Balans' %}badge-warn{% endif %}">{{ p.kind }}</span></td>
+    <td class="num"><a href="{% url 'location_detail' p.pk %}"><b>{{ p.number }}</b></a></td>
+    <td>{{ p.district }}</td>
+    <td class="small">{{ p.substation }}<div class="muted">{{ p.feeder }} · TP {{ p.tp }}</div></td>
+    <td class="small">{{ p.account|default:"—" }}<div class="muted">{{ p.fio|default:"" }}</div></td>
+    <td class="small" style="max-width:260px;overflow-wrap:anywhere">{{ p.address|default:"—" }}</td>
+    <td class="nowrap"><a class="btn btn-sm" href="{% url 'location_detail' p.pk %}">{% icon "pin" 14 %} Ochish</a></td></tr>
+  {% empty %}<tr><td colspan="7" class="empty">Ma’lumot topilmadi.</td></tr>{% endfor %}</tbody>
+</table></div>
+{% if page.paginator.num_pages > 1 %}<div class="pager">
+  {% if page.has_previous %}<a class="btn btn-sm" href="?page={{ page.previous_page_number }}&{{ qs }}">←</a>{% endif %}
+  <span class="muted small">{{ page.number }} / {{ page.paginator.num_pages }}</span>
+  {% if page.has_next %}<a class="btn btn-sm" href="?page={{ page.next_page_number }}&{{ qs }}">→</a>{% endif %}
+</div>{% endif %}</div>
+{% endblock %}

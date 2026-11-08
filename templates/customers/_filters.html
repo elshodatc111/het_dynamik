@@ -1,0 +1,3 @@
+<div class="f"><label class="lbl">Foydalanuvchi</label><select name="user"><option value="">Hammasi</option>{% for u in users %}<option value="{{ u.pk }}" {% if f.user == u.pk|stringformat:"d" %}selected{% endif %}>{{ u.full_name|default:u.tg_id }}</option>{% endfor %}</select></div>
+<div class="f"><label class="lbl">Sanadan</label><input type="date" name="d1" value="{{ f.d1 }}"></div>
+<div class="f"><label class="lbl">Sanagacha</label><input type="date" name="d2" value="{{ f.d2 }}"></div>

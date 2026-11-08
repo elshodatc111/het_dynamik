@@ -1,0 +1,117 @@
+{% load ui %}
+{% if not snap.has_dcu or not snap.has_meters %}
+<div class="alert alert-warn">{% icon "alert" 18 %}<div class="body">
+  {% if not snap.has_dcu %}<b>Konsentratorlar fayli</b> hali yuklanmagan. {% endif %}
+  {% if not snap.has_meters %}<b>Hisoblagichlar fayli</b> hali yuklanmagan. {% endif %}
+  {% if perms.reports.upload_monitoring %}<a href="{% url 'mon_upload' %}">Fayl yuklash →</a>{% endif %}
+</div></div>
+{% endif %}
+{% if snap.has_meters and snap.meter_detail_purged %}
+<div class="alert">{% icon "alert" 18 %}<div class="body">Bu sana uchun hisoblagich ro‘yxati tozalangan (saqlash muddati o‘tgan). Faqat svod saqlangan.</div></div>
+{% endif %}
+{% if mt and mt.groups_total.boshqa %}
+<div class="alert alert-warn">{% icon "alert" 18 %}<div class="body"><b>{{ mt.groups_total.boshqa|num }} ta</b> hisoblagichning turi aniqlanmadi («Boshqa»).
+  {% if perms.reports.manage_monitoring %}<a href="{% url 'mon_settings' %}">Sozlamalarda kalit so‘z qo‘shing →</a>{% endif %}</div></div>
+{% endif %}
+{% if snap.warnings %}
+<details class="card card-pad" style="margin-bottom:16px"><summary>{{ snap.warnings|length }} ta ogohlantirish</summary>
+  <ul class="issues">{% for w in snap.warnings %}<li>{{ w }}</li>{% endfor %}</ul></details>
+{% endif %}
+
+<div class="stat-grid">
+  {% if dcu %}
+  <div class="card stat main-stat"><div class="lab">Offline konsentratorlar ({{ d_min }}+ kun)</div><div class="val">{{ dcu.over_min|num }}</div>
+    <span class="dlt muted small">{% if dl.dcu_total is not None %}{{ dl.dcu_total|delta }} · {{ dl.dcu_prev|date:"d.m" }} ga nisbatan{% else %}Fayldagi jami offline: {{ dcu.offline_total|num }}{% endif %}</span></div>
+  {% for r in dcu_rows %}
+  <div class="card stat"><div class="lab">Konsentrator · {{ r.label }}</div><div class="val">{{ r.count|num }}</div>
+    <span class="muted small">{% if r.delta is not None %}{{ r.delta|delta }}{% else %}&nbsp;{% endif %}</span></div>
+  {% endfor %}
+  {% endif %}
+  {% if mt %}
+  <div class="card stat main-stat"><div class="lab">Aloqasiz hisoblagichlar ({{ m_min }}+ kun)</div><div class="val">{{ mt.over_min|num }}</div>
+    <span class="dlt muted small">{% if dl.meter_total is not None %}{{ dl.meter_total|delta }} · {{ dl.meter_prev|date:"d.m" }} ga nisbatan{% else %}Fayldagi jami: {{ mt.total|num }}{% endif %}</span></div>
+  {% for r in meter_rows %}
+  <div class="card stat"><div class="lab">Hisoblagich · {{ r.label }}</div><div class="val">{{ r.total|num }}</div>
+    <span class="muted small">{% if r.delta is not None %}{{ r.delta|delta }}{% else %}&nbsp;{% endif %}</span></div>
+  {% endfor %}
+  {% endif %}
+</div>
+
+<div class="grid g-2">
+  {% if dcu %}
+  <div class="card">
+    <div class="card-head"><h2>Offline konsentratorlar</h2>
+      <a class="btn btn-sm" href="{% url 'mon_dcu' snap.pk %}">{% icon "table" 14 %} Nomma-nom</a></div>
+    <table class="simple">
+      <thead><tr><th>Davr</th><th class="r">Soni</th><th class="r">Oldingiga nisbatan</th><th></th></tr></thead>
+      <tbody>
+        {% for r in dcu_rows %}<tr><td><b>{{ r.label }}</b></td><td class="r num">{{ r.count|num }}</td><td class="r dlt">{{ r.delta|delta }}</td>
+          <td class="r"><a href="{% url 'mon_dcu' snap.pk %}?b={{ forloop.counter0 }}">ro‘yxat</a></td></tr>{% endfor %}
+        <tr class="total"><td>Jami ({{ d_min }}+ kun)</td><td class="r num">{{ dcu.over_min|num }}</td><td class="r dlt">{{ dl.dcu_total|delta }}</td><td></td></tr>
+      </tbody>
+    </table>
+    <div class="card-pad muted small">Fayldagi jami offline: {{ dcu.offline_total|num }} · {{ d_min }} kundan kam (hisobotga kiritilmagan): {{ dcu.below_min|num }}
+      {% if dcu.new is not None %}<br>Oldingi hisobotga nisbatan: yangi offline {{ dcu.new|num }}, tiklangan {{ dcu.recovered|num }}{% endif %}</div>
+  </div>
+  {% endif %}
+  {% if mt %}
+  <div class="card">
+    <div class="card-head"><h2>Aloqasiz hisoblagichlar</h2>
+      {% if not snap.meter_detail_purged %}<a class="btn btn-sm" href="{% url 'mon_meters' snap.pk %}">{% icon "table" 14 %} Nomma-nom</a>{% endif %}</div>
+    <div class="scroll-x"><table class="simple">
+      <thead><tr><th>Davr</th>{% for g in groups %}<th class="r">{{ g.1 }}</th>{% endfor %}<th class="r">Jami</th><th class="r">Farq</th></tr></thead>
+      <tbody>
+        {% for r in meter_rows %}<tr><td><b>{{ r.label }}</b></td>{% for g in groups %}<td class="r num">{{ r.m|getitem:g.0|num }}</td>{% endfor %}
+          <td class="r num"><b>{{ r.total|num }}</b></td><td class="r dlt">{{ r.delta|delta }}</td></tr>{% endfor %}
+        <tr class="total"><td>Jami ({{ m_min }}+ kun)</td>{% for g in groups %}<td class="r num">{{ mt.groups_total|getitem:g.0|num }}</td>{% endfor %}
+          <td class="r num">{{ mt.over_min|num }}</td><td class="r dlt">{{ dl.meter_total|delta }}</td></tr>
+      </tbody>
+    </table></div>
+    <div class="card-pad muted small">Fayldagi jami: {{ mt.total|num }} · {{ m_min }} kundan kam (kiritilmagan): {{ mt.below_min|num }}</div>
+  </div>
+  {% endif %}
+</div>
+
+{% if esp_rows %}
+<div class="card" style="margin-top:16px">
+  <div class="card-head"><h2>ESP bo‘yicha</h2><span class="muted small">konsentratorlar va hisoblagichlar</span></div>
+  <div class="scroll-x"><table class="simple">
+    <thead><tr><th>ESP</th><th class="r">Konsentrator</th>{% for lb in d_labels %}<th class="r">{{ lb }}</th>{% endfor %}<th class="r">Hisoblagich</th>{% for lb in m_labels %}<th class="r">{{ lb }}</th>{% endfor %}</tr></thead>
+    <tbody>{% for e in esp_rows %}<tr><td><b>{{ e.name }}</b></td>
+      <td class="r num"><b>{{ e.dcu_total|num }}</b></td>{% for v in e.dcu|default:"" %}<td class="r num">{{ v|num }}</td>{% empty %}{% for lb in d_labels %}<td class="r muted">—</td>{% endfor %}{% endfor %}
+      <td class="r num"><b>{{ e.meters_total|num }}</b></td>{% for v in e.meters|default:"" %}<td class="r num">{{ v|num }}</td>{% empty %}{% for lb in m_labels %}<td class="r muted">—</td>{% endfor %}{% endfor %}
+    </tr>{% endfor %}</tbody>
+  </table></div>
+</div>
+{% endif %}
+
+{% if history|length > 1 %}
+<div class="grid g-2" style="margin-top:16px">
+  <div class="card"><div class="card-head"><h2>Konsentratorlar dinamikasi</h2><span class="muted small">{{ d_min }}+ kun offline</span></div><div class="chart-box" id="chart-dcu"></div></div>
+  <div class="card"><div class="card-head"><h2>Hisoblagichlar dinamikasi</h2><span class="muted small">{{ m_min }}+ kun aloqasiz</span></div><div class="chart-box" id="chart-mtr"></div></div>
+</div>
+{{ history|json_script:"mon-history" }}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  if (!window.ApexCharts) return;
+  var h = JSON.parse(document.getElementById('mon-history').textContent);
+  var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+  function draw(sel, key, name) {
+    var pts = h.filter(function (p) { return p[key] !== null && p[key] !== undefined; });
+    if (pts.length < 2) { document.querySelector(sel).innerHTML = '<div class="empty small">Grafik uchun kamida 2 ta kun kerak.</div>'; return; }
+    new ApexCharts(document.querySelector(sel), {
+      chart: { type: 'area', height: 210, toolbar: { show: false }, fontFamily: 'Inter, sans-serif', background: 'transparent', zoom: { enabled: false } },
+      series: [{ name: name, data: pts.map(function (p) { return p[key]; }) }],
+      xaxis: { categories: pts.map(function (p) { return p.d; }), labels: { style: { colors: '#94a3b8' } } },
+      yaxis: { labels: { formatter: function (v) { return Math.round(v).toLocaleString('ru-RU'); }, style: { colors: '#94a3b8' } } },
+      stroke: { width: 2.5, curve: 'smooth' }, colors: ['#3b5bfd'], dataLabels: { enabled: false },
+      fill: { type: 'gradient', gradient: { opacityFrom: .28, opacityTo: .02 } },
+      grid: { borderColor: dark ? '#222b49' : '#e4e7ee' }, theme: { mode: dark ? 'dark' : 'light' },
+      tooltip: { y: { formatter: function (v) { return v.toLocaleString('ru-RU'); } } }
+    }).render();
+  }
+  draw('#chart-dcu', 'dcu', 'Konsentratorlar');
+  draw('#chart-mtr', 'mtr', 'Hisoblagichlar');
+});
+</script>
+{% endif %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Yangi post{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Yangi post</h1><p>Bot orqali foydalanuvchilarga matn, rasm, video yoki fayl yuboring. Faol foydalanuvchilar: <b>{{ total|num }}</b> ta.</p></div></div>
+<form method="post" enctype="multipart/form-data" class="grid g-2" style="align-items:start"
+      x-data="mix(jobMixin(), postForm())" @submit.prevent="submit($event)">{% csrf_token %}
+  <div class="card card-pad">
+    <h2 style="margin-bottom:14px">Post</h2>
+    <div class="field"><label class="lbl" for="text">Matn</label>
+      <textarea id="text" name="text" rows="8" x-model="text" placeholder="Post matnini yozing…" style="min-height:160px"></textarea>
+      <div class="help"><span x-text="text.length"></span> / <span x-text="file ? 1024 : 4096"></span> belgi · rasm, video yoki fayl bilan birga matn 1024 belgigacha</div></div>
+    <div class="field"><label class="lbl">Rasm, video yoki fayl (ixtiyoriy)</label>
+      <input type="file" name="file" @change="file = $event.target.files[0] || null">
+      <div class="help">Rasm — 10 MB gacha, video va fayl — 50 MB gacha. Rasm/video/fayl turi avtomatik aniqlanadi.</div></div>
+    <label class="check"><input type="checkbox" name="confirm" value="1" x-model="confirm"><span><b>«✅ Tanishdim» tugmasi bilan yuborish</b><div class="help" style="margin-top:2px">Tugma bosilganda kim va qachon tanishgani yoziladi. O‘chirib qo‘ysangiz, post tugmasiz boradi.</div></span></label>
+    <div class="field" x-show="confirm" x-cloak style="margin-top:12px"><label class="lbl" for="deadline">Tanishish muddati (ixtiyoriy)</label><input type="datetime-local" id="deadline" name="deadline" style="width:100%;height:38px;padding:0 12px;border-radius:10px;border:1px solid var(--border-strong);background:var(--surface);color:var(--text);font:inherit"></div>
+  </div>
+  <div class="card card-pad">
+    <h2 style="margin-bottom:14px">Kimlarga yuboriladi</h2>
+    <div class="checks" style="margin-bottom:12px">
+      <label class="check"><input type="radio" name="mode" value="all" x-model="mode"><span>Hamma foydalanuvchilarga ({{ total|num }})</span></label>
+      <label class="check"><input type="radio" name="mode" value="district" x-model="mode"><span>Tuman / shahar bo‘yicha</span></label>
+      <label class="check"><input type="radio" name="mode" value="selected" x-model="mode"><span>Foydalanuvchilarni tanlab</span></label>
+    </div>
+    <div x-show="mode === 'district'" x-cloak class="checks">{% for d in districts %}<label class="check"><input type="checkbox" name="districts" value="{{ d }}"><span>{{ d }}</span></label>{% empty %}<span class="muted">Tumanlar topilmadi.</span>{% endfor %}</div>
+    <div x-show="mode === 'selected'" x-cloak>
+      <input type="text" x-model="q" placeholder="Qidirish: FIO yoki tuman" style="margin-bottom:10px">
+      <div class="pick-list">{% for u in users %}<label class="check" x-show="match('{{ u.full_name|escapejs }} {{ u.district|escapejs }}')"><input type="checkbox" name="users" value="{{ u.pk }}"><span>{{ u.full_name }}<span class="muted small"> · {{ u.district }}</span></span></label>{% endfor %}</div>
+    </div>
+    <div class="actions" style="margin-top:20px">
+      <button class="btn btn-primary" type="submit" :disabled="phase === 'upload' || phase === 'work'">{% icon "send" 16 %} Yuborish</button>
+      <a class="btn" href="{% url 'posts' %}">Bekor qilish</a>
+    </div>
+    {% include '_job.html' %}
+  </div>
+</form>
+<script>
+window.postForm = function () {
+  return { text: '', file: null, confirm: true, mode: 'all', q: '', match(s) { return !this.q || s.toLowerCase().indexOf(this.q.toLowerCase()) > -1; } };
+};
+</script>
+{% endblock %}

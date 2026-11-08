@@ -7,6 +7,7 @@ from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
+from apps.reports.perms import PERM_GROUPS
 from apps.reports.services import PERMS, ROLES, audit
 
 User = get_user_model()
@@ -27,11 +28,26 @@ def _apply(form, user):
     if form.editing_self:
         return
     role = form.cleaned_data.get("role")
-    user.groups.remove(*Group.objects.filter(name__in=ROLES))
+    user.groups.clear()
     if role:
         user.groups.add(Group.objects.get(name=role))
     perms = Permission.objects.filter(content_type__app_label="reports", codename__in=form.cleaned_data.get("extra_perms", []))
     user.user_permissions.set(perms)
+
+
+def _grouped(form, field="extra_perms"):
+    """Ruxsatlar bo‘limlar bo‘yicha: [(bo‘lim, [(kod, nomi, belgilangan)])]."""
+    chosen = set(form[field].value() or [])
+    return [(title, [(c, label, c in chosen) for c, label in items]) for title, items in PERM_GROUPS]
+
+
+def _role_cards():
+    out = []
+    for g in Group.objects.order_by("name"):
+        out.append({"pk": g.pk, "name": g.name, "desc": ROLES[g.name][0] if g.name in ROLES else "Maxsus rol",
+                    "builtin": g.name in ROLES, "locked": g.name == "Admin",
+                    "perms": g.permissions.filter(content_type__app_label="reports").count(), "users": g.user_set.count()})
+    return out
 
 
 @login_required
@@ -39,11 +55,11 @@ def _apply(form, user):
 def users(request):
     rows = []
     for u in User.objects.order_by("-is_active", "username"):
-        grp = u.groups.filter(name__in=ROLES).first()
+        grp = u.groups.first()
         extra = list(u.user_permissions.filter(content_type__app_label="reports").values_list("codename", flat=True))
         rows.append({"user": u, "role": grp.name if grp else ("Superuser" if u.is_superuser else "—"),
                      "extra": [PERMS[c] for c in extra if c in PERMS]})
-    return render(request, "users/list.html", {"rows": rows, "roles": ROLES})
+    return render(request, "users/list.html", {"rows": rows, "roles": _role_cards()})
 
 
 @login_required
@@ -61,7 +77,7 @@ def user_create(request):
         audit(request.user, "user_create", f"{user.username} · rol: {form.cleaned_data.get('role') or '—'}")
         messages.success(request, f"«{user.username}» foydalanuvchisi yaratildi.")
         return redirect("users")
-    return render(request, "users/form.html", {"form": form, "obj": None, "roles": ROLES})
+    return render(request, "users/form.html", {"form": form, "obj": None, "perm_groups": _grouped(form)})
 
 
 @login_required
@@ -86,7 +102,8 @@ def user_edit(request, pk):
         audit(request.user, "user_update", f"{user.username} · faol: {user.is_active} · rol: {form.cleaned_data.get('role') or '—'}")
         messages.success(request, "O‘zgarishlar saqlandi.")
         return redirect("users")
-    return render(request, "users/form.html", {"form": form, "obj": obj, "roles": ROLES, "me": me})
+    return render(request, "users/form.html", {"form": form, "obj": obj, "me": me, "perm_groups": _grouped(form),
+                                               "effective": sorted(c for c in PERMS if obj.has_perm(f"reports.{c}"))})
 
 
 @login_required
@@ -119,3 +136,60 @@ def password_change(request):
         messages.success(request, "Parol almashtirildi.")
         return redirect("dashboard")
     return render(request, "users/password.html", {"form": form})
+
+
+# ------------------------------------------------------------------ rollar
+manage_roles = permission_required("reports.manage_roles", raise_exception=True)
+
+
+@login_required
+@manage_roles
+def roles(request):
+    return render(request, "users/roles.html", {"roles": _role_cards()})
+
+
+def _save_role(form, group):
+    perms = Permission.objects.filter(content_type__app_label="reports", codename__in=form.cleaned_data["perms"])
+    if group is None:
+        group = Group.objects.create(name=form.cleaned_data["name"])
+    elif group.name not in ROLES:
+        group.name = form.cleaned_data["name"]
+        group.save()
+    group.permissions.set(perms)
+    return group
+
+
+@login_required
+@manage_roles
+def role_edit(request, pk=None):
+    from .forms import RoleForm
+
+    group = get_object_or_404(Group, pk=pk) if pk else None
+    if group is not None and group.name == "Admin":
+        messages.error(request, "«Admin» roli har doim barcha ruxsatlarga ega — o‘zgartirib bo‘lmaydi.")
+        return redirect("roles")
+    form = RoleForm(request.POST or None, group=group)
+    if request.method == "POST" and form.is_valid():
+        with transaction.atomic():
+            group = _save_role(form, group)
+        audit(request.user, "role_save", f"{group.name}: {len(form.cleaned_data['perms'])} ta ruxsat")
+        messages.success(request, f"«{group.name}» roli saqlandi.")
+        return redirect("roles")
+    return render(request, "users/role_form.html", {"form": form, "obj": group, "perm_groups": _grouped(form, "perms")})
+
+
+@login_required
+@manage_roles
+@require_POST
+def role_delete(request, pk):
+    group = get_object_or_404(Group, pk=pk)
+    if group.name in ROLES:
+        messages.error(request, "Tayyor rollarni o‘chirib bo‘lmaydi.")
+    elif group.user_set.exists():
+        messages.error(request, "Bu rolda foydalanuvchilar bor. Avval ularning rolini almashtiring.")
+    else:
+        name = group.name
+        group.delete()
+        audit(request.user, "role_delete", name)
+        messages.success(request, f"«{name}» roli o‘chirildi.")
+    return redirect("roles")

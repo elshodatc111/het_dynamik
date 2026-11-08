@@ -26,6 +26,8 @@ python manage.py create_db || goto :fail
 echo [3/4] Migratsiya...
 python manage.py migrate || goto :fail
 python manage.py bootstrap_admin || goto :fail
+echo Customer boti alohida oynada ishga tushmoqda...
+start "Customer boti" cmd /k "cd /d %~dp0 && call .venv\Scripts\activate && python manage.py run_bot"
 echo [4/4] Server: http://127.0.0.1:8000  (to'xtatish: Ctrl+C)
 python manage.py runserver 127.0.0.1:8000
 goto :end

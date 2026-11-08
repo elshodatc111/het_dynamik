@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Aloqasiz hisoblagichlar{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Aloqasiz hisoblagichlar · {{ snap.report_date|date:"d.m.Y" }}</h1>
+  <p><span class="badge badge-primary">{{ desc }}</span> · {{ m_min }} kun va undan ko‘p: <b>{{ page.paginator.count|num }}</b> ta</p></div>
+  <div class="actions"><a class="btn" href="{% url 'mon_snapshot' snap.pk %}">← Svod</a>
+    {% if perms.reports.export_excel and not snap.meter_detail_purged %}<a class="btn btn-primary" href="?{{ request.GET.urlencode }}{% if request.GET %}&{% endif %}xlsx=1">{% icon "download" 16 %} Excelga yuklab olish</a>
+    <a class="btn" href="?{{ request.GET.urlencode }}{% if request.GET %}&{% endif %}pdf=1">{% icon "download" 16 %} PDF</a>{% endif %}</div></div>
+{% if snap.meter_detail_purged %}<div class="alert">{% icon "alert" 18 %}<div class="body">Bu sana uchun ro‘yxat tozalangan.</div></div>{% endif %}
+<form method="get" class="card filters">
+  <div class="f"><label class="lbl">ESP</label><select name="esp"><option value="">Hammasi</option>{% for e in esps %}<option value="{{ e }}" {% if esp == e %}selected{% endif %}>{{ e }}</option>{% endfor %}</select></div>
+  <div class="f"><label class="lbl">Davr</label><select name="b"><option value="">Hammasi</option>{% for lb in labels %}<option value="{{ forloop.counter0 }}" {% if b == forloop.counter0|stringformat:"d" %}selected{% endif %}>{{ lb }}</option>{% endfor %}</select></div>
+  <div class="f"><label class="lbl">Guruh</label><select name="g"><option value="">Hammasi</option>{% for k, t in groups %}<option value="{{ k }}" {% if g == k %}selected{% endif %}>{{ t }}</option>{% endfor %}</select></div>
+  <div class="f" style="flex:1"><label class="lbl">Qidiruv</label><input type="text" name="q" value="{{ q }}" placeholder="hisoblagich, hisob raqami, ism, ESP, manzil"></div>
+  <button class="btn btn-primary" type="submit">Qidirish</button>
+</form>
+<div class="card"><div class="scroll-x"><table class="simple">
+  <thead><tr><th>ESP</th><th>Podstansiya / fider</th><th>TP</th><th>Hisob raqami</th><th>Guruh</th><th>Iste’molchi</th><th>Hisoblagich</th><th>Aloqa</th><th class="r">Kun</th><th>Manzil</th></tr></thead>
+  <tbody>{% for r in page %}<tr><td>{{ r.esp }}</td><td>{{ r.substation }}<div class="muted small">{{ r.feeder }}</div></td><td>{{ r.transformer }}</td>
+    <td class="num">{{ r.account }}</td><td><span class="badge">{{ r.get_group_display }}</span></td><td style="max-width:240px;overflow-wrap:anywhere">{{ r.consumer_name }}</td>
+    <td class="num"><b>{{ r.meter_no }}</b></td><td>{{ r.comm_type }}</td><td class="r num"><b>{{ r.days }}</b></td><td style="max-width:260px;overflow-wrap:anywhere" class="muted small">{{ r.address }}</td></tr>
+  {% empty %}<tr><td colspan="10" class="empty">Hech narsa topilmadi.</td></tr>{% endfor %}</tbody>
+</table></div>
+{% include "monitoring/_pager.html" %}</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Yuborilgan postlar{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Yuborilgan postlar</h1><p>Bot orqali yuborilgan postlar va ularning hisoboti.</p></div>
+  {% if can_send %}<a class="btn btn-primary" href="{% url 'post_new' %}">{% icon "plus" 16 %} Yangi post</a>{% endif %}</div>
+<div class="card"><div class="scroll-x"><table class="simple">
+  <thead><tr><th>Vaqt</th><th>Post</th><th>Qabul qiluvchilar</th><th class="r">Yetdi</th><th class="r">Yetmadi</th><th class="r">Tanishdi</th><th></th></tr></thead>
+  <tbody>{% for p in page %}<tr>
+    <td class="muted nowrap">{{ p.created_at|date:"d.m.Y H:i" }}</td>
+    <td style="max-width:340px"><a href="{% url 'post_detail' p.pk %}"><b>{{ p.title }}</b></a><div class="muted small">{{ p.get_kind_display }}{% if not p.confirm_required %} · tugmasiz{% endif %}{% if p.deleted_at %} · <span style="color:var(--err)">o‘chirilgan</span>{% endif %}</div></td>
+    <td class="small">{{ p.audience }}</td>
+    <td class="r num" style="color:var(--ok)"><b>{{ p.st.sent|num }}</b></td><td class="r num" style="color:var(--err)">{{ p.st.failed|num }}</td>
+    <td class="r num">{% if p.confirm_required %}<b>{{ p.st.confirmed|num }}</b> / {{ p.st.sent|num }}{% else %}<span class="faint">—</span>{% endif %}</td>
+    <td class="r"><a class="btn btn-sm" href="{% url 'post_detail' p.pk %}">Hisobot</a></td></tr>
+  {% empty %}<tr><td colspan="7" class="empty">Hali post yuborilmagan.</td></tr>{% endfor %}</tbody></table></div>
+{% if page.paginator.num_pages > 1 %}<div class="pager">
+  {% if page.has_previous %}<a class="btn btn-sm" href="?page={{ page.previous_page_number }}">←</a>{% endif %}<span class="muted small">{{ page.number }} / {{ page.paginator.num_pages }}</span>
+  {% if page.has_next %}<a class="btn btn-sm" href="?page={{ page.next_page_number }}">→</a>{% endif %}</div>{% endif %}</div>
+{% endblock %}

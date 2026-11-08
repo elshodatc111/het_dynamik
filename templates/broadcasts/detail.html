@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Post hisoboti{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>{{ post.title }}</h1><p>{{ post.get_kind_display }} · {{ post.created_at|date:"d.m.Y H:i" }} · {{ post.audience }}{% if post.deleted_at %} · <b style="color:var(--err)">foydalanuvchilardan o‘chirilgan</b>{% endif %}</p></div>
+  <div class="actions"><a class="btn" href="{% url 'posts' %}">← Postlar</a><a class="btn" href="{% url 'post_export' post.pk %}">{% icon "download" 16 %} Excel</a></div></div>
+<div class="card card-pad" x-data="jobMixin({ attach: '{{ attach }}' })" x-show="phase !== 'idle'" x-cloak style="margin-bottom:16px">{% include '_job.html' %}</div>
+<div class="grid g-2" style="margin-bottom:16px;align-items:start">
+  <div class="card card-pad"><div class="pre" style="white-space:pre-wrap">{{ post.text|default:"(matnsiz)" }}</div>
+    {% if post.file_name %}<div class="muted small" style="margin-top:8px">{% icon "file" 14 %} {{ post.file_name }}</div>{% endif %}
+    {% if post.confirm_required %}<div class="muted small" style="margin-top:8px">«Tanishdim» tugmasi bor{% if post.deadline %} · muddat: {{ post.deadline|date:"d.m.Y H:i" }}{% if overdue %} <span class="badge badge-err">o‘tib ketgan</span>{% endif %}{% endif %}</div>{% else %}<div class="muted small" style="margin-top:8px">Tugmasiz yuborilgan</div>{% endif %}</div>
+  <div class="stat-grid" style="margin:0">
+    <div class="card stat"><div class="lab">Jami</div><div class="val">{{ st.total|num }}</div></div>
+    <div class="card stat"><div class="lab">Yetib bordi</div><div class="val" style="color:var(--ok)">{{ st.sent|num }}</div></div>
+    <div class="card stat"><div class="lab">Yetmadi</div><div class="val" style="color:var(--err)">{{ st.failed|num }}</div></div>
+    {% if post.confirm_required %}<div class="card stat main-stat"><div class="lab">Tanishdi</div><div class="val">{{ st.confirmed|num }} / {{ st.sent|num }}</div></div>{% endif %}
+  </div>
+</div>
+{% if can_manage %}<div class="actions" style="margin-bottom:16px">
+  {% if post.confirm_required and not post.deleted_at %}<form method="post" action="{% url 'post_remind' post.pk %}" x-data="jobMixin()" @submit.prevent="submit($event)">{% csrf_token %}<button class="btn" type="submit">{% icon "bell" 16 %} Tanishmaganlarga eslatma</button></form>{% endif %}
+  {% if not post.deleted_at %}<form method="post" action="{% url 'post_delete' post.pk %}" x-data="jobMixin()" @submit.prevent="if (confirm('Post barcha foydalanuvchilardan o‘chirilsinmi? (Telegram faqat 48 soatgacha yuborilgan xabarlarni o‘chirishga ruxsat beradi)')) submit($event)">{% csrf_token %}<button class="btn btn-danger" type="submit">{% icon "trash" 16 %} Hammadan o‘chirish</button></form>{% endif %}
+</div>{% endif %}
+<div class="tabs"><a class="tab {% if not flt %}on{% endif %}" href="?">Hammasi</a>{% if post.confirm_required %}<a class="tab {% if flt == 'wait' %}on{% endif %}" href="?f=wait">Tanishmaganlar</a><a class="tab {% if flt == 'done' %}on{% endif %}" href="?f=done">Tanishganlar</a>{% endif %}<a class="tab {% if flt == 'fail' %}on{% endif %}" href="?f=fail">Yetmaganlar</a></div>
+<div class="card"><div class="scroll-x"><table class="simple">
+  <thead><tr><th>Foydalanuvchi</th><th>Telefon</th><th>Holat</th>{% if post.confirm_required %}<th>Tanishdi</th>{% endif %}</tr></thead>
+  <tbody>{% for r in recs %}<tr><td><b>{{ r.user.full_name }}</b><div class="muted small">{{ r.user.district }} · {{ r.user.position }}</div></td><td class="num small">{{ r.user.phone }}</td>
+    <td>{% if r.status == 'sent' %}<span class="badge badge-ok">yetdi</span><div class="muted small">{{ r.sent_at|date:"d.m H:i" }}</div>{% elif r.status == 'failed' %}<span class="badge badge-err">yetmadi</span><div class="muted small">{{ r.error }}</div>{% else %}<span class="badge">navbatda</span>{% endif %}</td>
+    {% if post.confirm_required %}<td>{% if r.confirmed_at %}<span class="badge badge-ok">{% icon "check" 12 %} {{ r.confirmed_at|date:"d.m H:i" }}</span>{% elif r.status == 'sent' %}<span class="badge badge-warn">kutilmoqda</span>{% else %}—{% endif %}</td>{% endif %}</tr>
+  {% empty %}<tr><td colspan="4" class="empty">Yozuv yo‘q.</td></tr>{% endfor %}</tbody></table></div></div>
+{% endblock %}

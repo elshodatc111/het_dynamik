@@ -23,7 +23,7 @@ def pdf(name):
     return SimpleUploadedFile(name, (FIX / name).read_bytes(), content_type="application/pdf")
 
 
-@override_settings(MEDIA_ROOT=TMP)
+@override_settings(MEDIA_ROOT=TMP, JOBS_SYNC=True)
 class AppFlowTests(TestCase):
     @classmethod
     def setUpTestData(cls):
@@ -41,7 +41,7 @@ class AppFlowTests(TestCase):
         shutil.rmtree(TMP, ignore_errors=True)
 
     def upload_and_confirm(self, *names, replace=False):
-        r = self.client.post(reverse("upload"), {"files": [pdf(n) for n in names]})
+        r = self.client.post(reverse("upload"), {"files": [pdf(n) for n in names]}, follow=True)
         self.assertEqual(r.status_code, 200)
         tokens = list(self.client.session["pending_uploads"])
         data = {"token": tokens}
@@ -51,7 +51,7 @@ class AppFlowTests(TestCase):
 
     # ------------------------------------------------------------ kirish va ruxsatlar
     def test_login_required(self):
-        for url in ("dashboard", "compare", "trend", "upload", "archive", "users", "audit"):
+        for url in ("dashboard", "dynamics", "compare", "trend", "upload", "archive", "users", "audit"):
             r = self.client.get(reverse(url))
             self.assertEqual(r.status_code, 302, url)
             self.assertIn("/kirish/", r["Location"])
@@ -59,6 +59,7 @@ class AppFlowTests(TestCase):
     def test_role_permissions(self):
         self.client.force_login(self.viewer)
         self.assertEqual(self.client.get(reverse("dashboard")).status_code, 200)
+        self.assertEqual(self.client.get(reverse("dynamics")).status_code, 200)
         self.assertEqual(self.client.get(reverse("compare")).status_code, 200)
         for url in ("upload", "users", "audit"):
             self.assertEqual(self.client.get(reverse(url)).status_code, 403, url)
@@ -87,9 +88,10 @@ class AppFlowTests(TestCase):
         self.assertContains(r, "26 201")     # 05.11 jami
         self.assertContains(r, "↓ -426")
 
-        r = self.client.get(reverse("dashboard"))
+        r = self.client.get(reverse("dynamics"))
         self.assertEqual(r.status_code, 200)
         self.assertContains(r, "26 201")
+        self.assertNotContains(self.client.get(reverse("dashboard")), "26 201")  # bosh sahifa bo‘sh
 
         r = self.client.get(reverse("trend_data"), {"section": "aloqasiz", "metric": "nome_all", "d": ["jami"],
                                                     "from": "2026-11-01", "to": "2026-11-30"})
@@ -121,7 +123,7 @@ class AppFlowTests(TestCase):
     def test_rejects_non_pdf(self):
         self.client.force_login(self.operator)
         bad = SimpleUploadedFile("x.pdf", b"hello", content_type="application/pdf")
-        r = self.client.post(reverse("upload"), {"files": [bad]})
+        r = self.client.post(reverse("upload"), {"files": [bad]}, follow=True)
         self.assertContains(r, "haqiqiy PDF")
         self.assertEqual(Upload.objects.count(), 0)
 
@@ -142,6 +144,14 @@ class AppFlowTests(TestCase):
         self.assertIn(26201, flat)
         self.assertIn(-426, flat)
         self.assertTrue(ws.page_setup.orientation == "landscape")
+
+    def test_pdf_export_one_section_per_page(self):
+        self.client.force_login(self.admin)
+        self.upload_and_confirm("hisobot_2026-11-04.pdf", "hisobot_2026-11-05.pdf")
+        r = self.client.get(reverse("compare_export") + "?a=2026-11-04&b=2026-11-05&fmt=pdf")
+        self.assertEqual(r.status_code, 200)
+        self.assertTrue(r.content.startswith(b"%PDF"))
+        self.assertEqual(r.content.count(b"/Type /Page\n"), 5)
 
     # ------------------------------------------------------------ foydalanuvchilar
     def test_user_management(self):

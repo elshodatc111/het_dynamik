@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Location · Qidiruv jurnali{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Qidiruv jurnali</h1><p>Bot orqali «Joylashuvni aniqlash» bo‘yicha qilingan barcha qidiruvlar.</p></div>
+  <a class="btn" href="{% url 'location_searches_export' %}?{{ qs }}">{% icon "download" 16 %} Excelga yuklab olish</a></div>
+<form method="get" class="card filters">
+  <div class="f"><label class="lbl">Foydalanuvchi</label><select name="user"><option value="">Hammasi</option>{% for u in users %}<option value="{{ u.pk }}" {% if f.user == u.pk|stringformat:"d" %}selected{% endif %}>{{ u.full_name|default:u.tg_id }}</option>{% endfor %}</select></div>
+  <div class="f"><label class="lbl">Natija</label><select name="found"><option value="">Hammasi</option><option value="1" {% if f.found == "1" %}selected{% endif %}>Topilgan</option><option value="0" {% if f.found == "0" %}selected{% endif %}>Topilmagan</option></select></div>
+  <div class="f"><label class="lbl">Sanadan</label><input type="date" name="d1" value="{{ f.d1 }}"></div>
+  <div class="f"><label class="lbl">Sanagacha</label><input type="date" name="d2" value="{{ f.d2 }}"></div>
+  <div class="f" style="flex:1"><label class="lbl">Raqam</label><input type="text" name="q" value="{{ f.q }}"></div>
+  <button class="btn btn-primary" type="submit">Ko‘rsatish</button>
+</form>
+<div class="grid g-4" style="margin-bottom:16px">
+  <div class="card card-pad"><div class="muted small">Jami qidiruv</div><div style="font-size:26px;font-weight:700">{{ n|num }}</div></div>
+  <div class="card card-pad"><div class="muted small">Topilgan</div><div style="font-size:26px;font-weight:700;color:var(--ok)">{{ ok|num }}</div></div>
+  <div class="card card-pad"><div class="muted small">Topilmagan</div><div style="font-size:26px;font-weight:700;color:var(--err)">{{ miss|num }}</div></div>
+</div>
+<div class="card"><div class="scroll-x"><table class="simple">
+  <thead><tr><th>Vaqt</th><th>Foydalanuvchi</th><th>Qidirilgan raqam</th><th>Natija</th><th>Topilgan joy</th></tr></thead>
+  <tbody>{% for s in page %}<tr><td class="muted nowrap">{{ s.created_at|date:"d.m.Y H:i:s" }}</td>
+    <td><b>{{ s.bot_user.full_name|default:"—" }}</b><div class="muted small">{{ s.bot_user.district }}</div></td>
+    <td class="num">{{ s.query }}</td>
+    <td>{% if s.found %}<span class="badge badge-ok">{% icon "check" 12 %} topildi</span>{% else %}<span class="badge badge-err">topilmadi</span>{% endif %}</td>
+    <td class="small">{% if s.place %}<a href="{% url 'location_detail' s.place.pk %}">{{ s.place.kind }} · {{ s.place.district }}</a>{% else %}—{% endif %}</td></tr>
+  {% empty %}<tr><td colspan="5" class="empty">Qidiruv topilmadi.</td></tr>{% endfor %}</tbody></table></div>
+{% if page.paginator.num_pages > 1 %}<div class="pager">
+  {% if page.has_previous %}<a class="btn btn-sm" href="?page={{ page.previous_page_number }}&{{ qs }}">←</a>{% endif %}<span class="muted small">{{ page.number }} / {{ page.paginator.num_pages }}</span>
+  {% if page.has_next %}<a class="btn btn-sm" href="?page={{ page.next_page_number }}&{{ qs }}">→</a>{% endif %}</div>{% endif %}</div>
+{% endblock %}

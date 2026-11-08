@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Monitoring sozlamalari{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Monitoring sozlamalari</h1><p>Davr chegaralari, iste’molchi turlari kalit so‘zlari va Telegram guruhi. O‘zgarishdan keyin barcha svodlar qayta hisoblanadi.</p></div></div>
+<form method="post" class="stack" style="max-width:860px">{% csrf_token %}
+  <div class="card card-pad">
+    <h2 style="margin-bottom:4px">Davr chegaralari (kun)</h2>
+    <p class="muted small" style="margin-top:0">Sonlarni vergul bilan yozing. Birinchi son — hisobotga kirish chegarasi (undan kam kunlilar tushmaydi).
+      Oraliqlar: «2, 7, 30» → 2–7 (≥2 va ≤7), 7–30 (&gt;7 va ≤30), 30+ (&gt;30).</p>
+    <div class="grid g-2">
+      <div class="field"><label class="lbl" for="dcu_edges">Konsentratorlar</label><input type="text" id="dcu_edges" name="dcu_edges" value="{{ cfg.dcu_edges }}"></div>
+      <div class="field"><label class="lbl" for="meter_edges">Hisoblagichlar</label><input type="text" id="meter_edges" name="meter_edges" value="{{ cfg.meter_edges }}"></div>
+    </div>
+    <label class="check"><input type="checkbox" name="use_file_time" value="1" {% if cfg.use_file_time %}checked{% endif %}>
+      <span>Konsentrator birinchi marta uchraganda, fayldagi «Время онлайна/офлайна» vaqti hisobot sanasidan oldin bo‘lsa, shuni offline boshlangan sana deb olish</span></label>
+  </div>
+  <div class="card card-pad">
+    <h2 style="margin-bottom:4px">Iste’molchi turlari — kalit so‘zlar</h2>
+    <p class="muted small" style="margin-top:0">Fayldagi «Тип потребителя» matnida shu so‘zlardan biri qatnashsa, tur aniqlanadi (katta-kichik harf farqsiz; rus, ingliz va lotin).
+      Tekshirish tartibi: balans → yuridik → aholi. Hech biriga tushmasa — «Boshqa».</p>
+    <div class="field"><label class="lbl" for="kw_yuridik">Yuridik</label><textarea class="kw" id="kw_yuridik" name="kw_yuridik">{{ cfg.kw_yuridik }}</textarea></div>
+    <div class="field"><label class="lbl" for="kw_aholi">Aholi</label><textarea class="kw" id="kw_aholi" name="kw_aholi">{{ cfg.kw_aholi }}</textarea></div>
+    <div class="field"><label class="lbl" for="kw_balans">Balans</label><textarea class="kw" id="kw_balans" name="kw_balans">{{ cfg.kw_balans }}</textarea></div>
+    <div class="field"><label class="lbl" for="offline_keywords">Offline holat so‘zlari (konsentrator «Статус» ustuni)</label><textarea class="kw" id="offline_keywords" name="offline_keywords">{{ cfg.offline_keywords }}</textarea></div>
+  </div>
+  <div class="card card-pad">
+    <h2 style="margin-bottom:4px">Telegram guruh</h2>
+    <p class="muted small" style="margin-top:0">Bot tokeni butun loyiha uchun umumiy va <a href="{% url 'site_settings' %}">Sozlamalar</a> bo‘limida kiritiladi.
+      Bu yerda faqat hisobot yuboriladigan guruh belgilanadi. Botni guruhga qo‘shib, administrator qiling.</p>
+    <p>Bot tokeni:
+      {% if token_source %}<span class="badge badge-ok">{% icon "check" 12 %} sozlangan</span>
+      {% else %}<span class="badge badge-err">kiritilmagan</span> {% if perms.reports.manage_users %}<a href="{% url 'site_settings' %}">Sozlamalarda kiriting →</a>{% endif %}{% endif %}</p>
+    <div class="field"><label class="lbl" for="telegram_chat_id">Guruh ID si</label>
+      <input type="text" id="telegram_chat_id" name="telegram_chat_id" value="{{ cfg.telegram_chat_id }}" placeholder="{{ env_chat|default:'-1001234567890' }}">
+      {% if chat_title %}<div class="help" style="color:var(--ok)">✓ Guruh nomi: <b>{{ chat_title }}</b></div>{% endif %}
+      <div class="help">Bo‘sh qoldirilsa, <code>.env</code> dagi TELEGRAM_CHAT_ID ishlatiladi. Super-guruh ID si odatda «-100» bilan boshlanadi.</div></div>
+    <div class="field"><label class="lbl" for="detail_keep_days">Hisoblagich ro‘yxatini saqlash muddati (kun)</label>
+      <input type="text" id="detail_keep_days" name="detail_keep_days" value="{{ cfg.detail_keep_days }}" style="max-width:140px">
+      <div class="help">Muddat o‘tgach nomma-nom ro‘yxat o‘chiriladi, svod (jami sonlar) doim saqlanadi.</div></div>
+  </div>
+  <div class="actions"><button class="btn btn-primary" type="submit">{% icon "check" 16 %} Saqlash</button></div>
+</form>
+<form method="post" action="{% url 'mon_settings_test' %}" style="margin-top:12px">{% csrf_token %}
+  <button class="btn" type="submit">{% icon "send" 16 %} Sinov xabarini yuborish</button>
+  <span class="muted small">Avval sozlamalarni saqlang.</span>
+</form>
+{% endblock %}

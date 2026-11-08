@@ -135,7 +135,8 @@ def _data_rows(table):
 
 
 # ------------------------------------------------------------------ asosiy funksiya
-def parse_pdf(path) -> ParsedReport:
+def parse_pdf(path, progress=None) -> ParsedReport:
+    """progress(o‘qilgan_sahifa, jami_sahifa) — har sahifadan keyin chaqiriladi."""
     rep = ParsedReport()
     try:
         pdf = pdfplumber.open(path)
@@ -147,6 +148,8 @@ def parse_pdf(path) -> ParsedReport:
         rep.pages = len(pdf.pages)
         ranges = set()
         for pno, page in enumerate(pdf.pages, start=1):
+            if progress:
+                progress(pno - 1, rep.pages)
             text = page.extract_text() or ""
             m = DATE_RANGE.search(text)
             if m:

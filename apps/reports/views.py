@@ -7,10 +7,13 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator
 from django.http import FileResponse, Http404, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
 from django.utils import timezone
 from django.views.decorators.http import require_POST
 
-from . import services
+from apps.core import jobs
+
+from . import services, tasks
 from .excel import build_workbook
 from .models import AuditLog, District, Metric, Section, Upload
 from .parser.districts import TOTAL_KEY
@@ -24,8 +27,15 @@ audit_perm = permission_required("reports.view_audit", raise_exception=True)
 
 # ------------------------------------------------------------------ dashboard
 @login_required
-@view_perm
 def dashboard(request):
+    """Bosh sahifa — hozircha bo‘sh (loyiha yakunlangach tayyorlanadi)."""
+    return render(request, "home.html")
+
+
+@login_required
+@view_perm
+def dynamics(request):
+    """Dinamika bo‘limining umumiy ko‘rinishi (oldingi bosh sahifa)."""
     return render(request, "dashboard.html", {"data": services.dashboard_data()})
 
 
@@ -68,6 +78,13 @@ def compare_export(request):
     comp = services.build_comparison(a, b)
     if not comp["sections"]:
         raise Http404("Tanlangan sanalar uchun ma’lumot yo‘q")
+    if request.GET.get("fmt") == "pdf":
+        from .pdfs import compare_pdf
+
+        services.audit(request.user, "export", f"PDF: {a:%d.%m.%Y} → {b:%d.%m.%Y}")
+        resp = HttpResponse(compare_pdf(comp, request.user), content_type="application/pdf")
+        resp["Content-Disposition"] = f'attachment; filename="dinamika_{a:%Y-%m-%d}_{b:%Y-%m-%d}.pdf"'
+        return resp
     content = build_workbook(comp, request.user)
     services.audit(request.user, "export", f"Excel: {a:%d.%m.%Y} → {b:%d.%m.%Y}")
     resp = HttpResponse(content, content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
@@ -110,97 +127,98 @@ def trend_data(request):
 @login_required
 @upload_perm
 def upload(request):
+    """PDF larni qabul qilib saqlaydi va tekshirishni orqa fonda boshlaydi (jonli progress bilan)."""
     if request.method != "POST":
         return render(request, "upload.html", {})
-
+    back = lambda: redirect("upload")  # noqa: E731
     files = request.FILES.getlist("files")
     if not files:
-        messages.error(request, "PDF fayl tanlang.")
-        return render(request, "upload.html", {})
+        return jobs.reject(request, "PDF fayl tanlang.", back)
 
     from django.conf import settings
 
-    cards, pending = [], {}
+    items, precards = [], []
     for f in files:
-        card = {"name": f.name, "token": None, "report": None, "errors": [], "warnings": [], "duplicate": None}
+        err = None
         if not f.name.lower().endswith(".pdf"):
-            card["errors"].append("Faqat PDF fayl qabul qilinadi.")
+            err = "Faqat PDF fayl qabul qilinadi."
         elif f.size > settings.MAX_PDF_SIZE:
-            card["errors"].append("Fayl juda katta.")
+            err = "Fayl juda katta."
         else:
             head = f.read(5)
             f.seek(0)
             if head != b"%PDF-":
-                card["errors"].append("Bu haqiqiy PDF fayl emas.")
-        if not card["errors"]:
+                err = "Bu haqiqiy PDF fayl emas."
+        if err:
+            precards.append({"token": None, "name": f.name, "ok": False, "errors": [err], "warnings": [], "report_date": None,
+                             "prev_date": None, "pages": 0, "sections": 0, "skipped_pages": [], "summary": []})
+        else:
             token, path = services.stash_upload(f)
-            rep = services.analyse_file(path)
-            card.update(token=token, report=rep, errors=list(rep.errors), warnings=list(rep.warnings))
-            if rep.ok:
-                card["duplicate"] = Upload.objects.filter(report_date=rep.report_date).first()
-                card["summary"] = _summary(rep)
-                pending[token] = f.name
-        cards.append(card)
+            items.append((token, str(path), f.name))
+    job = jobs.create("pdf_analyse", request.user, tasks.analyse_steps([n for _, _, n in items]))
+    job.d["redirect"] = reverse("upload_result", args=[job.id])
+    return jobs.launch(request, job, tasks.analyse_job, items, precards, fail_url=reverse("upload"))
 
+
+@login_required
+@upload_perm
+def upload_result(request, job_id):
+    """Tekshiruv natijasi (job tugagach)."""
+    data = jobs.load(job_id, request.user)
+    if not data or data["status"] != "done" or data.get("kind") != "pdf_analyse":
+        messages.error(request, "Natija topilmadi yoki muddati o‘tgan. Fayllarni qaytadan yuklang.")
+        return redirect("upload")
+    cards, pending = [], {}
+    for c in data["result"]["cards"]:
+        rd = services.parse_iso(c["report_date"])
+        rep = {"ok": c["ok"], "report_date": rd, "prev_date": services.parse_iso(c["prev_date"]), "pages": c["pages"],
+               "sections": range(c["sections"]), "skipped_pages": c["skipped_pages"]} if c["token"] or c["ok"] else None
+        from decimal import Decimal
+
+        c["summary"] = [dict(s, first=[(lb, Decimal(str(v)), kind) for lb, v, kind in s["first"]]) for s in c["summary"]]
+        card = dict(c, report=rep, duplicate=None)
+        if c["ok"] and rd:
+            card["duplicate"] = Upload.objects.filter(report_date=rd).select_related("uploaded_by").first()
+            pending[c["token"]] = c["name"]
+        cards.append(card)
+    cards.sort(key=lambda c: c["report"]["report_date"] if c["report"] and c["ok"] else date.max)
     request.session["pending_uploads"] = pending
-    cards.sort(key=lambda c: c["report"].report_date if c["report"] and c["report"].ok else date.max)
-    ok_cards = [c for c in cards if c["report"] and c["report"].ok]
     return render(request, "upload_preview.html", {
         "cards": cards, "can_replace": request.user.has_perm("reports.manage_uploads"),
-        "has_ok": bool(ok_cards),
+        "has_ok": any(c["ok"] for c in cards),
     })
-
-
-def _summary(rep):
-    """Ko‘rib chiqish oynasi uchun qisqa jadval: har bir bo‘limdagi «Jami» qiymatlardan bir nechtasi."""
-    out = []
-    for key, sd in rep.sections.items():
-        total = sd.cur.get(TOTAL_KEY, {})
-        from .parser.catalog import SECTION_BY_KEY
-
-        sdef = SECTION_BY_KEY[key]
-        first = [(m.label, total[m.key], m.kind) for m in sdef.metrics if m.key in total][:3]
-        out.append({"title": sdef.short, "districts": len(sd.cur) - 1, "page": sd.page, "first": first})
-    return out
 
 
 @login_required
 @upload_perm
 @require_POST
 def upload_confirm(request):
+    back = lambda: redirect("upload")  # noqa: E731
     pending = request.session.get("pending_uploads", {})
     can_replace = request.user.has_perm("reports.manage_uploads")
     replace_tokens = set(request.POST.getlist("replace")) if can_replace else set()
     wanted = set(request.POST.getlist("token")) | replace_tokens
     tokens = [t for t in wanted if t in pending]
     if not tokens:
-        messages.error(request, "Saqlash uchun fayl tanlanmadi.")
-        return redirect("upload")
+        return jobs.reject(request, "Saqlash uchun fayl tanlanmadi.", back)
+    entries = [(t, pending[t], t in replace_tokens) for t in tokens]
+    job = jobs.create("pdf_save", request.user, tasks.save_steps([e[1] for e in entries]))
+    job.d["redirect"] = reverse("upload_done", args=[job.id])
+    request.session["pending_uploads"] = {}
+    return jobs.launch(request, job, tasks.save_job, entries, request.user.pk, fail_url=reverse("upload"))
 
-    items = []
-    for t in tokens:
-        path = services.pending_path(t)
-        if not path:
-            continue
-        rep = services.analyse_file(path)
-        if rep.ok:
-            items.append((rep, path, pending[t], t))
-    items.sort(key=lambda x: x[0].report_date)  # eski sanalar avval — «oldingi holat» to‘g‘ri to‘ldirilsin
 
-    saved, skipped = [], []
-    for rep, path, name, t in items:
-        try:
-            services.save_report(rep, path, name, request.user, replace=(t in replace_tokens))
-            saved.append(rep.report_date)
-            path.unlink(missing_ok=True)
-            pending.pop(t, None)
-        except services.DuplicateUpload as exc:
-            skipped.append(f"{exc.existing.report_date:%d.%m.%Y}")
-    request.session["pending_uploads"] = pending
-    if saved:
-        messages.success(request, "Saqlandi: " + ", ".join(f"{d:%d.%m.%Y}" for d in saved))
-    if skipped:
-        messages.warning(request, "O‘tkazib yuborildi (bu sana allaqachon bor): " + ", ".join(skipped))
+@login_required
+@upload_perm
+def upload_done(request, job_id):
+    data = jobs.load(job_id, request.user)
+    if data and data["status"] == "done" and data.get("kind") == "pdf_save":
+        res = data["result"]
+        fmt = lambda xs: ", ".join(f"{services.parse_iso(x):%d.%m.%Y}" for x in xs)  # noqa: E731
+        if res.get("saved"):
+            messages.success(request, "Saqlandi: " + fmt(res["saved"]))
+        if res.get("skipped"):
+            messages.warning(request, "O‘tkazib yuborildi (bu sana allaqachon bor): " + fmt(res["skipped"]))
     return redirect("archive")
 
 

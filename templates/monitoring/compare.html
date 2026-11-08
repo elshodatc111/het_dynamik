@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Solishtirish · Offline monitoring{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h1>Offline monitoring · Solishtirish</h1>
+    <p>Ikki sanadagi svodni yacheykama-yacheyka solishtiring: nima ko‘paydi, nima kamaydi.</p></div>
+  {% if cmp and perms.reports.export_excel %}
+  <div class="actions">
+    <a class="btn btn-primary" href="?a={{ a.pk }}&b={{ b.pk }}&xlsx=1">{% icon "download" 16 %} Excel</a>
+    <a class="btn" href="?a={{ a.pk }}&b={{ b.pk }}&pdf=1">{% icon "download" 16 %} PDF</a>
+  </div>
+  {% endif %}
+</div>
+
+{% if snaps|length < 2 %}
+<div class="card empty">{% icon "compare" 40 %}<h2 style="color:var(--text);margin-bottom:6px">Solishtirish uchun kamida ikki kunlik hisobot kerak</h2>
+  <p>Hozircha {{ snaps|length }} ta hisobot yuklangan. Ertangi faylni yuklang — farqlar shu yerda ko‘rinadi.</p>
+  {% if perms.reports.upload_monitoring %}<a class="btn btn-primary" href="{% url 'mon_upload' %}">{% icon "upload" 16 %} Fayl yuklash</a>{% endif %}</div>
+{% else %}
+<form method="get" class="card filters">
+  <div class="f"><label class="lbl" for="a">Oldingi sana (A)</label>
+    <select name="a" id="a">{% for s in snaps %}<option value="{{ s.pk }}" {% if a and s.pk == a.pk %}selected{% endif %}>{{ s.report_date|date:"d.m.Y" }}</option>{% endfor %}</select></div>
+  <div class="arrow-sep">→</div>
+  <div class="f"><label class="lbl" for="b">Keyingi sana (B)</label>
+    <select name="b" id="b">{% for s in snaps %}<option value="{{ s.pk }}" {% if b and s.pk == b.pk %}selected{% endif %}>{{ s.report_date|date:"d.m.Y" }}</option>{% endfor %}</select></div>
+  <button class="btn btn-primary" type="submit">Solishtirish</button>
+  {% if quick %}<div class="quick" style="margin-left:auto;display:flex;gap:6px;flex-wrap:wrap">
+    {% for q in quick %}<a class="btn btn-sm" href="?a={{ q.a }}&b={{ b.pk }}">{{ q.label }}</a>{% endfor %}</div>{% endif %}
+</form>
+
+{% if cmp %}
+{% if edges_differ %}
+<div class="alert alert-warn">{% icon "alert" 18 %}<div class="body">Ikki sanada davr chegaralari yoki yuklangan fayllar farq qiladi — mos kelmaydigan bo‘lim uchun farq hisoblanmadi («—»).</div></div>
+{% endif %}
+<div x-data="{ diffOnly: false, onlyChanged: false }">
+  <div style="display:flex;gap:16px;align-items:center;justify-content:flex-end;flex-wrap:wrap;margin-bottom:12px">
+    <label class="check small"><input type="checkbox" x-model="diffOnly"> Faqat farq ustunlari</label>
+    <label class="check small"><input type="checkbox" x-model="onlyChanged"> Faqat o‘zgargan ESP lar</label>
+  </div>
+  <style>.diff-only .ab { display: none; }</style>
+  <div class="card svod-card">
+    <div class="svod-title">Offline konsentratorlar va aloqaga chiqmay qolgan hisoblagichlar dinamikasi</div>
+    <div class="svod-sub">SOLISHTIRISH</div>
+    <div class="svod-meta"><span>Hudud nomi: <b class="region">Qashqadaryo HETK</b></span>
+      <span class="date">{{ a.report_date|date:"d.m.Y" }} → {{ b.report_date|date:"d.m.Y" }}</span></div>
+    <div class="table-wrap">
+      <table class="data" :class="{ 'diff-only': diffOnly }">
+        <thead>
+          <tr><th class="first" rowspan="3">ESP</th>
+            {% for text, cs, rs in tbl.head.0|slice:"1:" %}<th class="sep" colspan="{{ cs }}">{{ text }}</th>{% endfor %}</tr>
+          <tr>{% for text, cs, rs in tbl.head.1 %}<th class="sep" colspan="{{ cs }}">{{ text }}</th>{% endfor %}</tr>
+          <tr>{% for text, cs, rs in tbl.head.2 %}{% if text == "Farq" %}<th class="sep">Farq</th>{% else %}<th class="ab">{{ text }}</th>{% endif %}{% endfor %}</tr>
+        </thead>
+        <tbody>
+          <tr class="total"><td class="first">JAMI</td>{% for c in cmp.total.cells %}{% include "monitoring/_cmp_cell.html" %}{% endfor %}</tr>
+          {% for r in cmp.rows %}<tr {% if not r.changed %}x-show="!onlyChanged"{% endif %}><td class="first">{{ r.esp }}</td>{% for c in r.cells %}{% include "monitoring/_cmp_cell.html" %}{% endfor %}</tr>{% endfor %}
+        </tbody>
+      </table>
+    </div>
+<div class="svod-foot muted small">Qizil <span class="dd up">↑</span> — aloqasizlar ko‘paygan (yomonlashgan), yashil <span class="dd down">↓</span> — kamaygan (yaxshilangan).</div>
+  </div>
+</div>
+
+{% if new_dcu %}
+<div class="grid g-2" style="margin-top:16px;align-items:start">
+  <div class="card">
+    <div class="card-head"><h2>Yangi offline bo‘lgan konsentratorlar</h2><span class="badge badge-err">{{ new_dcu.n|num }} ta</span></div>
+    <div class="scroll-x"><table class="simple"><thead><tr><th>ESP</th><th>Podstansiya / fider</th><th>Konsentrator</th><th class="r">Kun</th></tr></thead>
+      <tbody>{% for r in new_dcu.rows %}<tr><td>{{ r.esp }}</td><td>{{ r.substation }}<div class="muted small">{{ r.feeder }}</div></td><td class="num"><b>{{ r.device_no }}</b></td><td class="r num">{{ r.days }}</td></tr>
+      {% empty %}<tr><td colspan="4" class="empty small">Yangi offline bo‘lgan konsentrator yo‘q.</td></tr>{% endfor %}</tbody></table></div>
+    {% if new_dcu.n > 300 %}<div class="muted small" style="padding:10px 16px">Dastlabki 300 tasi ko‘rsatildi.</div>{% endif %}
+  </div>
+  <div class="card">
+    <div class="card-head"><h2>Aloqaga chiqqan (tiklangan) konsentratorlar</h2><span class="badge badge-ok">{{ recovered_dcu.n|num }} ta</span></div>
+    <div class="scroll-x"><table class="simple"><thead><tr><th>ESP</th><th>Podstansiya / fider</th><th>Konsentrator</th><th class="r">Offline edi (kun)</th></tr></thead>
+      <tbody>{% for r in recovered_dcu.rows %}<tr><td>{{ r.esp }}</td><td>{{ r.substation }}<div class="muted small">{{ r.feeder }}</div></td><td class="num"><b>{{ r.device_no }}</b></td><td class="r num">{{ r.days }}</td></tr>
+      {% empty %}<tr><td colspan="4" class="empty small">Tiklangan konsentrator yo‘q.</td></tr>{% endfor %}</tbody></table></div>
+    {% if recovered_dcu.n > 300 %}<div class="muted small" style="padding:10px 16px">Dastlabki 300 tasi ko‘rsatildi.</div>{% endif %}
+  </div>
+</div>
+{% endif %}
+{% endif %}
+{% endif %}
+{% endblock %}

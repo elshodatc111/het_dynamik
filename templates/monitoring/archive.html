@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}Monitoring arxivi{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Monitoring arxivi</h1><p>Yuklangan kunlik hisobotlar.</p></div>
+  {% if perms.reports.upload_monitoring %}<a class="btn btn-primary" href="{% url 'mon_upload' %}">{% icon "upload" 16 %} Fayl yuklash</a>{% endif %}</div>
+<div class="card">
+  {% if snaps %}
+  <div class="scroll-x"><table class="simple">
+    <thead><tr><th>Sana</th><th class="r">Offline konsentrator</th><th class="r">Aloqasiz hisoblagich</th><th>Yuklagan</th><th>Vaqti</th><th class="r"></th></tr></thead>
+    <tbody>{% for s in snaps %}
+      <tr>
+        <td><a href="{% url 'mon_snapshot' s.pk %}"><b>{{ s.report_date|date:"d.m.Y" }}</b></a></td>
+        <td class="r num">{% if s.has_dcu %}{{ s.summary.dcu.over_min|num }}{% else %}<span class="muted">—</span>{% endif %}</td>
+        <td class="r num">{% if s.summary.meters %}{{ s.summary.meters.over_min|num }}{% else %}<span class="muted">—</span>{% endif %}</td>
+        <td>{{ s.uploaded_by.get_full_name|default:s.uploaded_by.username|default:"—" }}</td>
+        <td class="muted nowrap">{{ s.created_at|date:"d.m.Y H:i" }}</td>
+        <td class="r nowrap">
+          <a class="btn btn-sm" href="{% url 'mon_snapshot' s.pk %}">Ochish</a>
+          {% if perms.reports.manage_monitoring %}
+          <form method="post" action="{% url 'mon_delete' s.pk %}" style="display:inline" onsubmit="return confirm('{{ s.report_date|date:"d.m.Y" }} hisobotini o‘chirasizmi?')">{% csrf_token %}
+            <button class="btn btn-sm btn-danger btn-icon" type="submit" title="O‘chirish">{% icon "trash" 14 %}</button></form>
+          {% endif %}
+        </td>
+      </tr>{% endfor %}</tbody>
+  </table></div>
+  {% else %}<div class="empty">{% icon "archive" 40 %}<p>Hali hisobot yuklanmagan.</p></div>{% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load ui %}
+{% block title %}{% if obj %}Rolni sozlash{% else %}Yangi rol{% endif %}{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>{% if obj %}{{ obj.name }}{% else %}Yangi rol{% endif %}</h1><p>Belgilangan ruxsatlar shu rolga ega barcha foydalanuvchilarga beriladi.</p></div>
+  <a class="btn" href="{% url 'roles' %}">← Orqaga</a></div>
+<form method="post" class="card card-pad" style="max-width:900px">{% csrf_token %}
+  <div class="field" style="max-width:360px"><label class="lbl" for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>{{ form.name }}{{ form.name.errors }}</div>
+  <span class="lbl">Ruxsatlar</span>
+  {% include "users/_perm_picker.html" with name="perms" %}
+  <div class="actions" style="margin-top:20px"><button class="btn btn-primary" type="submit">{% icon "check" 16 %} Saqlash</button><a class="btn" href="{% url 'roles' %}">Bekor qilish</a></div>
+</form>
+{% endblock %}

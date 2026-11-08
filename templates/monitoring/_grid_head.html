@@ -1,0 +1,21 @@
+<thead>
+  <tr>
+    <th class="first" rowspan="{{ g.hrows }}">ESP</th>
+    {% if g.has_dcu %}<th class="sep grp" colspan="{{ g.colspan_d }}">Offline konsentratorlar</th>{% endif %}
+    {% if g.has_meters %}<th class="sep grp" colspan="{{ g.colspan_m }}">Aloqadan chiqib ketgan hisoblagichlar</th>{% endif %}
+  </tr>
+  <tr>
+    {% if g.simple %}
+      {% if g.has_dcu %}<th class="sep">JAMI</th>{% endif %}
+      {% if g.has_meters %}<th class="sep">JAMI</th>{% for lb in g.m_labels %}<th class="sep">{{ lb }}</th>{% endfor %}{% endif %}
+    {% else %}
+      {% if g.has_dcu %}<th rowspan="2" class="sep">JAMI</th>{% for lb in g.d_labels %}<th rowspan="2">{{ lb }}</th>{% endfor %}{% endif %}
+      {% if g.has_meters %}<th rowspan="2" class="sep">JAMI</th>{% for lb in g.m_labels %}<th colspan="{{ g.span_b }}" class="sep">{{ lb }}</th>{% endfor %}{% endif %}
+    {% endif %}
+  </tr>
+  {% if not g.simple %}
+  <tr>
+    {% if g.has_meters %}{% for lb in g.m_labels %}<th class="sep sub">JAMI</th>{% for n in g.gnames_list %}<th class="sub">{{ n }}</th>{% endfor %}{% endfor %}{% endif %}
+  </tr>
+  {% endif %}
+</thead>

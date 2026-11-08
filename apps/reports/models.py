@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.db import models
 
+from .perms import PERMS
+
 
 class District(models.Model):
     key = models.SlugField(max_length=40, unique=True)
@@ -69,14 +71,7 @@ class Upload(models.Model):
     class Meta:
         ordering = ["-report_date"]
         default_permissions = ()
-        permissions = [
-            ("view_dashboard", "Bosh sahifa, solishtirish va trendni ko‘rish"),
-            ("export_excel", "Excel va asl PDF ni yuklab olish"),
-            ("upload_pdf", "PDF yuklash"),
-            ("manage_uploads", "Yuklangan sanani almashtirish yoki o‘chirish"),
-            ("manage_users", "Foydalanuvchi va rollarni boshqarish"),
-            ("view_audit", "Audit jurnalini ko‘rish"),
-        ]
+        permissions = list(PERMS.items())
         verbose_name = "Yuklangan hisobot"
         verbose_name_plural = "Yuklangan hisobotlar"
 
