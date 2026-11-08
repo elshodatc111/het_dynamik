@@ -130,6 +130,8 @@ SESSION_COOKIE_AGE = 60 * 60 * 12
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = "Lax"
 
+SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"   # OpenStreetMap plitkalari Referer talab qiladi
+
 if not DEBUG:
     SESSION_COOKIE_SECURE = env_bool("DJANGO_SECURE_COOKIES", True)
     CSRF_COOKIE_SECURE = SESSION_COOKIE_SECURE
